@@ -7,7 +7,7 @@
 \url{https://no.wikipedia.org/wiki/Liste_over_norske_kommunenummer}
 }
 \usage{
-nor_locations_names(border = spldata::config$border_nor)
+nor_locations_names(border = csdata::config$border_nor)
 }
 \arguments{
 \item{border}{The border year}

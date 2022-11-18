@@ -17,9 +17,9 @@ Available configuration variables:
 }
 }
 \examples{
-print(ls(spldata::config))
-for(i in names(spldata::config)){
-  cat(i, ":", spldata::config[[i]], "\n")
+print(ls(csdata::config))
+for(i in names(csdata::config)){
+  cat(i, ":", csdata::config[[i]], "\n")
 }
 }
 \keyword{datasets}

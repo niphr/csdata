@@ -14,6 +14,6 @@ se
 Swedish characters in unicode
 }
 \examples{
-print(spldata::se)
+print(csdata::se)
 }
 \keyword{datasets}

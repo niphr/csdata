@@ -203,7 +203,7 @@ nor_loc_hierarchy_from_to <- function(
   from,
   to,
   include_to_name = FALSE,
-  border = spldata::config$border){
+  border = csdata::config$border){
 
   stopifnot(border == 2020)
   stopifnot(from %in% c(
@@ -247,7 +247,7 @@ nor_loc_hierarchy_from_to <- function(
     "missingcounty"
   ))
 
-  d <- spldata::norway_locations_hierarchy_b2020
+  d <- csdata::norway_locations_hierarchy_b2020
   # d <- norway_locations_hierarchy_all_b2020
 
 
@@ -352,7 +352,7 @@ nor_loc_hierarchy_from_to <- function(
 #' nor_locations_hierarchy_from_to(from="wardoslo", to="county")
 #' nor_locations_hierarchy_from_to(from="municip", to="baregion")
 #' @export
-nor_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = spldata::config$border){
+nor_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = csdata::config$border){
   plans <- expand.grid(
     from = from,
     to = to,

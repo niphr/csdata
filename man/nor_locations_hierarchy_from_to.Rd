@@ -8,7 +8,7 @@ nor_locations_hierarchy_from_to(
   from,
   to,
   include_to_name = FALSE,
-  border = spldata::config$border_nor
+  border = csdata::config$border_nor
 )
 }
 \arguments{
@@ -33,6 +33,6 @@ Calculates the relationship between different locations in Norway, according
 to geographic granularity. For example, which municipalities are inside which counties.
 }
 \examples{
-spldata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
-spldata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
+csdata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
+csdata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
 }

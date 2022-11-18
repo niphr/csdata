@@ -15,12 +15,12 @@
 gen_icpc2_codes <- function(description_only = T) {
 
   # load norwegian data
-  d_nb <- readxl::read_excel(system.file("rawdata","icpc2_code", "icpc2_code_nb_2020.xlsx", package = "spldata"))
+  d_nb <- readxl::read_excel(system.file("rawdata","icpc2_code", "icpc2_code_nb_2020.xlsx", package = "csdata"))
   setDT(d_nb)
   setnames(d_nb, c('code', 'short_title_nb', 'long_title_nb'))
 
   # load english data
-  d_en <- readxl::read_excel(system.file("rawdata", "icpc2_code", "icpc2_code_en_2018.xlsx", package = "spldata"))
+  d_en <- readxl::read_excel(system.file("rawdata", "icpc2_code", "icpc2_code_en_2018.xlsx", package = "csdata"))
   setDT(d_en)
   setnames(d_en, 1:3, c('code', 'short_title_en', 'long_title_en'))
 

@@ -1,4 +1,4 @@
-norway_locations_msis_to_spldata_internal <- function(x){
+norway_locations_msis_to_csdata_internal <- function(x){
   x <- as.numeric(x)
   if(is.na(x)){
     return(NA_character_)
@@ -40,10 +40,10 @@ norway_locations_msis_to_spldata_internal <- function(x){
 }
 
 
-#' Converts MSIS' location values to spldata location_codes
+#' Converts MSIS' location values to csdata location_codes
 #'
 #' @param x A vector of numbers that correspond to MSIS' location values
 #' @examples
-#' norway_locations_msis_to_spldata(c(0, 3, 21, 50, 99, 9999, 301, 5001, 9999, 30101, 30116, 30199, NA))
+#' norway_locations_msis_to_csdata(c(0, 3, 21, 50, 99, 9999, 301, 5001, 9999, 30101, 30116, 30199, NA))
 #' @export
-norway_locations_msis_to_spldata <- Vectorize(norway_locations_msis_to_spldata_internal, USE.NAMES=FALSE)
+norway_locations_msis_to_csdata <- Vectorize(norway_locations_msis_to_csdata_internal, USE.NAMES=FALSE)

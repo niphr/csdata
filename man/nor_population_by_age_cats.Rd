@@ -7,7 +7,7 @@
 nor_population_by_age_cats(
   cats = NULL,
   include_total = TRUE,
-  border = spldata::config$border_nor
+  border = csdata::config$border_nor
 )
 }
 \arguments{

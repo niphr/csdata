@@ -57,7 +57,7 @@ nor_loc_name_municip_wide <- function(x_year_end = 2020) {
 
 nor_loc_lab <- function(ndigit_labid = 6){
 
-  lab_raw <- data.table(readxl::read_excel(system.file("rawdata", "labnames_labcodes.xlsx", package = "spldata")))
+  lab_raw <- data.table(readxl::read_excel(system.file("rawdata", "labnames_labcodes.xlsx", package = "csdata")))
   lab <- copy(lab_raw)
   setnames(lab, c("Laboratorium", "Lab_id"), c("lab_name", "lab_code_raw"))
   lab
@@ -250,12 +250,12 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 
   # nb_ascii ----
   d[, location_name_file_nb_ascii := location_name_file_nb_utf]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$AA, "A")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$aa, "a")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$AE, "A")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$ae, "a")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$OE, "O")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, spldata::nb$oe, "o")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$AA, "A")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$aa, "a")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$AE, "A")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$ae, "a")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$OE, "O")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$oe, "o")]
   # stringi::stri_escape_unicode(stringi::stri_enc_toutf8())
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u00e1", "a")]
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u0161", "s")]
@@ -292,10 +292,10 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 #' @examples
 #' norway_locations_names()
 #' @export
-norway_locations_names <- function(border = spldata::config$border){
+norway_locations_names <- function(border = csdata::config$border){
   stopifnot(border==2020)
   if(border==2020){
-    d <- copy(spldata::norway_locations_names_b2020)
+    d <- copy(csdata::norway_locations_names_b2020)
   }
   return(d)
 }

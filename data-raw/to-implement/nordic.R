@@ -16,7 +16,7 @@
 dnk_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_denmark_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_denmark_b2020.xlsx", package = "csdata"))
   setDT(d)
   return(d)
 }
@@ -38,7 +38,7 @@ dnk_loc_names <- function(x_year_end) {
 swe_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_sweden_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_sweden_b2020.xlsx", package = "csdata"))
   setDT(d)
   return(d)
 }
@@ -61,7 +61,7 @@ swe_loc_names <- function(x_year_end) {
 fin_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_finland_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_finland_b2020.xlsx", package = "csdata"))
   setDT(d)
   return(d)
 }
@@ -84,7 +84,7 @@ fin_loc_names <- function(x_year_end) {
 isl_loc_names <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_iceland_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "locations", "locations_iceland_b2020.xlsx", package = "csdata"))
   setDT(d)
   return(d)
 }
@@ -101,7 +101,7 @@ isl_loc_names <- function(x_year_end) {
 dnk_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "population", "population_denmark_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_denmark_b2020.xlsx", package = "csdata"))
   setDT(d)
   d1 <- copy(d)
   d1[, year := 2021]
@@ -116,7 +116,7 @@ dnk_population_by_age <- function(x_year_end) {
 swe_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "population", "population_sweden_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_sweden_b2020.xlsx", package = "csdata"))
   setDT(d)
   d1 <- copy(d)
   d1[, year := 2021]
@@ -131,7 +131,7 @@ swe_population_by_age <- function(x_year_end) {
 fin_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "population", "population_finland_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_finland_b2020.xlsx", package = "csdata"))
   setDT(d)
   d1 <- copy(d)
   d1[, year := 2021]
@@ -146,7 +146,7 @@ fin_population_by_age <- function(x_year_end) {
 isl_population_by_age <- function(x_year_end) {
   stopifnot(x_year_end == 2020)
 
-  d <- readxl::read_excel(system.file("rawdata", "population", "population_iceland_b2020.xlsx", package = "spldata"))
+  d <- readxl::read_excel(system.file("rawdata", "population", "population_iceland_b2020.xlsx", package = "csdata"))
   setDT(d)
   d1 <- copy(d)
   d1[, year := 2021]
