@@ -1,0 +1,55 @@
+---
+title: "Locations (Norway)"
+output: rmarkdown::html_vignette
+author: "Richard Aubrey White"
+date: "2022-11-18"
+vignette: >
+  %\VignetteIndexEntry{Locations (Norway)}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+`csdata` provides structural data for Norway.
+
+Please see https://folkehelseinstituttet.github.io/csdata/reference/index.html for a quick overview of all available datasets and functions.
+
+You can find out what version of `csdata` you have installed by running the following commands:
+
+```{r setup}
+library(csdata)
+library(data.table)
+```
+
+
+## Reference (Location)
+
+Valid locations (and location types) are available in `csdata::nor_locations_names()`.
+
+Here we list as a reference table the valid `location_code`s and `location_name_description_nb`s (the two most commonly used locations).
+
+```{r echo=FALSE, results='asis'}
+d <- csdata::nor_locations_names()[, .(
+  location_order = paste0("#", location_order),
+  location_code,
+  location_name_description_nb
+)]
+
+gt::gt(d) %>%
+  gt::tab_options(
+    table.width = "750px"
+  ) %>%
+  gt::tab_header(title = "Reference table of location_code and location_name_description_nb") %>%
+  gt::cols_label(
+    location_order = "#"
+  )
+```

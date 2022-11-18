@@ -24,7 +24,7 @@ nor_population_by_age_internal <- function(
 #' A function that easily categorizes the Norwegian population into different age categories.
 #'
 #' The current year is duplicated and added as "calyear==9999". This is in accordance with the
-#' spltidy principles regarding granularity_time=="event_*".
+#' cstidy principles regarding granularity_time=="event_*".
 #' @param cats A list containing vectors that you want to categorize.
 #' @param include_total Boolean. Should 'total' be included as an age cat?
 #' @param border The year in which Norwegian geographical boundaries were designated.
