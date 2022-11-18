@@ -252,7 +252,7 @@ nor_loc_redistricting_missingmunicip <- function(
 ){
 
   # x_year_end <- 2020
-  # masterData <- data.table(readxl::read_excel(system.file("rawdata", "locations", "norway_locations.xlsx", package = "spldata")))
+  # masterData <- data.table(readxl::read_excel(system.file("rawdata", "locations", "norway_locations.xlsx", package = "csdata")))
   # masterData <- masterData[county_code == "missingcounty99"]
   # masterData[is.na(weighting), weighting := 1]
 

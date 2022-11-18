@@ -3,7 +3,7 @@ nor_loc_hierarchy_from_to <- function(
     from,
     to,
     include_to_name = FALSE,
-    border = spldata::config$border){
+    border = csdata::config$border){
 
   stopifnot(border == 2020)
   stopifnot(from %in% c(
@@ -47,7 +47,7 @@ nor_loc_hierarchy_from_to <- function(
     "missingcounty"
   ))
 
-  x <- get0("nor_locations_hierarchy_b2020", envir = asNamespace("spldata"))
+  x <- get0("nor_locations_hierarchy_b2020", envir = asNamespace("csdata"))
   d <- copy(x)
   # d <- norway_locations_hierarchy_all_b2020
 
@@ -150,8 +150,8 @@ nor_loc_hierarchy_from_to <- function(
 #' @param include_to_name Do you want to include the name of the 'to' location?
 #' @param border The year in which Norwegian geographical boundaries were designated.
 #' @examples
-#' spldata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
-#' spldata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
+#' csdata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
+#' csdata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
 #' @returns Data.table containing the columns:
 #' - from_code
 #' - to_code
@@ -161,7 +161,7 @@ nor_locations_hierarchy_from_to <- function(
   from,
   to,
   include_to_name = FALSE,
-  border = spldata::config$border_nor
+  border = csdata::config$border_nor
 ){
   plans <- expand.grid(
     from = from,

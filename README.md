@@ -1,4 +1,4 @@
-# spldata <a href="https://www.csids.no/csdata/"><img src="man/figures/logo.png" align="right" width="120" /></a>
+# csdata <a href="https://www.csids.no/csdata/"><img src="man/figures/logo.png" align="right" width="120" /></a>
 
 ## Overview 
 

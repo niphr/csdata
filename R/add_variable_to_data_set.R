@@ -15,12 +15,12 @@ add_granularity_geo_to_data_set.data.table <- function(x, location_reference = N
 #' @examples
 #' library(data.table)
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
-#' spldata::add_granularity_geo_to_data_set(data)
+#' csdata::add_granularity_geo_to_data_set(data)
 #' print(data)
 #'
 #' library(data.table)
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
-#' spldata::add_granularity_geo_to_data_set(data, location_reference = spldata::nor_locations_names())
+#' csdata::add_granularity_geo_to_data_set(data, location_reference = csdata::nor_locations_names())
 #' print(data)
 #' @export
 add_granularity_geo_to_data_set <- function(x, location_reference = NULL){
@@ -43,7 +43,7 @@ add_iso3_to_data_set.data.table <- function(x){
 #' @examples
 #' library(data.table)
 #' data <- data.table(location_code = c("norge", "county03", "blah"))
-#' spldata::add_iso3_to_data_set(data)
+#' csdata::add_iso3_to_data_set(data)
 #' print(data)
 #' @export
 add_iso3_to_data_set <- function(x){

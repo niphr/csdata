@@ -44,7 +44,7 @@ nor_population_by_age_internal <- function(
 nor_population_by_age_cats <- function(
   cats = NULL,
   include_total = TRUE,
-  border = spldata::config$border_nor
+  border = csdata::config$border_nor
 ){
 
   calyear <- NULL

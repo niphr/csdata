@@ -16,10 +16,10 @@
 #' @examples
 #' nor_locations_names()
 #' @export
-nor_locations_names <- function(border = spldata::config$border_nor){
+nor_locations_names <- function(border = csdata::config$border_nor){
   stopifnot(border==2020)
   if(border==2020){
-    x <- get0("nor_locations_names_b2020", envir = asNamespace("spldata"))
+    x <- get0("nor_locations_names_b2020", envir = asNamespace("csdata"))
     d <- copy(x)
   }
   return(d)

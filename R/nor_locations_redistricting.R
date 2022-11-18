@@ -13,14 +13,14 @@
 #' \item{granularity_geo}{nation, county, municip, wardbergen, wardoslo, wardstavanger, wardtrondheim, missingwardbergen, missingwardoslo, missingwardstavanger, missingwardtrondheim, notmainlandcounty, notmainlandmunicip, missingcounty}
 #' }
 #' @examples
-#' spldata::nor_locations_redistricting()
+#' csdata::nor_locations_redistricting()
 #' @export
 nor_locations_redistricting <- function(
-    border = spldata::config$border
+    border = csdata::config$border
 ){
 
   stopifnot(border==2020)
-  x <- get0("nor_locations_redistricting_b2020", envir = asNamespace("spldata"))
+  x <- get0("nor_locations_redistricting_b2020", envir = asNamespace("csdata"))
   d <- copy(x)
   return(d)
 }
