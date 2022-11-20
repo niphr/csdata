@@ -16,17 +16,14 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(csdata)
+library(data.table)
+library(magrittr)
 ```
 
 `csdata` provides structural data for Norway.
 
 Please see https://www.csids.no/csdata/reference/index.html for a quick overview of all available datasets and functions.
-
-```{r setup}
-library(csdata)
-library(data.table)
-library(magrittr)
-```
 
 ## Location
 

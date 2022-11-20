@@ -21,9 +21,9 @@ library(data.table)
 library(magrittr)
 ```
 
-Valid locations (and location types) are available in `csdata::nor_locations_names()`.
+Populations are available in `csdata::nor_population_by_age_cats()`.
 
-Here we list as a reference table the valid `location_code`s and `location_name_description_nb`s (the two most commonly used locations).
+Here we list as a reference table the valid populations as of January 1st (`pop_jan1_n`).
 
 ```{r echo=FALSE, results='asis'}
 d <- csdata::nor_population_by_age_cats()[csdata::nor_locations_names(),on="location_code"][granularity_geo %in% c("nation","county") & calyear!=9999 & calyear>=1990]
