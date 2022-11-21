@@ -6,7 +6,7 @@
 
 Datasets relating to population in municipalities, municipality/county matching, and how different municipalities have merged/redistricted over time from 2006 to 2020.
 
-Read the introduction vignette [here](http://www.csids.no/csmaps/articles/csdata.html) or run `help(package="csdata")`.
+Read the introduction vignette [here](https://www.csids.no/csdata/articles/csdata.html) or run `help(package="csdata")`.
 
 ## csverse
 
