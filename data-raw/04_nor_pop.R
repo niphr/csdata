@@ -117,7 +117,7 @@ nor_population_by_age <- function(
     popx[, imputed := TRUE]
     pop_norway <- rbind(pop_norway, popx)
   }
-  pop_norway[, location_code := "norge"]
+  pop_norway[, location_code := "nation_nor"]
 
 
   pop_all <- rbind(pop_norway, pop_county, pop_municip, pop_baregion)
@@ -141,8 +141,8 @@ nor_population_by_age <- function(
   colnames(pop_sv) <- c('Longyearbyen_nyalesund1', 'Longyearbyen_nyalesund2', 'Barentsburg', 'Hornsund')
 
   setDT(pop_sv)
-  pop_sv[, notmainlandcounty21 := rowSums(.SD, na.rm=T), .SDcols=colnames(pop_sv)]
-  pop_sv[, notmainlandmunicip2100 := rowSums(.SD, na.rm=T), .SDcols=colnames(pop_sv)[c(1,2,4)]]
+  pop_sv[, notmainlandcounty_nor21 := rowSums(.SD, na.rm=T), .SDcols=colnames(pop_sv)]
+  pop_sv[, notmainlandmunicip_nor2100 := rowSums(.SD, na.rm=T), .SDcols=colnames(pop_sv)[c(1,2,4)]]
   pop_sv[, calyear := as.numeric(calyears)]
   pop_sv[, imputed := F]
   pop_sv[, age := -99]
@@ -165,8 +165,8 @@ nor_population_by_age <- function(
   # jan mayen (county22)
   pop_jm <- data.table(
     calyear = unique(c(as.numeric(calyears), missing_years)),
-    notmainlandmunicip2200 = 26,
-    notmainlandcounty22 = 26,
+    notmainlandmunicip_nor2200 = 26,
+    notmainlandcounty_nor22 = 26,
     imputed = F,
     age = -99
   )
@@ -174,27 +174,27 @@ nor_population_by_age <- function(
 
 
   # separate county, municip
-  pop_notmainlandcounty21 <- pop_sv[, .(calyear, pop_jan1_n = notmainlandcounty21, imputed, age)]
-  pop_notmainlandcounty21[, location_code := 'notmainlandcounty21']
-  pop_notmainlandcounty21[, granularity_geo := 'notmainlandcounty']
+  pop_notmainlandcounty_nor21 <- pop_sv[, .(calyear, pop_jan1_n = notmainlandcounty_nor21, imputed, age)]
+  pop_notmainlandcounty_nor21[, location_code := 'notmainlandcounty_nor21']
+  pop_notmainlandcounty_nor21[, granularity_geo := 'notmainlandcounty']
 
-  pop_notmainlandmunicip2100 <- pop_sv[, .(calyear, pop_jan1_n = notmainlandmunicip2100, imputed, age)]
-  pop_notmainlandmunicip2100[, location_code := 'notmainlandmunicip2100']
-  pop_notmainlandmunicip2100[, granularity_geo := 'notmainlandmunicip']
+  pop_notmainlandmunicip_nor2100 <- pop_sv[, .(calyear, pop_jan1_n = notmainlandmunicip_nor2100, imputed, age)]
+  pop_notmainlandmunicip_nor2100[, location_code := 'notmainlandmunicip_nor2100']
+  pop_notmainlandmunicip_nor2100[, granularity_geo := 'notmainlandmunicip']
 
-  pop_notmainlandcounty22 <- pop_jm[, .(calyear, pop_jan1_n = notmainlandcounty22, imputed, age)]
-  pop_notmainlandcounty22[, location_code := 'notmainlandcounty22']
-  pop_notmainlandcounty22[, granularity_geo := 'notmainlandcounty']
+  pop_notmainlandcounty_nor22 <- pop_jm[, .(calyear, pop_jan1_n = notmainlandcounty_nor22, imputed, age)]
+  pop_notmainlandcounty_nor22[, location_code := 'notmainlandcounty_nor22']
+  pop_notmainlandcounty_nor22[, granularity_geo := 'notmainlandcounty']
 
-  pop_notmainlandmunicip2200 <- pop_jm[, .(calyear, pop_jan1_n = notmainlandmunicip2200, imputed, age)]
-  pop_notmainlandmunicip2200[, location_code := 'notmainlandmunicip2200']
-  pop_notmainlandmunicip2200[, granularity_geo := 'notmainlandmunicip']
+  pop_notmainlandmunicip_nor2200 <- pop_jm[, .(calyear, pop_jan1_n = notmainlandmunicip_nor2200, imputed, age)]
+  pop_notmainlandmunicip_nor2200[, location_code := 'notmainlandmunicip_nor2200']
+  pop_notmainlandmunicip_nor2200[, granularity_geo := 'notmainlandmunicip']
 
   # match year: from 2005 to 2022
-  pop_notmainlandcounty21 <- pop_notmainlandcounty21[calyear>=2005]
-  pop_notmainlandmunicip2100 <- pop_notmainlandmunicip2100[calyear>=2005]
-  pop_notmainlandcounty22 <- pop_notmainlandcounty22[calyear>=2005]
-  pop_notmainlandmunicip2200 <- pop_notmainlandmunicip2200[calyear>=2005]
+  pop_notmainlandcounty_nor21 <- pop_notmainlandcounty_nor21[calyear>=2005]
+  pop_notmainlandmunicip_nor2100 <- pop_notmainlandmunicip_nor2100[calyear>=2005]
+  pop_notmainlandcounty_nor22 <- pop_notmainlandcounty_nor22[calyear>=2005]
+  pop_notmainlandmunicip_nor2200 <- pop_notmainlandmunicip_nor2200[calyear>=2005]
 
 
 
@@ -206,7 +206,7 @@ nor_population_by_age <- function(
   pop_county_unknown <- data.table(
     calyear = unique(pop_municip$calyear),
     pop_jan1_n = NA_real_,
-    location_code = 'missingcounty99',
+    location_code = 'missingcounty_nor99',
     granularity_geo = 'missingcounty',
     imputed = F,
     age = -99
@@ -215,7 +215,7 @@ nor_population_by_age <- function(
   pop_municip_unknown <- data.table(
     calyear = unique(pop_municip$calyear),
     pop_jan1_n = NA_real_,
-    location_code = 'missingmunicip9999',
+    location_code = 'missingmunicip_nor9999',
     granularity_geo = 'missingmunicip',
     imputed = F,
     age = -99
@@ -224,10 +224,10 @@ nor_population_by_age <- function(
 
   # combine svalbard and unknown, set age, force imputed T for greater than this year
   pop_notmain_missing <- rbind(
-    pop_notmainlandcounty21,
-    pop_notmainlandmunicip2100,
-    pop_notmainlandcounty22,
-    pop_notmainlandmunicip2200,
+    pop_notmainlandcounty_nor21,
+    pop_notmainlandmunicip_nor2100,
+    pop_notmainlandcounty_nor22,
+    pop_notmainlandmunicip_nor2200,
     pop_county_unknown,
     pop_municip_unknown
   )

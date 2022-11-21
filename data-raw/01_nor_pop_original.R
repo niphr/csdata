@@ -77,20 +77,20 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
 
   # region, municip
   pop[, region := stringr::str_remove(region, "^K-")]
-  pop[, municip_code := sprintf("municip%s", stringr::str_extract(region, "^[0-9][0-9][0-9][0-9]"))]
+  pop[, municip_code := sprintf("municip_nor%s", stringr::str_extract(region, "^[0-9][0-9][0-9][0-9]"))]
 
   # correctly identify ward/bydels
   pop[, ward_code := sprintf("%s", stringr::str_extract(region, "^[0-9][0-9][0-9][0-9][0-9][0-9]"))]
   pop[, ward_prefix := ""]
-  pop[ward_code!="NA" & municip_code %in% c("municip0301"), ward_prefix := "wardoslo"]
-  pop[ward_code!="NA" & municip_code %in% c("municip1201", "municip4601"), ward_prefix := "wardbergen"]
-  pop[ward_code!="NA" & municip_code %in% c("municip1103"), ward_prefix := "wardstavanger"]
-  pop[ward_code!="NA" & municip_code %in% c("municip1601", "municip5001"), ward_prefix := "wardtrondheim"]
+  pop[ward_code!="NA" & municip_code %in% c("municip_nor0301"), ward_prefix := "wardoslo_nor"]
+  pop[ward_code!="NA" & municip_code %in% c("municip_nor1201", "municip_nor4601"), ward_prefix := "wardbergen_nor"]
+  pop[ward_code!="NA" & municip_code %in% c("municip_nor1103"), ward_prefix := "wardstavanger_nor"]
+  pop[ward_code!="NA" & municip_code %in% c("municip_nor1601", "municip_nor5001"), ward_prefix := "wardtrondheim_nor"]
 
   # ward oslo
   pop[,ward_code := paste0(ward_prefix,ward_code)]
-  pop[ward_code=="wardoslo030116", ward_code := "extrawardoslo030116"]
-  pop[ward_code=="wardoslo030117", ward_code := "extrawardoslo030117"]
+  pop[ward_code=="wardoslo_nor030116", ward_code := "extrawardoslo_nor030116"]
+  pop[ward_code=="wardoslo_nor030117", ward_code := "extrawardoslo_nor030117"]
   pop[ward_code!="NA", municip_code := ward_code]
 
 
@@ -102,7 +102,7 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
   pop
 
   # sum population by municip
-  pop <- pop[municip_code != "municipNA"]
+  pop <- pop[municip_code != "municip_norNA"]
   pop_municip <- pop[, .(
     population = sum(value)
   ), keyby = .(
@@ -111,74 +111,74 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
 
 
   # Fixing broken parts in the population data ----
-  # part 1: municip0710
+  # part 1: municip_nor0710
 
-  pop_municip0706 <- pop_municip[municip_code == "municip0710" & calyear <= 2017]
+  pop_municip0706 <- pop_municip[municip_code == "municip_nor0710" & calyear <= 2017]
   pop_municip0706[, population := max(population), by = age]
   pop_municip0706 <- pop_municip0706[calyear != max(calyear)]
-  pop_municip0706[, municip_code := "municip0706"]
+  pop_municip0706[, municip_code := "municip_nor0706"]
   pop_municip0706[, population := round(population/3)]
   pop_municip <- rbind(pop_municip, pop_municip0706)
 
-  pop_municip0719 <- pop_municip[municip_code == "municip0710" & calyear <= 2017]
+  pop_municip0719 <- pop_municip[municip_code == "municip_nor0710" & calyear <= 2017]
   pop_municip0719[, population := max(population), by = age]
   pop_municip0719 <- pop_municip0719[calyear != max(calyear)]
-  pop_municip0719[, municip_code := "municip0719"]
+  pop_municip0719[, municip_code := "municip_nor0719"]
   pop_municip0719[, population := round(population/3)]
   pop_municip <- rbind(pop_municip, pop_municip0719)
 
-  pop_municip0720 <- pop_municip[municip_code == "municip0710" & calyear <= 2017]
+  pop_municip0720 <- pop_municip[municip_code == "municip_nor0710" & calyear <= 2017]
   pop_municip0720[, population := max(population), by = age]
   pop_municip0720 <- pop_municip0720[calyear != max(calyear)]
-  pop_municip0720[, municip_code := "municip0720"]
+  pop_municip0720[, municip_code := "municip_nor0720"]
   pop_municip0720[, population := round(population/3)]
   pop_municip <- rbind(pop_municip, pop_municip0720)
 
-  # # part 2: municip1756
-  pop_municip1723 <- pop_municip[municip_code == "municip1756" & calyear <= 2012]
+  # # part 2: municip_nor1756
+  pop_municip1723 <- pop_municip[municip_code == "municip_nor1756" & calyear <= 2012]
   pop_municip1723[, population := max(population), by = age]
   pop_municip1723 <- pop_municip1723[calyear != max(calyear)]
-  pop_municip1723[, municip_code := "municip1723"]
+  pop_municip1723[, municip_code := "municip_nor1723"]
   pop_municip1723[, population := round(population/2)]
   pop_municip <- rbind(pop_municip, pop_municip1723)
 
-  pop_municip1729 <- pop_municip[municip_code == "municip1756" & calyear <= 2012]
+  pop_municip1729 <- pop_municip[municip_code == "municip_nor1756" & calyear <= 2012]
   pop_municip1729[, population := max(population), by = age]
   pop_municip1729 <- pop_municip1729[calyear != max(calyear)]
-  pop_municip1729[, municip_code := "municip1729"]
+  pop_municip1729[, municip_code := "municip_nor1729"]
   pop_municip1729[, population := round(population/2)]
   pop_municip <- rbind(pop_municip, pop_municip1729)
 
   #
   # # part 3: municip5046
-  pop_municip1901 <- pop_municip[municip_code == "municip5046" & calyear <= 2018]
+  pop_municip1901 <- pop_municip[municip_code == "municip_nor5046" & calyear <= 2018]
   pop_municip1901[, population := max(population), by = age]
   pop_municip1901 <- pop_municip1901[calyear != max(calyear)]
-  pop_municip1901[, municip_code := "municip1901"]
+  pop_municip1901[, municip_code := "municip_nor1901"]
   pop_municip1901[, population := round(population/2)]
   pop_municip <- rbind(pop_municip, pop_municip1901)
 
-  pop_municip1915 <- pop_municip[municip_code == "municip1756" & calyear <= 2018]
+  pop_municip1915 <- pop_municip[municip_code == "municip_nor1756" & calyear <= 2018]
   pop_municip1915[, population := max(population), by = age]
   pop_municip1915 <- pop_municip1915[calyear != max(calyear)]
-  pop_municip1915[, municip_code := "municip1915"]
+  pop_municip1915[, municip_code := "municip_nor1915"]
   pop_municip1915[, population := round(population/2)]
   pop_municip <- rbind(pop_municip, pop_municip1915)
 
 
   # # part 4: municip1505
 
-  pop_municip1503 <- pop_municip[municip_code == "municip1505" & calyear <= 2008]
+  pop_municip1503 <- pop_municip[municip_code == "municip_nor1505" & calyear <= 2008]
   pop_municip1503[, population := max(population), by = age]
   pop_municip1503 <- pop_municip1503[calyear != max(calyear)]
-  pop_municip1503[, municip_code := "municip1503"]
+  pop_municip1503[, municip_code := "municip_nor1503"]
   pop_municip1503[, population := round(population/2)]
   pop_municip <- rbind(pop_municip, pop_municip1503)
 
-  pop_municip1556 <- pop_municip[municip_code == "municip1505" & calyear <= 2008]
+  pop_municip1556 <- pop_municip[municip_code == "municip_nor1505" & calyear <= 2008]
   pop_municip1556[, population := max(population), by = age]
   pop_municip1556 <- pop_municip1556[calyear != max(calyear)]
-  pop_municip1556[, municip_code := "municip1556"]
+  pop_municip1556[, municip_code := "municip_nor1556"]
   pop_municip1556[, population := round(population/2)]
   pop_municip <- rbind(pop_municip, pop_municip1556)
 
@@ -331,7 +331,7 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
   pop_norway[, age := NULL]
   setnames(pop_norway, c("year", "population", "age"))
   pop_norway[, level := "nation"]
-  pop_norway[, municip_code := "norge"]
+  pop_norway[, municip_code := "nation_nor"]
   pop_norway[, imputed := FALSE]
 
   # 2 more years
@@ -399,19 +399,19 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
 
   # separate county, municip
   pop_notmainlandcounty21 <- pop_sv[, .(year, population = notmainlandcounty21, imputed)]
-  pop_notmainlandcounty21[, municip_code := 'notmainlandcounty21']
+  pop_notmainlandcounty21[, municip_code := 'notmainlandcounty_nor21']
   pop_notmainlandcounty21[, level := 'notmainlandcounty']
 
   pop_notmainlandmunicip2100 <- pop_sv[, .(year, population = notmainlandmunicip2100, imputed)]
-  pop_notmainlandmunicip2100[, municip_code := 'notmainlandmunicip2100']
+  pop_notmainlandmunicip2100[, municip_code := 'notmainlandmunicip_nor2100']
   pop_notmainlandmunicip2100[, level := 'notmainlandmunicip']
 
   pop_notmainlandcounty22 <- pop_jm[, .(year, population = notmainlandcounty22, imputed)]
-  pop_notmainlandcounty22[, municip_code := 'notmainlandcounty22']
+  pop_notmainlandcounty22[, municip_code := 'notmainlandcounty_nor22']
   pop_notmainlandcounty22[, level := 'notmainlandcounty']
 
   pop_notmainlandmunicip2200 <- pop_jm[, .(year, population = notmainlandmunicip2200, imputed)]
-  pop_notmainlandmunicip2200[, municip_code := 'notmainlandmunicip2200']
+  pop_notmainlandmunicip2200[, municip_code := 'notmainlandmunicip_nor2200']
   pop_notmainlandmunicip2200[, level := 'notmainlandmunicip']
 
   # match year: from 2005 to 2022
@@ -429,13 +429,13 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
   # pop: NA
   pop_county_unknown <- data.table(year = unique(pop_municip$year),
                                    population = NA_real_,
-                                   municip_code = 'missingcounty99',
+                                   municip_code = 'missingcounty_nor99',
                                    level = 'missingcounty',
                                    imputed = F)
 
   pop_municip_unknown <- data.table(year = unique(pop_municip$year),
                                     population = NA_real_,
-                                    municip_code = 'missingmunicip9999',
+                                    municip_code = 'missingmunicip_nor9999',
                                     level = 'missingmunicip',
                                     imputed = F)
 

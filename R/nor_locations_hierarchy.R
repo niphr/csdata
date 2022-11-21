@@ -20,7 +20,7 @@ nor_loc_hierarchy_from_to <- function(
     "baregion",
     "county",
     "region",
-    "faregion",
+    "mtregion",
     "notmainlandmunicip",
     "notmainlandcounty",
     "missingmunicip",
@@ -40,7 +40,7 @@ nor_loc_hierarchy_from_to <- function(
     "baregion",
     "county",
     "region",
-    "faregion",
+    "mtregion",
     "notmainlandmunicip",
     "notmainlandcounty",
     "missingmunicip",
@@ -145,8 +145,8 @@ nor_loc_hierarchy_from_to <- function(
 #' Calculates the relationship between different locations in Norway, according
 #' to geographic granularity. For example, which municipalities are inside which counties.
 #'
-#' @param from wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, faregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
-#' @param to wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, faregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
+#' @param from wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
+#' @param to wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param include_to_name Do you want to include the name of the 'to' location?
 #' @param border The year in which Norwegian geographical boundaries were designated.
 #' @examples

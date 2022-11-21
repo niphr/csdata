@@ -12,7 +12,7 @@ nor_loc_name_ba_wide <- function(x_year_end = 2020){
     )
   )
   ba[, municip_code := paste0(
-    "municip",
+    "municip_nor",
     formatC(as.numeric(
       stringr::str_extract(municip, "^[0-9]+")),
       width=4,
@@ -20,7 +20,7 @@ nor_loc_name_ba_wide <- function(x_year_end = 2020){
     ))
   ]
   ba[, baregion_code := paste0(
-    "baregion",
+    "baregion_nor",
     formatC(as.numeric(
       stringr::str_extract(ba, "^[0-9]+")),
       width=3,
@@ -56,14 +56,14 @@ nor_loc_name_municip_wide <- function(x_year_end = 2020) {
   municip <- municip[year == max(year)]
   municip <- unique(municip[, c("municip_code_current", "municip_name",
                                 "county_code", "county_name",
-                                'faregion_name','faregion_code')])
+                                'mtregion_name','mtregion_code')])
   setnames(municip, "municip_code_current", "municip_code")
   locations <- copy(municip)
 
   # remove svalbard and missing
-  locations <- locations[!municip_code %in% c("notmainlandmunicip2100",
-                                              "notmainlandmunicip2200",
-                                              "missingmunicip9999")]
+  locations <- locations[!municip_code %in% c("notmainlandmunicip_nor2100",
+                                              "notmainlandmunicip_nor2200",
+                                              "missingmunicip_nor9999")]
 
   # ba ----
   # if x_year_end = 2020 then include baregions (bo- og arbeidsregioner)
@@ -143,7 +143,7 @@ nor_loc_name_all <- function(x_year_end = 2020) {
   # municip_code, municip_name
   # county_code, county_name
   # region_code, region_name
-  # faregion_code, faregion_name
+  # mtregion_code, mtregion_name
   # baregion_code, baregion_name,
   # ward_code, ward_name
   # missingward_code, missingward_name
@@ -177,7 +177,7 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 
     location_wide[,.(location_code = baregion_code, location_name = baregion_name, group_order = 10)],
     location_wide[,.(location_code = region_code, location_name = region_name, group_order = 11)],
-    location_wide[,.(location_code = faregion_code, location_name = faregion_name, group_order = 12)]
+    location_wide[,.(location_code = mtregion_code, location_name = mtregion_name, group_order = 12)]
   )
 
   d[, granularity_geo := get_granularity_geo(location_code)]
@@ -269,7 +269,7 @@ nor_loc_name_all <- function(x_year_end = 2020) {
   ]
 
   d[granularity_geo== "baregion", location_name_description_nb := paste0(location_name, " (BA-region)")]
-  d[granularity_geo== "faregion", location_name_description_nb := paste0(location_name, " (Mattilsynet-region)")]
+  d[granularity_geo== "mtregion", location_name_description_nb := paste0(location_name, " (Mattilsynet-region)")]
   d[granularity_geo== "region", location_name_description_nb := paste0(location_name, " (region)")]
 
   d[granularity_geo == "lab", location_name_description_nb := paste0(location_name, " (lab)")]

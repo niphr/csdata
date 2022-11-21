@@ -79,8 +79,8 @@ nor_loc_redistricting_municip <- function(
   municip_code_end <- NULL
   county_name <- NULL
   region_name <- NULL
-  faregion_name <- NULL
-  faregion_code <- NULL
+  mtregion_name <- NULL
+  mtregion_code <- NULL
   realEnd <- NULL
   weighting <- NULL
   municip_code_end_new <- NULL
@@ -95,7 +95,7 @@ nor_loc_redistricting_municip <- function(
 
   # load raw data
   masterData <- data.table(readxl::read_excel(fs::path("data-raw", "files", "locations", "norway_locations.xlsx")))
-  masterData <- masterData[!county_code %in% c("missingcounty99", "notmainlandcounty21", "notmainlandcounty22")]
+  masterData <- masterData[!county_code %in% c("missingcounty_nor99", "notmainlandcounty_nor21", "notmainlandcounty_nor22")]
   masterData[is.na(weighting), weighting := 1]
 
   # rawd <- copy(masterData)
@@ -178,8 +178,8 @@ nor_loc_redistricting_municip <- function(
     "county_name",
     "region_code",
     "region_name",
-    'faregion_name',
-    'faregion_code'
+    'mtregion_name',
+    'mtregion_code'
   )])
 
   skeleton[, year_end := NULL]
@@ -188,8 +188,8 @@ nor_loc_redistricting_municip <- function(
   skeleton[, county_name := NULL]
   skeleton[, region_code := NULL]
   skeleton[, region_name := NULL]
-  skeleton[, faregion_code := NULL]
-  skeleton[, faregion_name := NULL]
+  skeleton[, mtregion_code := NULL]
+  skeleton[, mtregion_name := NULL]
 
 
   skeleton <- merge(
@@ -214,8 +214,8 @@ nor_loc_redistricting_municip <- function(
       "county_name",
       "region_code",
       "region_name",
-      'faregion_name',
-      'faregion_code'
+      'mtregion_name',
+      'mtregion_code'
 
     )
   )
@@ -226,8 +226,8 @@ nor_loc_redistricting_municip <- function(
     skeleton[, county_name := NULL]
     skeleton[, region_code := NULL]
     skeleton[, region_name := NULL]
-    skeleton[, faregion_code := NULL]
-    skeleton[, faregion_name := NULL]
+    skeleton[, mtregion_code := NULL]
+    skeleton[, mtregion_name := NULL]
   }
 
   extra_years <- max(skeleton$year) + c(1:10)
@@ -258,8 +258,8 @@ nor_loc_redistricting_missingmunicip <- function(
 
   # stopifnot(nrow(masterData) == 1) # only missingmunicip9999
 
-  retval <- data.table(location_code_current = "missingmunicip9999",
-                       location_code_original = "missingmunicip9999",
+  retval <- data.table(location_code_current = "missingmunicip_nor9999",
+                       location_code_original = "missingmunicip_nor9999",
                        year = seq(x_year_start, x_year_end+10, by = 1),
                        weighting = 1)
 
@@ -268,12 +268,12 @@ nor_loc_redistricting_missingmunicip <- function(
 
   if(include_extra_vars == T){
     retval[, municip_name := "Ukjent kommune"]
-    retval[, county_code := "missingcounty99"]
+    retval[, county_code := "missingcounty_nor99"]
     retval[, county_name := "Ukjent fylke"]
     retval[, region_code := NA_character_]
     retval[, region_name := NA_character_]
-    retval[, faregion_code := NA_character_]
-    retval[, faregion_name := NA_character_]
+    retval[, mtregion_code := NA_character_]
+    retval[, mtregion_name := NA_character_]
 
     d <- copy(retval)
 
@@ -292,38 +292,38 @@ nor_loc_redistricting_notmainlandmunicip <- function(
   retval <- list()
   # municip2100 before 2018
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "notmainlandmunicip2100",
-    location_code_original = "notmainlandmunicip2111",
+    location_code_current = "notmainlandmunicip_nor2100",
+    location_code_original = "notmainlandmunicip_nor2111",
     year = seq(x_year_start, 2018, by = 1),
     weighting = 1
   )
 
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "notmainlandmunicip2100",
-    location_code_original = "notmainlandmunicip2121",
+    location_code_current = "notmainlandmunicip_nor2100",
+    location_code_original = "notmainlandmunicip_nor2121",
     year = seq(x_year_start, 2018, by = 1),
     weighting = 1
   )
 
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "notmainlandmunicip2100",
-    location_code_original = "notmainlandmunicip2131",
+    location_code_current = "notmainlandmunicip_nor2100",
+    location_code_original = "notmainlandmunicip_nor2131",
     year = seq(x_year_start, 2018, by = 1),
     weighting = 1
   )
 
   # municip2100 after 2018
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "notmainlandmunicip2100",
-    location_code_original = "notmainlandmunicip2100",
+    location_code_current = "notmainlandmunicip_nor2100",
+    location_code_original = "notmainlandmunicip_nor2100",
     year = seq(2018, x_year_end + 10, by = 1),
     weighting = 1
   )
 
   # municip2200
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "notmainlandmunicip2200",
-    location_code_original = "notmainlandmunicip2200",
+    location_code_current = "notmainlandmunicip_nor2200",
+    location_code_original = "notmainlandmunicip_nor2200",
     year = seq(x_year_start, x_year_end + 10, by = 1),
     weighting = 1
   )
@@ -333,18 +333,18 @@ nor_loc_redistricting_notmainlandmunicip <- function(
 
 
   if(include_extra_vars == T){
-    retval[location_code_current == "notmainlandmunicip2100", municip_name := "Svalbard"]
-    retval[location_code_current == "notmainlandmunicip2100", county_code := "notmainlandcounty21"]
-    retval[location_code_current == "notmainlandmunicip2100", county_name := "Utenfor fastlands-Norge (Svalbard)"]
+    retval[location_code_current == "notmainlandmunicip_nor2100", municip_name := "Svalbard"]
+    retval[location_code_current == "notmainlandmunicip_nor2100", county_code := "notmainlandcounty21"]
+    retval[location_code_current == "notmainlandmunicip_nor2100", county_name := "Utenfor fastlands-Norge (Svalbard)"]
 
-    retval[location_code_current == "notmainlandmunicip2200", municip_name := "Jan Mayen"]
-    retval[location_code_current == "notmainlandmunicip2200", county_code := "notmainlandcounty22"]
-    retval[location_code_current == "notmainlandmunicip2200", county_name := "Utenfor fastlands-Norge (Jan Mayen)"]
+    retval[location_code_current == "notmainlandmunicip_nor2200", municip_name := "Jan Mayen"]
+    retval[location_code_current == "notmainlandmunicip_nor2200", county_code := "notmainlandcounty22"]
+    retval[location_code_current == "notmainlandmunicip_nor2200", county_name := "Utenfor fastlands-Norge (Jan Mayen)"]
 
     retval[, region_code := NA_character_]
     retval[, region_name := NA_character_]
-    retval[, faregion_code := NA_character_]
-    retval[, faregion_name := NA_character_]
+    retval[, mtregion_code := NA_character_]
+    retval[, mtregion_name := NA_character_]
 
     d <- copy(retval)
 
@@ -483,12 +483,12 @@ nor_loc_redistricting_ward <- function(
     skeleton <- rbind(skeleton, temp)
   }
 
-  skeleton <- skeleton[!stringr::str_detect(ward_code_current, "ward[0-9]")]
+  skeleton <- skeleton[!stringr::str_detect(ward_code_current, "ward_")]
 
-  skeleton[ward_code_current=="wardoslo030116", ward_code_current := "extrawardoslo030116"]
-  skeleton[ward_code_current=="wardoslo030117", ward_code_current := "extrawardoslo030117"]
-  skeleton[ward_code_original=="wardoslo030116", ward_code_original := "extrawardoslo030116"]
-  skeleton[ward_code_original=="wardoslo030117", ward_code_original := "extrawardoslo030117"]
+  skeleton[ward_code_current=="wardoslo_nor030116", ward_code_current := "extrawardoslo_nor030116"]
+  skeleton[ward_code_current=="wardoslo_nor030117", ward_code_current := "extrawardoslo_nor030117"]
+  skeleton[ward_code_original=="wardoslo_nor030116", ward_code_original := "extrawardoslo_nor030116"]
+  skeleton[ward_code_original=="wardoslo_nor030117", ward_code_original := "extrawardoslo_nor030117"]
 
   d <- copy(skeleton)
 
@@ -514,42 +514,42 @@ nor_loc_redistricting_missingward <- function(
 
   retval <- list()
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "missingwardoslo030199",
-    location_code_original = "missingwardoslo030199",
+    location_code_current = "missingwardoslo_nor030199",
+    location_code_original = "missingwardoslo_nor030199",
     location_name = "Ukjent bydel i Oslo",
     year = seq(x_year_start, x_year_end+10, by = 1),
     weighting = 1,
-    municip_code = "municip0301",
+    municip_code = "municip_nor0301",
     municip_name = "Oslo"
   )
 
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "missingwardbergen460199",
-    location_code_original = "missingwardbergen460199",
+    location_code_current = "missingwardbergen_nor460199",
+    location_code_original = "missingwardbergen_nor460199",
     location_name = "Ukjent bydel i Bergen",
     year = seq(x_year_start, x_year_end+10, by = 1),
     weighting = 1,
-    municip_code = "municip4601",
+    municip_code = "municip_nor4601",
     municip_name = "Bergen"
   )
 
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "missingwardtrondheim500199",
-    location_code_original = "missingwardtrondheim500199",
+    location_code_current = "missingwardtrondheim_nor500199",
+    location_code_original = "missingwardtrondheim_nor500199",
     location_name = "Ukjent bydel i Trondheim",
     year = seq(x_year_start, x_year_end+10, by = 1),
     weighting = 1,
-    municip_code = "municip5001",
+    municip_code = "municip_nor5001",
     municip_name = "Trondheim"
   )
 
   retval[[length(retval)+1]] <- data.table(
-    location_code_current = "missingwardstavanger110399",
-    location_code_original = "missingwardstavanger110399",
+    location_code_current = "missingwardstavanger_nor110399",
+    location_code_original = "missingwardstavanger_nor110399",
     location_name = "Ukjent bydel i Stavanger",
     year = seq(x_year_start, x_year_end+10, by = 1),
     weighting = 1,
-    municip_code = "municip1103",
+    municip_code = "municip_nor1103",
     municip_name = "Stavanger"
   )
 
@@ -711,8 +711,8 @@ nor_loc_redistricting_missingcounty <- function(
     x_year_end = 2020,
     x_year_start = 1940){
 
-  retval <- data.table(location_code_current = "missingcounty99",
-                       location_code_original = "missingcounty99",
+  retval <- data.table(location_code_current = "missingcounty_nor99",
+                       location_code_original = "missingcounty_nor99",
                        year = seq(x_year_start, x_year_end+10, by = 1),
                        weighting = 1)
 
@@ -725,12 +725,12 @@ nor_loc_redistricting_notmainlandcounty<- function(
     x_year_end = 2020,
     x_year_start = 1940){
 
-  sv <- data.table(location_code_current = "notmainlandcounty21",
-                   location_code_original = "notmainlandcounty21",
+  sv <- data.table(location_code_current = "notmainlandcounty_nor21",
+                   location_code_original = "notmainlandcounty_nor21",
                    year = seq(x_year_start, x_year_end, by = 1),
                    weighting = 1)
-  jm <- data.table(location_code_current = "notmainlandcounty22",
-                   location_code_original = "notmainlandcounty22",
+  jm <- data.table(location_code_current = "notmainlandcounty_nor22",
+                   location_code_original = "notmainlandcounty_nor22",
                    year = seq(x_year_start, x_year_end, by = 1),
                    weighting = 1)
 
@@ -773,8 +773,8 @@ nor_loc_redistricting_all <- function(border = 2020){
   d_norway_locations_redistricting_b2020 <- rbind(
     # nation
     data.table::data.table(
-      location_code_current = "norge",
-      location_code_original = "norge",
+      location_code_current = "nation_nor",
+      location_code_original = "nation_nor",
       year = 1975:(lubridate::year(lubridate::today())+10),
       weighting = 1
     ),
@@ -890,8 +890,8 @@ hierarchy_from_redistrict <- function(
 #' \item{county_name}{The location code as of 'year'.}
 #' \item{region_code}{The location code as of 'year'.}
 #' \item{region_name}{The location code as of 'year'.}
-#' \item{faregion_name}{The location code as of 'year'.}
-#' \item{faregion_code}{The location code as of 'year'.}
+#' \item{mtregion_name}{The location code as of 'year'.}
+#' \item{mtregion_code}{The location code as of 'year'.}
 #' \item{ward_code}{The location code as of 'year'.}
 #' \item{ward_name}{The location code as of 'year'.}
 #' \item{missingward_code}{The location code as of 'year'.}

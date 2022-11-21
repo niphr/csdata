@@ -110,7 +110,7 @@ gt::gt(d) %>%
     footnote = "Mattilsynet-regioner. Food authority regions.",
     locations = gt::cells_body(
       columns = granularity_geo,
-      rows = granularity_geo == "faregion"
+      rows = granularity_geo == "mtregion"
     )
   )
 ```
