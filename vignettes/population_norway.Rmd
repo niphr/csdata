@@ -24,8 +24,8 @@ library(ggplot2)
 
 Populations are available in `csdata::nor_population_by_age_cats()`.
 
-```{r echo=FALSE, results='asis'}
-pd <- csdata::nor_population_by_age_cats()[granularity_geo %in% "nation" & calyear>=1990 & calyear!=9999]
+```{r, results='asis'}
+pd <- csdata::nor_population_by_age_cats()[granularity_geo %in% "nation" & calyear>=1990]
 
 q <- ggplot(pd, aes(x=calyear, y = pop_jan1_n))
 q <- q + geom_line()
