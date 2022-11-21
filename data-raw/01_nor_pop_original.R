@@ -391,34 +391,34 @@ nor_population_by_age_original <- function(x_year_end = 2020) {
 
   # jan mayen (county22)
   pop_jm <- data.table(year = unique(c(as.numeric(years), missing_years)),
-                       notmainlandmunicip2200 = 26,
-                       notmainlandcounty22 = 26,
+                       notmainlandmunicip_nor2200 = 26,
+                       notmainlandcounty_nor22 = 26,
                        imputed = F)
   pop_jm[year>lubridate::year(lubridate::today()), imputed := T]
 
 
   # separate county, municip
-  pop_notmainlandcounty21 <- pop_sv[, .(year, population = notmainlandcounty21, imputed)]
-  pop_notmainlandcounty21[, municip_code := 'notmainlandcounty_nor21']
-  pop_notmainlandcounty21[, level := 'notmainlandcounty']
+  pop_notmainlandcounty_nor21 <- pop_sv[, .(year, population = notmainlandcounty_nor21, imputed)]
+  pop_notmainlandcounty_nor21[, municip_code := 'notmainlandcounty_nor21']
+  pop_notmainlandcounty_nor21[, level := 'notmainlandcounty']
 
-  pop_notmainlandmunicip2100 <- pop_sv[, .(year, population = notmainlandmunicip2100, imputed)]
-  pop_notmainlandmunicip2100[, municip_code := 'notmainlandmunicip_nor2100']
-  pop_notmainlandmunicip2100[, level := 'notmainlandmunicip']
+  pop_notmainlandmunicip_nor2100 <- pop_sv[, .(year, population = notmainlandmunicip_nor2100, imputed)]
+  pop_notmainlandmunicip_nor2100[, municip_code := 'notmainlandmunicip_nor2100']
+  pop_notmainlandmunicip_nor2100[, level := 'notmainlandmunicip']
 
-  pop_notmainlandcounty22 <- pop_jm[, .(year, population = notmainlandcounty22, imputed)]
-  pop_notmainlandcounty22[, municip_code := 'notmainlandcounty_nor22']
-  pop_notmainlandcounty22[, level := 'notmainlandcounty']
+  pop_notmainlandcounty_nor22 <- pop_jm[, .(year, population = notmainlandcounty_nor22, imputed)]
+  pop_notmainlandcounty_nor22[, municip_code := 'notmainlandcounty_nor22']
+  pop_notmainlandcounty_nor22[, level := 'notmainlandcounty']
 
-  pop_notmainlandmunicip2200 <- pop_jm[, .(year, population = notmainlandmunicip2200, imputed)]
-  pop_notmainlandmunicip2200[, municip_code := 'notmainlandmunicip_nor2200']
-  pop_notmainlandmunicip2200[, level := 'notmainlandmunicip']
+  pop_notmainlandmunicip_nor2200 <- pop_jm[, .(year, population = notmainlandmunicip_nor2200, imputed)]
+  pop_notmainlandmunicip_nor2200[, municip_code := 'notmainlandmunicip_nor2200']
+  pop_notmainlandmunicip_nor2200[, level := 'notmainlandmunicip']
 
   # match year: from 2005 to 2022
-  pop_notmainlandcounty21 <- pop_notmainlandcounty21[year>=2005]
-  pop_notmainlandmunicip2100 <- pop_notmainlandmunicip2100[year>=2005]
-  pop_notmainlandcounty22 <- pop_notmainlandcounty22[year>=2005]
-  pop_notmainlandmunicip2200 <- pop_notmainlandmunicip2200[year>=2005]
+  pop_notmainlandcounty_nor21 <- pop_notmainlandcounty_nor21[year>=2005]
+  pop_notmainlandmunicip_nor2100 <- pop_notmainlandmunicip_nor2100[year>=2005]
+  pop_notmainlandcounty_nor22 <- pop_notmainlandcounty_nor22[year>=2005]
+  pop_notmainlandmunicip_nor2200 <- pop_notmainlandmunicip_nor2200[year>=2005]
 
 
 

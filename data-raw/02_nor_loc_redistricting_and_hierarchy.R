@@ -176,8 +176,8 @@ nor_loc_redistricting_municip <- function(
     "municip_name",
     "county_code",
     "county_name",
-    "region_code",
-    "region_name",
+    "georegion_code",
+    "georegion_name",
     'mtregion_name',
     'mtregion_code'
   )])
@@ -186,8 +186,8 @@ nor_loc_redistricting_municip <- function(
   skeleton[, municip_name := NULL]
   skeleton[, county_code := NULL]
   skeleton[, county_name := NULL]
-  skeleton[, region_code := NULL]
-  skeleton[, region_name := NULL]
+  skeleton[, georegion_code := NULL]
+  skeleton[, georegion_name := NULL]
   skeleton[, mtregion_code := NULL]
   skeleton[, mtregion_name := NULL]
 
@@ -212,8 +212,8 @@ nor_loc_redistricting_municip <- function(
       "municip_name",
       "county_code",
       "county_name",
-      "region_code",
-      "region_name",
+      "georegion_code",
+      "georegion_name",
       'mtregion_name',
       'mtregion_code'
 
@@ -224,8 +224,8 @@ nor_loc_redistricting_municip <- function(
     skeleton[, municip_name := NULL]
     skeleton[, county_code := NULL]
     skeleton[, county_name := NULL]
-    skeleton[, region_code := NULL]
-    skeleton[, region_name := NULL]
+    skeleton[, georegion_code := NULL]
+    skeleton[, georegion_name := NULL]
     skeleton[, mtregion_code := NULL]
     skeleton[, mtregion_name := NULL]
   }
@@ -270,8 +270,8 @@ nor_loc_redistricting_missingmunicip <- function(
     retval[, municip_name := "Ukjent kommune"]
     retval[, county_code := "missingcounty_nor99"]
     retval[, county_name := "Ukjent fylke"]
-    retval[, region_code := NA_character_]
-    retval[, region_name := NA_character_]
+    retval[, georegion_code := NA_character_]
+    retval[, georegion_name := NA_character_]
     retval[, mtregion_code := NA_character_]
     retval[, mtregion_name := NA_character_]
 
@@ -341,8 +341,8 @@ nor_loc_redistricting_notmainlandmunicip <- function(
     retval[location_code_current == "notmainlandmunicip_nor2200", county_code := "notmainlandcounty22"]
     retval[location_code_current == "notmainlandmunicip_nor2200", county_name := "Utenfor fastlands-Norge (Jan Mayen)"]
 
-    retval[, region_code := NA_character_]
-    retval[, region_name := NA_character_]
+    retval[, georegion_code := NA_character_]
+    retval[, georegion_name := NA_character_]
     retval[, mtregion_code := NA_character_]
     retval[, mtregion_name := NA_character_]
 

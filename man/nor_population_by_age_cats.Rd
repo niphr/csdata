@@ -7,6 +7,7 @@
 nor_population_by_age_cats(
   cats = NULL,
   include_total = TRUE,
+  include_9999 = FALSE,
   border = csdata::config$border_nor
 )
 }
@@ -14,6 +15,9 @@ nor_population_by_age_cats(
 \item{cats}{A list containing vectors that you want to categorize.}
 
 \item{include_total}{Boolean. Should 'total' be included as an age cat?}
+
+\item{include_9999}{Boolean. Should the current year is duplicated and added as "calyear==9999".
+This is in accordance with the cstidy principles regarding granularity_time=="event_*".}
 
 \item{border}{The year in which Norwegian geographical boundaries were designated.}
 }
@@ -31,10 +35,6 @@ A data.table containing the following columns:
 }
 \description{
 A function that easily categorizes the Norwegian population into different age categories.
-}
-\details{
-The current year is duplicated and added as "calyear==9999". This is in accordance with the
-cstidy principles regarding granularity_time=="event_*".
 }
 \examples{
 nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))

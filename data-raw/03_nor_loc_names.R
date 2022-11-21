@@ -1,4 +1,5 @@
 library(data.table)
+devtools::load_all()
 # source 02_nor_loc_redistricting_and_hierarchy.R!
 
 nor_loc_name_ba_wide <- function(x_year_end = 2020){
@@ -106,7 +107,7 @@ nor_loc_lab <- function(ndigit_labid = 6){
   lab[, n_zero := ndigit_labid - ndigit_lab_code]
 
   zeros <- purrr::map_chr(lab$n_zero, function(x){zero_string(x)})
-  lab[, lab_code := paste0("lab",zeros, lab_code_raw)]
+  lab[, lab_code := paste0("lab_nor",zeros, lab_code_raw)]
 
   lab[, lab_code_raw := NULL]
   lab[, ndigit_lab_code := NULL]
@@ -176,8 +177,8 @@ nor_loc_name_all <- function(x_year_end = 2020) {
     location_wide[,.(location_code = ward_code, location_name = ward_name, group_order = 8)],
     location_wide[,.(location_code = missingward_code, location_name = missingward_name, group_order = 9)],
 
+    location_wide[,.(location_code = georegion_code, location_name = georegion_name, group_order = 11)],
     location_wide[,.(location_code = baregion_code, location_name = baregion_name, group_order = 10)],
-    location_wide[,.(location_code = region_code, location_name = region_name, group_order = 11)],
     location_wide[,.(location_code = mtregion_code, location_name = mtregion_name, group_order = 12)]
   )
 
@@ -271,18 +272,25 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 
   d[granularity_geo== "baregion", location_name_description_nb := paste0(location_name, " (BA-region)")]
   d[granularity_geo== "mtregion", location_name_description_nb := paste0(location_name, " (Mattilsynet-region)")]
-  d[granularity_geo== "region", location_name_description_nb := paste0(location_name, " (region)")]
+  d[granularity_geo== "georegion", location_name_description_nb := paste0(location_name, " (landsdel)")]
 
   d[granularity_geo == "lab", location_name_description_nb := paste0(location_name, " (lab)")]
 
 
   # nb_utf ----
   d[, location_name_file_nb_utf := location_name_description_nb]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "-", "_")]
   d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, " ", "_")]
   d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "/", "_")]
   d[, location_name_file_nb_utf := stringr::str_remove_all(location_name_file_nb_utf, "\\.")]
   d[, location_name_file_nb_utf := stringr::str_remove_all(location_name_file_nb_utf, "\\(")]
   d[, location_name_file_nb_utf := stringr::str_remove_all(location_name_file_nb_utf, "\\)")]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "kommune_kommune", "kommune")]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "fylke_fylke", "fylke")]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "bydel_i_Bergen_bydel_i_Bergen", "bydel_i_Bergen")]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "Ukjent_bydel_i_Oslo_bydel_i_Oslo", "Ukjent_bydel_i_Oslo")]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "Ukjent_bydel_i_Stavanger_bydel_i_Stavanger", "Ukjent_bydel_i_Stavanger")]
+  d[, location_name_file_nb_utf := stringr::str_replace_all(location_name_file_nb_utf, "Ukjent_bydel_i_Trondheim_bydel_i_Trondheim", "Ukjent_bydel_i_Trondheim")]
 
   # nb_ascii ----
   d[, location_name_file_nb_ascii := location_name_file_nb_utf]
