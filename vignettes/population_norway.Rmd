@@ -19,14 +19,28 @@ knitr::opts_chunk$set(
 library(csdata)
 library(data.table)
 library(magrittr)
+library(ggplot2)
 ```
 
 Populations are available in `csdata::nor_population_by_age_cats()`.
 
+```{r echo=FALSE, results='asis'}
+pd <- csdata::nor_population_by_age_cats()[granularity_geo %in% "nation" & calyear>=1990 & calyear!=9999]
+
+q <- ggplot(pd, aes(x=calyear, y = pop_jan1_n))
+q <- q + geom_line()
+q <- q + geom_point(mapping = aes(color = imputed))
+q <- q + scale_x_continuous("Calendar year (calyear)")
+q <- q + scale_y_continuous("Population as of Jan 1 (pop_jan1_n)")
+q <- q + scale_color_discrete("Imputed")
+q <- q + labs(title = "Norway (nation_nor)")
+q
+```
+
 Here we list as a reference table the valid populations as of January 1st (`pop_jan1_n`).
 
 ```{r echo=FALSE, results='asis'}
-d <- csdata::nor_population_by_age_cats()[csdata::nor_locations_names(),on="location_code"][granularity_geo %in% c("nation","county") & calyear!=9999 & calyear>=1990]
+d <- csdata::nor_population_by_age_cats()[csdata::nor_locations_names(),on="location_code"][granularity_geo %in% c("nation","county") & calyear>=1990]
 setorder(d,location_order,calyear)
 d <- d[,.(
   location_name_description_nb, 

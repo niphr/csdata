@@ -1,4 +1,5 @@
 library(data.table)
+# source 02_nor_loc_redistricting_and_hierarchy.R!
 
 nor_loc_name_ba_wide <- function(x_year_end = 2020){
 
@@ -162,7 +163,7 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 
   # set group order ----
   d <- rbind(
-    data.table(location_code = "norge", location_name = "Norge", group_order = 1),
+    data.table(location_code = "nation_nor", location_name = "Norge", group_order = 1),
 
     location_wide[,.(location_code = county_code, location_name = county_name, group_order = 2)],
     location_wide[,.(location_code = notmainlandcounty_code, location_name = notmainlandcounty_name, group_order = 3)],

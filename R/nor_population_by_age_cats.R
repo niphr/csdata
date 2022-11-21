@@ -23,10 +23,10 @@ nor_population_by_age_internal <- function(
 #'
 #' A function that easily categorizes the Norwegian population into different age categories.
 #'
-#' The current year is duplicated and added as "calyear==9999". This is in accordance with the
-#' cstidy principles regarding granularity_time=="event_*".
 #' @param cats A list containing vectors that you want to categorize.
 #' @param include_total Boolean. Should 'total' be included as an age cat?
+#' @param include_9999 Boolean. Should the current year is duplicated and added as "calyear==9999".
+#' This is in accordance with the cstidy principles regarding granularity_time=="event_*".
 #' @param border The year in which Norwegian geographical boundaries were designated.
 #' @examples
 #' nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))
@@ -44,6 +44,7 @@ nor_population_by_age_internal <- function(
 nor_population_by_age_cats <- function(
   cats = NULL,
   include_total = TRUE,
+  include_9999 = FALSE,
   border = csdata::config$border_nor
 ){
 
@@ -81,9 +82,11 @@ nor_population_by_age_cats <- function(
   retval <- rbindlist(retval)
 
   # 9999 as current year
-  x <- retval[calyear==format.Date(Sys.time(),"%Y")]
-  x[, calyear := 9999]
-  retval <- rbindlist(list(retval, x), use.names = T)
+  if(include_9999){
+    x <- retval[calyear==format.Date(Sys.time(),"%Y")]
+    x[, calyear := 9999]
+    retval <- rbindlist(list(retval, x), use.names = T)
+  }
 
   return(retval)
 }
