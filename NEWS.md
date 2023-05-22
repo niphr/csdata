@@ -1,7 +1,8 @@
 # Version 2023.5.22
 
-- Including redistricting data for [2024](https://www.regjeringen.no/no/tema/kommuner-og-regioner/kommunestruktur/nye-kommune-og-fylkesnummer-fra-1.-januar-2024/id2924701/?expand=factbox2924711)/
+- Including redistricting data for [2024](https://www.regjeringen.no/no/tema/kommuner-og-regioner/kommunestruktur/nye-kommune-og-fylkesnummer-fra-1.-januar-2024/id2924701/?expand=factbox2924711)
 - Setting default for border_nor to 2024.
+- CRAN submission.
 
 # Version 2023.4.21
 

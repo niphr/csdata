@@ -2,7 +2,7 @@
 
 ## Test environments
 
-* local Ubuntu 20.04 install, R 4.2.3
+* local Ubuntu 20.04 install, R 4.3.0
 * win-builder
 * rhub
 
