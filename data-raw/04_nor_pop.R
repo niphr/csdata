@@ -26,7 +26,7 @@ devtools::load_all(".")
 
 
 nor_population_by_age <- function(
-  x_year_end = 2020
+  x_year_end = 2024
   ) {
 
   nor_population_by_age_b0000 <- readRDS("data-raw/data-temp/nor_population_by_age_b0000.rds")
@@ -258,7 +258,7 @@ nor_population_by_age <- function(
 env = new.env()
 load("R/sysdata.rda", envir = env)
 
-env$nor_population_by_age_b2020 <- nor_population_by_age(2020)
+env$nor_population_by_age_b2024 <- nor_population_by_age(2024)
 
 for(i in names(env)){
   .GlobalEnv[[i]] <- env[[i]]

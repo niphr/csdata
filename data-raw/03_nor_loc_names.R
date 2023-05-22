@@ -2,9 +2,9 @@ library(data.table)
 devtools::load_all()
 # source 02_nor_loc_redistricting_and_hierarchy.R!
 
-nor_loc_name_ba_wide <- function(x_year_end = 2020){
+nor_loc_name_ba_wide <- function(x_year_end = 2024){
 
-  ba <- data.table(readxl::read_excel(fs::path("data-raw", "files", "locations", "baregioner_2020.xlsx")))
+  ba <- data.table(readxl::read_excel(fs::path("data-raw", "files", "locations", "baregioner_2024.xlsx")))
   setnames(
     ba,
     1:2,
@@ -44,7 +44,7 @@ nor_loc_name_ba_wide <- function(x_year_end = 2020){
 # original: fhidata::norway_locations_b2020
 # NEW NAME: location_name_municip_wide
 
-nor_loc_name_municip_wide <- function(x_year_end = 2020) {
+nor_loc_name_municip_wide <- function(x_year_end = 2024) {
 
   # variables used by data.table
   is_current <- NULL
@@ -68,8 +68,8 @@ nor_loc_name_municip_wide <- function(x_year_end = 2020) {
                                               "missingmunicip_nor9999")]
 
   # ba ----
-  # if x_year_end = 2020 then include baregions (bo- og arbeidsregioner)
-  if(x_year_end == 2020){
+  # if x_year_end = 2024 then include baregions (bo- og arbeidsregioner)
+  if(x_year_end == 2024){
 
     ba <- nor_loc_name_ba_wide()
 
@@ -138,7 +138,7 @@ nor_loc_lab <- function(ndigit_labid = 6){
 "norway_locations_names_b2020"
 
 # Creates the norway_locations data.table
-nor_loc_name_all <- function(x_year_end = 2020) {
+nor_loc_name_all <- function(x_year_end = 2024) {
   # x_year_end <- 2020
   location_wide <- nor_loc_hierarchy_all()
 
@@ -336,10 +336,10 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 #' @examples
 #' norway_locations_names()
 #' @export
-norway_locations_names <- function(border = csdata::config$border){
-  stopifnot(border==2020)
-  if(border==2020){
-    d <- copy(csdata::norway_locations_names_b2020)
+norway_locations_names <- function(border = csdata::config$border_nor){
+  stopifnot(border==2024)
+  if(border==2024){
+    d <- copy(csdata::norway_locations_names_b2024)
   }
   return(d)
 }
@@ -350,7 +350,7 @@ norway_locations_names <- function(border = csdata::config$border){
 env = new.env()
 if(file.exists("R/sysdata.rda")) load("R/sysdata.rda", envir = env)
 
-env$nor_locations_names_b2020 <- nor_loc_name_all(2020)
+env$nor_locations_names_b2024 <- nor_loc_name_all(2024)
 
 for(i in names(env)){
   .GlobalEnv[[i]] <- env[[i]]

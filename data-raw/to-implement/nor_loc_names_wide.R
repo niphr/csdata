@@ -292,7 +292,7 @@ nor_loc_name_all <- function(x_year_end = 2020) {
 #' @examples
 #' norway_locations_names()
 #' @export
-norway_locations_names <- function(border = csdata::config$border){
+norway_locations_names <- function(border = csdata::config$border_nor){
   stopifnot(border==2020)
   if(border==2020){
     d <- copy(csdata::norway_locations_names_b2020)

@@ -13,7 +13,7 @@ config
 \description{
 Available configuration variables:
 \itemize{
-\item border_nor (default 2020): The year in which Norwegian geographical boundaries were designated.
+\item border_nor (default 2024): The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.
 }
 }
 \examples{

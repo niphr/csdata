@@ -3,9 +3,10 @@ nor_loc_hierarchy_from_to <- function(
     from,
     to,
     include_to_name = FALSE,
-    border = csdata::config$border){
+    border = csdata::config$border_nor
+  ){
 
-  stopifnot(border == 2020)
+  stopifnot(border %in% c(2020, 2024))
   stopifnot(from %in% c(
     "wardoslo",
     "extrawardoslo",
@@ -47,7 +48,11 @@ nor_loc_hierarchy_from_to <- function(
     "missingcounty"
   ))
 
-  x <- get0("nor_locations_hierarchy_b2020", envir = asNamespace("csdata"))
+  if(border == 2020){
+    x <- get0("nor_locations_hierarchy_b2020", envir = asNamespace("csdata"))
+  } else if(border == 2024){
+    x <- get0("nor_locations_hierarchy_b2024", envir = asNamespace("csdata"))
+  }
   d <- copy(x)
   # d <- norway_locations_hierarchy_all_b2020
 
@@ -148,7 +153,7 @@ nor_loc_hierarchy_from_to <- function(
 #' @param from wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param to wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
 #' @param include_to_name Do you want to include the name of the 'to' location?
-#' @param border The year in which Norwegian geographical boundaries were designated.
+#' @param border The year in which Norwegian geographical boundaries were designated (2020, 2024).
 #' @examples
 #' csdata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
 #' csdata::nor_locations_hierarchy_from_to(from="municip", to="baregion")

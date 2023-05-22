@@ -19,7 +19,7 @@ nor_population_by_age_cats(
 \item{include_9999}{Boolean. Should the current year is duplicated and added as "calyear==9999".
 This is in accordance with the cstidy principles regarding granularity_time=="event_*".}
 
-\item{border}{The year in which Norwegian geographical boundaries were designated.}
+\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
 }
 \value{
 A data.table containing the following columns:

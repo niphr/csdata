@@ -10,7 +10,7 @@
 nor_locations_names(border = csdata::config$border_nor)
 }
 \arguments{
-\item{border}{The border year}
+\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
 }
 \value{
 \describe{

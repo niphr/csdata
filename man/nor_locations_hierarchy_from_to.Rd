@@ -18,7 +18,7 @@ nor_locations_hierarchy_from_to(
 
 \item{include_to_name}{Do you want to include the name of the 'to' location?}
 
-\item{border}{The year in which Norwegian geographical boundaries were designated.}
+\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
 }
 \value{
 Data.table containing the columns:

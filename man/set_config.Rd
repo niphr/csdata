@@ -7,7 +7,7 @@
 set_config(border_nor = NULL)
 }
 \arguments{
-\item{border_nor}{The year in which Norwegian geographical boundaries were designated.}
+\item{border_nor}{The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.}
 }
 \value{
 Nothing. Side effect of setting the \code{config} environment.

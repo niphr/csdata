@@ -23,7 +23,7 @@ se$ae <- "\u00E4"
 #' An environment containing configuration variables
 #'
 #' Available configuration variables:
-#' - border_nor (default 2020): The year in which Norwegian geographical boundaries were designated.
+#' - border_nor (default 2024): The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.
 #' @examples
 #' print(ls(csdata::config))
 #' for(i in names(csdata::config)){
@@ -31,15 +31,15 @@ se$ae <- "\u00E4"
 #' }
 #' @export
 config <- new.env()
-config$border_nor <- 2020
+config$border_nor <- 2024
 
 #' Set options in the package config
-#' @param border_nor The year in which Norwegian geographical boundaries were designated.
+#' @param border_nor The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.
 #' @returns Nothing. Side effect of setting the `config` environment.
 #' @export
 set_config <- function(border_nor = NULL){
   if(!is.null(border_nor)){
-    stopifnot(border_nor %in% c(2020))
+    stopifnot(border_nor %in% c(2020, 2024))
     config$border_nor <- border_nor
   }
 }

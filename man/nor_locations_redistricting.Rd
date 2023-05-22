@@ -4,10 +4,10 @@
 \alias{nor_locations_redistricting}
 \title{All redistricting in Norway}
 \usage{
-nor_locations_redistricting(border = csdata::config$border)
+nor_locations_redistricting(border = csdata::config$border_nor)
 }
 \arguments{
-\item{border}{The year in which Norwegian geographical boundaries were designated.}
+\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
 }
 \value{
 \describe{
@@ -20,7 +20,7 @@ nor_locations_redistricting(border = csdata::config$border)
 }
 \description{
 This function returns a dataset that is used to transfer "original" datasets
-to the 2020 borders.
+to the 2020 or 2024 borders.
 }
 \examples{
 csdata::nor_locations_redistricting()

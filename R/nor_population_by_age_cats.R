@@ -27,7 +27,7 @@ nor_population_by_age_internal <- function(
 #' @param include_total Boolean. Should 'total' be included as an age cat?
 #' @param include_9999 Boolean. Should the current year is duplicated and added as "calyear==9999".
 #' This is in accordance with the cstidy principles regarding granularity_time=="event_*".
-#' @param border The year in which Norwegian geographical boundaries were designated.
+#' @param border The year in which Norwegian geographical boundaries were designated (2020, 2024).
 #' @examples
 #' nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))
 #' nor_population_by_age_cats(cats = list("one to ten" = c(1:10), "eleven to twenty" = c(11:20)))
@@ -51,11 +51,14 @@ nor_population_by_age_cats <- function(
   calyear <- NULL
   if(is.null(cats)) cats <- list()
   stopifnot(is.list(cats))
-  stopifnot(border == 2020)
+  stopifnot(border %in% c(2020, 2024))
 
   if(border==2020){
-    data <- nor_population_by_age_b2020
+    x <- get0("nor_population_by_age_b2020", envir = asNamespace("csdata"))
+  } else if(border==2024){
+    x <- get0("nor_population_by_age_b2024", envir = asNamespace("csdata"))
   }
+  data <- copy(x)
 
   if(include_total){
     cats[[length(cats)+1]] <- -99:1000

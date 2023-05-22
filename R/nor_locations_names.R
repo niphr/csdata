@@ -1,7 +1,7 @@
 
 #' All names in Norway
 #'
-#' @param border The border year
+#' @param border The year in which Norwegian geographical boundaries were designated (2020, 2024).
 #' @returns
 #' \describe{
 #' \item{location_code}{Location code.}
@@ -17,11 +17,13 @@
 #' nor_locations_names()
 #' @export
 nor_locations_names <- function(border = csdata::config$border_nor){
-  stopifnot(border==2020)
+  stopifnot(border %in% c(2020, 2024))
   if(border==2020){
     x <- get0("nor_locations_names_b2020", envir = asNamespace("csdata"))
-    d <- copy(x)
+  } else if(border==2024){
+    x <- get0("nor_locations_names_b2024", envir = asNamespace("csdata"))
   }
+  d <- copy(x)
   return(d)
 }
 

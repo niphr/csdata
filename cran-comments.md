@@ -10,14 +10,6 @@
 
 0 errors | 0 warnings | 0 notes
 
-* checking CRAN incoming feasibility ... NOTE
-
-Maintainer: 'Richard Aubrey White <hello@rwhite.no>'
-
-New submission
-
-Version contains large components (2022.11.22)
-
 ## Downstream dependencies
 
 none

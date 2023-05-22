@@ -352,7 +352,7 @@ nor_loc_hierarchy_from_to <- function(
 #' nor_locations_hierarchy_from_to(from="wardoslo", to="county")
 #' nor_locations_hierarchy_from_to(from="municip", to="baregion")
 #' @export
-nor_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = csdata::config$border){
+nor_locations_hierarchy_from_to <- function(from, to, include_to_name = FALSE, border = csdata::config$border_nor){
   plans <- expand.grid(
     from = from,
     to = to,
