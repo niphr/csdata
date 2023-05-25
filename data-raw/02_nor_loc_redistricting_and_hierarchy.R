@@ -145,7 +145,7 @@ nor_loc_redistricting_municip <- function(
     c("municip_code_end_new", "weighting_new")
   )
 
-  skeleton[!is.na(municip_code_end_new)]
+  merger[!is.na(municip_code_end_new)]
   # binds long's municip_code_end with unique's municip_code
   ### tempted to fix this!!!
   continue_with_merging <- TRUE
