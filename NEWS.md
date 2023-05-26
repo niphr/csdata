@@ -1,3 +1,7 @@
+# Version 2023.5.26
+
+- Inclusion of location_name_short in nor_locations_names for border=2024.
+
 # Version 2023.5.22
 
 - Including redistricting data for [2024](https://www.regjeringen.no/no/tema/kommuner-og-regioner/kommunestruktur/nye-kommune-og-fylkesnummer-fra-1.-januar-2024/id2924701/?expand=factbox2924711)

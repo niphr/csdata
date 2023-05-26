@@ -1,6 +1,6 @@
 library(data.table)
 devtools::load_all()
-# source 02_nor_loc_redistricting_and_hierarchy.R!
+# source("data-raw/02_nor_loc_redistricting_and_hierarchy.R")
 
 nor_loc_name_ba_wide <- function(x_year_end = 2024){
 
@@ -276,6 +276,44 @@ nor_loc_name_all <- function(x_year_end = 2024) {
 
   d[granularity_geo == "lab", location_name_description_nb := paste0(location_name, " (lab)")]
 
+  # location_name_short
+  if(x_year_end == 2024){
+    d[granularity_geo=="county"]
+    d[location_code=="nation_nor", location_name_short := "NOR"]
+    d[location_code=="county_nor42", location_name_short := "AGD"] # agder
+    d[location_code=="county_nor32", location_name_short := "AKR"] # akershus
+    d[location_code=="county_nor33", location_name_short := "BUS"] # buskerud
+    d[location_code=="county_nor56", location_name_short := "FNM"] # finnmark
+    d[location_code=="county_nor34", location_name_short := "INN"] # innlandet
+    d[location_code=="county_nor15", location_name_short := "MRO"] # møre og romsdal
+    d[location_code=="county_nor18", location_name_short := "NRL"] # nordland
+    d[location_code=="county_nor03", location_name_short := "OSL"] # oslo
+    d[location_code=="county_nor11", location_name_short := "ROG"] # rogaland
+    d[location_code=="county_nor40", location_name_short := "TEL"] # telemark
+    d[location_code=="county_nor55", location_name_short := "TRO"] # troms
+    d[location_code=="county_nor50", location_name_short := "TRØ"] # trøndelag
+    d[location_code=="county_nor39", location_name_short := "VFO"] # vestfold
+    d[location_code=="county_nor46", location_name_short := "VLD"] # vestland
+    d[location_code=="county_nor31", location_name_short := "ØFO"] # østfold
+    d[granularity_geo=="wardoslo"]
+    d[location_code=="wardoslo_nor030112", location_name_short := "Alna"] # alna
+    d[location_code=="wardoslo_nor030109", location_name_short := "Bjrk"] # bjerke
+    d[location_code=="wardoslo_nor030105", location_name_short := "Frog"] # frogner
+    d[location_code=="wardoslo_nor030101", location_name_short := "Gml Oslo"] # gamle oslo
+    d[location_code=="wardoslo_nor030110", location_name_short := "Grorud"] # grorud
+    d[location_code=="wardoslo_nor030102", location_name_short := "Grünl"] # grunerløkka
+    d[location_code=="wardoslo_nor030108", location_name_short := "N. Aker"] # nordre aker
+    d[location_code=="wardoslo_nor030114", location_name_short := "Nordstr"] # nordstrand
+    d[location_code=="wardoslo_nor030103", location_name_short := "Sagn"] # sagene
+    d[location_code=="wardoslo_nor030104", location_name_short := "St. Hans"] # st. hanshaugen
+    d[location_code=="wardoslo_nor030111", location_name_short := "Stovner"] # stovner
+    d[location_code=="wardoslo_nor030115", location_name_short := "S. Nordstr"] # søndre nordstrand
+    d[location_code=="wardoslo_nor030106", location_name_short := "Ullern"] # ullern
+    d[location_code=="wardoslo_nor030107", location_name_short := "V. Aker"] # vestre aker
+    d[location_code=="wardoslo_nor030113", location_name_short := "Øsjø"] # Østensjø
+    d[location_code=="extrawardoslo_nor030117", location_name_short := "Marka"] # marka
+    d[location_code=="extrawardoslo_nor030116", location_name_short := "Sentr"] # sentrum
+  }
 
   # nb_utf ----
   d[, location_name_file_nb_utf := location_name_description_nb]
@@ -319,6 +357,7 @@ nor_loc_name_all <- function(x_year_end = 2024) {
     c(
       "location_code",
       "location_name",
+      "location_name_short",
       "location_name_description_nb",
       "location_name_file_nb_utf",
       "location_name_file_nb_ascii",

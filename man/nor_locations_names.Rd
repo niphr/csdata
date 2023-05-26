@@ -16,6 +16,7 @@ nor_locations_names(border = csdata::config$border_nor)
 \describe{
 \item{location_code}{Location code.}
 \item{location_name}{Location name.}
+\item{location_name_short}{3 letter location name for nation and county. A shorter location name for wardoslo and extrawardoslo. }
 \item{location_name_description_nb}{Location name with additional description.}
 \item{location_name_file_nb_utf}{Location name that should be used in file names, with Norwegian characters.}
 \item{location_name_file_nb_ascii}{Location name that should be used in file names, without Norwegian characters.}
