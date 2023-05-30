@@ -286,7 +286,7 @@ nor_loc_name_all <- function(x_year_end = 2024) {
     d[location_code=="county_nor56", location_name_short := "FNM"] # finnmark
     d[location_code=="county_nor34", location_name_short := "INN"] # innlandet
     d[location_code=="county_nor15", location_name_short := "MRO"] # møre og romsdal
-    d[location_code=="county_nor18", location_name_short := "NRL"] # nordland
+    d[location_code=="county_nor18", location_name_short := "NLD"] # nordland
     d[location_code=="county_nor03", location_name_short := "OSL"] # oslo
     d[location_code=="county_nor11", location_name_short := "ROG"] # rogaland
     d[location_code=="county_nor40", location_name_short := "TEL"] # telemark
