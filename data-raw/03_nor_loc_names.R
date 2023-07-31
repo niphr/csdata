@@ -164,7 +164,7 @@ nor_loc_name_all <- function(x_year_end = 2024) {
 
   # set group order ----
   d <- rbind(
-    data.table(location_code = "nation_nor", location_name = "Norge", group_order = 1),
+    data.table(location_code = "nation_nor", location_name = "Norge-Noreg-Norway", group_order = 1),
 
     location_wide[,.(location_code = county_code, location_name = county_name, group_order = 2)],
     location_wide[,.(location_code = notmainlandcounty_code, location_name = notmainlandcounty_name, group_order = 3)],
@@ -295,6 +295,7 @@ nor_loc_name_all <- function(x_year_end = 2024) {
     d[location_code=="county_nor39", location_name_short := "VFO"] # vestfold
     d[location_code=="county_nor46", location_name_short := "VLD"] # vestland
     d[location_code=="county_nor31", location_name_short := "ØFO"] # østfold
+
     d[granularity_geo=="wardoslo"]
     d[location_code=="wardoslo_nor030112", location_name_short := "Alna"] # alna
     d[location_code=="wardoslo_nor030109", location_name_short := "Bjerke"] # bjerke
@@ -313,6 +314,24 @@ nor_loc_name_all <- function(x_year_end = 2024) {
     d[location_code=="wardoslo_nor030113", location_name_short := "Østensjø"] # Østensjø
     d[location_code=="extrawardoslo_nor030117", location_name_short := "Marka"] # marka
     d[location_code=="extrawardoslo_nor030116", location_name_short := "Sentr"] # sentrum
+
+    d[granularity_geo=="georegion"]
+    d[location_code=="georegion_nor1", location_name_short := "N"] # nord-norge
+    d[location_code=="georegion_nor2", location_name_short := "T"] # trøndelag
+    d[location_code=="georegion_nor3", location_name_short := "V"] # vestlandet
+    d[location_code=="georegion_nor4", location_name_short := "S"] # sørlandet
+    d[location_code=="georegion_nor5", location_name_short := "Ø"] # østlandet
+
+    # order the georegions from north to south
+    setorder(d, granularity_geo, location_code)
+    d[, location_order_within_granularity_geo := min(location_order) + 1:.N - 1, by = .(granularity_geo)]
+    d[granularity_geo=="georegion", location_order := location_order_within_granularity_geo]
+    d[, location_order_within_granularity_geo := NULL]
+    setorder(d, location_order)
+
+    d[granularity_geo=="nation"]
+    d[location_code=="nation_nor", location_name_short := "L"] # norge
+
   } else if(x_year_end == 2020){
     d[granularity_geo=="county"]
     d[location_code=="nation_nor", location_name_short := "NOR"]

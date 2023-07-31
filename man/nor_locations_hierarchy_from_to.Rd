@@ -12,9 +12,9 @@ nor_locations_hierarchy_from_to(
 )
 }
 \arguments{
-\item{from}{wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty}
+\item{from}{wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, georegion, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty}
 
-\item{to}{wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, region, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty}
+\item{to}{wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, georegion, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty}
 
 \item{include_to_name}{Do you want to include the name of the 'to' location?}
 
