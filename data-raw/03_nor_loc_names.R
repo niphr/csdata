@@ -166,19 +166,20 @@ nor_loc_name_all <- function(x_year_end = 2024) {
   d <- rbind(
     data.table(location_code = "nation_nor", location_name = "Norge/Noreg/Norway", group_order = 1),
 
-    location_wide[,.(location_code = county_code, location_name = county_name, group_order = 2)],
-    location_wide[,.(location_code = notmainlandcounty_code, location_name = notmainlandcounty_name, group_order = 3)],
-    location_wide[,.(location_code = missingcounty_code, location_name = missingcounty_name, group_order = 4)],
+    location_wide[,.(location_code = georegion_code, location_name = georegion_name, group_order = 2)],
 
-    location_wide[,.(location_code = municip_code, location_name = municip_name, group_order = 5)],
-    location_wide[,.(location_code = notmainlandmunicip_code, location_name = notmainlandmunicip_name, group_order = 6)],
-    location_wide[,.(location_code = missingmunicip_code, location_name = missingmunicip_name, group_order = 7)],
+    location_wide[,.(location_code = county_code, location_name = county_name, group_order = 3)],
+    location_wide[,.(location_code = notmainlandcounty_code, location_name = notmainlandcounty_name, group_order = 4)],
+    location_wide[,.(location_code = missingcounty_code, location_name = missingcounty_name, group_order = 5)],
 
-    location_wide[,.(location_code = ward_code, location_name = ward_name, group_order = 8)],
-    location_wide[,.(location_code = missingward_code, location_name = missingward_name, group_order = 9)],
+    location_wide[,.(location_code = municip_code, location_name = municip_name, group_order = 6)],
+    location_wide[,.(location_code = notmainlandmunicip_code, location_name = notmainlandmunicip_name, group_order = 7)],
+    location_wide[,.(location_code = missingmunicip_code, location_name = missingmunicip_name, group_order = 8)],
 
-    location_wide[,.(location_code = georegion_code, location_name = georegion_name, group_order = 11)],
-    location_wide[,.(location_code = baregion_code, location_name = baregion_name, group_order = 10)],
+    location_wide[,.(location_code = ward_code, location_name = ward_name, group_order = 9)],
+    location_wide[,.(location_code = missingward_code, location_name = missingward_name, group_order = 10)],
+
+    location_wide[,.(location_code = baregion_code, location_name = baregion_name, group_order = 11)],
     location_wide[,.(location_code = mtregion_code, location_name = mtregion_name, group_order = 12)]
   )
 
