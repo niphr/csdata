@@ -1,3 +1,7 @@
+# Version 2023.12.26
+
+- Improving names for georegion for border=2024.
+
 # Version 2023.11.29
 
 - Fixing error in redistricting of counties for border=2024.
