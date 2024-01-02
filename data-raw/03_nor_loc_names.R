@@ -390,10 +390,11 @@ nor_loc_name_all <- function(x_year_end = 2024) {
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$ae, "a")]
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$OE, "O")]
   d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, csdata::nb$oe, "o")]
-  # stringi::stri_escape_unicode(stringi::stri_enc_toutf8())
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u00e1", "a")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u0161", "s")]
-  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\\u00fc", "u")]
+  # stringi::stri_escape_unicode(stringi::stri_enc_toutf8(""))
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\u00e1", "a")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\u0161", "s")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\u00fc", "u")]
+  d[, location_name_file_nb_ascii := stringr::str_replace_all(location_name_file_nb_ascii, "\u00f6", "o")]
 
   # d[, location_name := stringi::stri_enc_toascii(location_name)]
   # d[, location_name := gsub("\032"stringi::stri_enc_toascii(location_name)]
