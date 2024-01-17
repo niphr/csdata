@@ -1,6 +1,7 @@
 # Version 24.1.17
 
 - Fixing an error in merging for 2023->2024.
+- Including population for georegion.
 
 # Version 2023.12.26
 

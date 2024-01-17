@@ -106,6 +106,30 @@ nor_population_by_age <- function(
     imputed
   )]
 
+  # georegion ----
+  cat("creating population for georegion ... \n")
+
+  pop_georegion <- merge(
+    pop_municip,
+    nor_loc_hierarchy_from_to(
+      from = "municip",
+      to = "georegion"
+    ),
+    by.x = "location_code",
+    by.y = "from_code"
+  )
+
+  # aggregate by georegion
+  pop_georegion <- pop_georegion[, .(
+    pop_jan1_n = sum(pop_jan1_n )
+  ), keyby = .(
+    calyear,
+    location_code = to_code,
+    age,
+    imputed
+  )]
+
+
   # norway ----
   cat("creating population for nation ... \n")
 
@@ -129,7 +153,7 @@ nor_population_by_age <- function(
   pop_norway[, location_code := "nation_nor"]
 
 
-  pop_all <- rbind(pop_norway, pop_county, pop_municip, pop_baregion)
+  pop_all <- rbind(pop_norway, pop_county, pop_municip, pop_baregion, pop_georegion)
   pop_all[, granularity_geo := location_code_to_granularity_geo(location_code)]
 
   pop_all[, sex := "total"]
