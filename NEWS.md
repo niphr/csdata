@@ -1,6 +1,7 @@
 # Version 2024.4.26
 
 - Fixing an error that wouldn't allow for include_total = TRUE in nor_population_by_age_cats
+- CRAN submission.
 
 # Version 2024.4.21
 
