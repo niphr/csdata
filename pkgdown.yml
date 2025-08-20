@@ -1,0 +1,11 @@
+pandoc: 2.9.2.1
+pkgdown: 2.1.3
+pkgdown_sha: ~
+articles:
+  csdata: csdata.html
+  locations_norway: locations_norway.html
+  population_norway: population_norway.html
+last_built: 2025-08-20T12:49Z
+urls:
+  reference: https://www.csids.no/csdata/reference
+  article: https://www.csids.no/csdata/articles
