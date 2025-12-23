@@ -1,11 +1,11 @@
-pandoc: 2.9.2.1
-pkgdown: 2.1.3
+pandoc: 3.1.3
+pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   csdata: csdata.html
   locations_norway: locations_norway.html
   population_norway: population_norway.html
-last_built: 2025-08-20T12:49Z
+last_built: 2025-12-23T12:44Z
 urls:
-  reference: https://www.csids.no/csdata/reference
-  article: https://www.csids.no/csdata/articles
+  reference: https://niphr.github.io/csdata/reference
+  article: https://niphr.github.io/csdata/articles
