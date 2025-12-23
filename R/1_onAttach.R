@@ -11,6 +11,6 @@
     "csdata ",
     version,
     "\n",
-    "https://www.csids.no/csdata/"
+    "https://niphr.github.io/csdata/"
   ))
 }
