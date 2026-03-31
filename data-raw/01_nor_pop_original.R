@@ -1,4 +1,5 @@
 library(data.table)
+source("data-raw/ssb_api_helpers.R")
 #' Population in Norway (2020 borders).
 #'
 #' We conveniently package population data taken from Statistics Norway.
@@ -6,7 +7,7 @@ library(data.table)
 #' Open Government Data (NLOD) 2.0.
 #'
 #' This dataset contains national/county/municipality/ward (city district) level population data
-#' for every age (0 to 105 years old). The national level data is from year 1846, while all the
+#' for every age (0 to 105 years old). The national level data is from year 1986, while all the
 #' other levels have data from 2005.
 #'
 #' The counties and municipalities are updated for the 2020 borders.
@@ -24,167 +25,130 @@ library(data.table)
 "norway_population_by_age_b2020"
 
 
-nor_population_by_age_original <- function() {
 
-  # x_year_end <- 2020
-  # variables used in data.table functions in this function
+nor_population_by_age_original <- function(force_refresh = FALSE) {
+
+  # variables used in data.table functions
   . <- NULL
   value <- NULL
   age <- NULL
-  Var2 <- NULL
-  agecont <- NULL
-  pop <- NULL
   municip_code <- NULL
-  municip_code_current <- NULL
-  year_end <- NULL
-  level <- NULL
-  region <- NULL
-  variable <- NULL
-  agenum <- NULL
+  ward_code <- NULL
+  ward_prefix <- NULL
   imputed <- NULL
-  county_code <- NULL
-  municip_code_end <- NULL
-  sex <- NULL
-  contents <- NULL
-  x <- NULL
-  # end
+  population <- NULL
 
-
-
-  # municip and ward ----
-  ### gen_norway_population_by_age() has one other dataset, 2021
-  cat("creating population for municip and ward ... \n")
-
-  popFiles <- c(
-    "Personer2005-2009.csv",
-    "Personer2010-2014.csv",
-    "Personer2015-2018.csv",
-    "Personer2019.csv",
-    "Personer2020.csv",
-    "Personer2021.csv",
-    "Personer2022.csv",
-    "Personer2023.csv",
-    "Personer2024.csv",
-    "Personerward2001-2020.csv",
-    "Personerward2021.csv",
-    "Personerward2022.csv",
-    "Personerward2023.csv",
-    "Personerward2024.csv"
-
+  # ---- SSB table metadata ----
+  cat("Fetching SSB table metadata...\n")
+  meta_07459 <- PxWebApiData::ApiData(
+    "https://data.ssb.no/api/v0/en/table/07459",
+    returnMetaFrames = TRUE
   )
-  pop <- vector("list", length = length(popFiles))
-  for (i in seq_along(pop)) {
-    pop[[i]] <- fread(fs::path("data-raw", "files", "population", popFiles[i]), encoding = "UTF-8")
-    pop[[i]] <- melt.data.table(pop[[i]], id.vars = c("region", "age"))
+  municip_codes <- meta_07459$Region$values[nchar(meta_07459$Region$values) == 4]
+  all_years_07459 <- meta_07459$Tid$values
+
+  meta_10826 <- PxWebApiData::ApiData(
+    "https://data.ssb.no/api/v0/en/table/10826",
+    returnMetaFrames = TRUE
+  )
+  all_ward_codes <- meta_10826$Region$values
+  all_years_10826 <- meta_10826$Tid$values
+
+  # ---- Municipality data from table 07459 ----
+  cat("Fetching municipality population from SSB table 07459...\n")
+
+  # Fetch one year at a time to stay well under SSB's cell limit
+  municip_years <- all_years_07459[all_years_07459 >= "2005"]
+
+  pop_municip_list <- vector("list", length(municip_years))
+  for (i in seq_along(municip_years)) {
+    pop_municip_list[[i]] <- fetch_ssb_table(
+      "07459",
+      Region = municip_codes,
+      Kjonn = FALSE,
+      Alder = TRUE,
+      ContentsCode = "Personer1",
+      Tid = municip_years[i],
+      cache_name = paste0("07459_municip_", municip_years[i]),
+      force_refresh = force_refresh
+    )
   }
-  pop <- rbindlist(pop)
+  pop_municip_raw <- rbindlist(pop_municip_list)
 
-  # region, municip
-  pop[, region := stringr::str_remove(region, "^K-")]
-  pop[, municip_code := sprintf("municip_nor%s", stringr::str_extract(region, "^[0-9][0-9][0-9][0-9]"))]
+  # Transform to match expected format
+  pop_municip_raw[, municip_code := paste0("municip_nor", Region)]
+  pop_municip_raw[, age := as.numeric(gsub("\\+", "", Alder))]
+  pop_municip_raw[, calyear := as.numeric(Tid)]
+  setnames(pop_municip_raw, "value", "population")
 
-  # correctly identify ward/bydels
-  pop[, ward_code := sprintf("%s", stringr::str_extract(region, "^[0-9][0-9][0-9][0-9][0-9][0-9]"))]
-  pop[, ward_prefix := ""]
-  pop[ward_code!="NA" & municip_code %in% c("municip_nor0301"), ward_prefix := "wardoslo_nor"]
-  pop[ward_code!="NA" & municip_code %in% c("municip_nor1201", "municip_nor4601"), ward_prefix := "wardbergen_nor"]
-  pop[ward_code!="NA" & municip_code %in% c("municip_nor1103"), ward_prefix := "wardstavanger_nor"]
-  pop[ward_code!="NA" & municip_code %in% c("municip_nor1601", "municip_nor5001"), ward_prefix := "wardtrondheim_nor"]
-
-  # ward oslo
-  pop[,ward_code := paste0(ward_prefix,ward_code)]
-  pop[ward_code=="wardoslo_nor030116", ward_code := "extrawardoslo_nor030116"]
-  pop[ward_code=="wardoslo_nor030117", ward_code := "extrawardoslo_nor030117"]
-  pop[ward_code!="NA", municip_code := ward_code]
-
-
-  # add calyear, age numeric
-  pop[, calyear := as.numeric(stringr::str_extract(variable, "[0-9][0-9][0-9][0-9]$"))]
-  pop[, agenum := as.numeric(stringr::str_extract(age, "^[0-9]*"))]
-  pop[, age := NULL]
-  setnames(pop, "agenum", "age")
-  pop
-
-  # sum population by municip
-  pop <- pop[municip_code != "municip_norNA"]
-  pop_municip <- pop[, .(
-    population = sum(value)
+  pop_municip <- pop_municip_raw[, .(
+    population = sum(population)
   ), keyby = .(
     municip_code, age, calyear
   )]
 
+  # Remove municipality-year combinations where total population is 0
+  # (historical municipalities that don't exist in that year)
+  pop_municip_totals <- pop_municip[, .(total = sum(population)), by = .(municip_code, calyear)]
+  pop_municip <- pop_municip[pop_municip_totals[total > 0], on = .(municip_code, calyear)]
+  pop_municip[, total := NULL]
 
-  # Fixing broken parts in the population data ----
-  # part 1: municip_nor0710
+  # ---- Ward data from table 10826 ----
+  cat("Fetching ward population from SSB table 10826...\n")
 
-  pop_municip0706 <- pop_municip[municip_code == "municip_nor0710" & calyear <= 2017]
-  pop_municip0706[, population := max(population), by = age]
-  pop_municip0706 <- pop_municip0706[calyear != max(calyear)]
-  pop_municip0706[, municip_code := "municip_nor0706"]
-  pop_municip0706[, population := round(population/3)]
-  pop_municip <- rbind(pop_municip, pop_municip0706)
+  pop_ward_raw <- fetch_ssb_table(
+    "10826",
+    Region = all_ward_codes,
+    Kjonn = FALSE,
+    Alder = TRUE,
+    ContentsCode = "Personer",
+    Tid = all_years_10826,
+    cache_name = paste0("10826_ward_", min(all_years_10826), "_", max(all_years_10826)),
+    force_refresh = force_refresh
+  )
 
-  pop_municip0719 <- pop_municip[municip_code == "municip_nor0710" & calyear <= 2017]
-  pop_municip0719[, population := max(population), by = age]
-  pop_municip0719 <- pop_municip0719[calyear != max(calyear)]
-  pop_municip0719[, municip_code := "municip_nor0719"]
-  pop_municip0719[, population := round(population/3)]
-  pop_municip <- rbind(pop_municip, pop_municip0719)
+  # Strip letter suffixes to get numeric ward codes
+  pop_ward_raw[, ward_numeric := gsub("[a-zA-Z]", "", Region)]
+  pop_ward_raw[, municip_code := paste0("municip_nor", substr(ward_numeric, 1, 4))]
 
-  pop_municip0720 <- pop_municip[municip_code == "municip_nor0710" & calyear <= 2017]
-  pop_municip0720[, population := max(population), by = age]
-  pop_municip0720 <- pop_municip0720[calyear != max(calyear)]
-  pop_municip0720[, municip_code := "municip_nor0720"]
-  pop_municip0720[, population := round(population/3)]
-  pop_municip <- rbind(pop_municip, pop_municip0720)
+  # Assign ward prefixes based on municipality
+  pop_ward_raw[, ward_prefix := ""]
+  pop_ward_raw[municip_code %in% c("municip_nor0301"), ward_prefix := "wardoslo_nor"]
+  pop_ward_raw[municip_code %in% c("municip_nor1201", "municip_nor4601"), ward_prefix := "wardbergen_nor"]
+  pop_ward_raw[municip_code %in% c("municip_nor1103"), ward_prefix := "wardstavanger_nor"]
+  pop_ward_raw[municip_code %in% c("municip_nor1601", "municip_nor5001"), ward_prefix := "wardtrondheim_nor"]
 
-  # # part 2: municip_nor1756
-  pop_municip1723 <- pop_municip[municip_code == "municip_nor1756" & calyear <= 2012]
-  pop_municip1723[, population := max(population), by = age]
-  pop_municip1723 <- pop_municip1723[calyear != max(calyear)]
-  pop_municip1723[, municip_code := "municip_nor1723"]
-  pop_municip1723[, population := round(population/2)]
-  pop_municip <- rbind(pop_municip, pop_municip1723)
+  pop_ward_raw[, ward_code := paste0(ward_prefix, ward_numeric)]
 
-  pop_municip1729 <- pop_municip[municip_code == "municip_nor1756" & calyear <= 2012]
-  pop_municip1729[, population := max(population), by = age]
-  pop_municip1729 <- pop_municip1729[calyear != max(calyear)]
-  pop_municip1729[, municip_code := "municip_nor1729"]
-  pop_municip1729[, population := round(population/2)]
-  pop_municip <- rbind(pop_municip, pop_municip1729)
+  # Extra wards in Oslo (Sentrum, Marka)
+  pop_ward_raw[ward_code == "wardoslo_nor030116", ward_code := "extrawardoslo_nor030116"]
+  pop_ward_raw[ward_code == "wardoslo_nor030117", ward_code := "extrawardoslo_nor030117"]
 
+  # Drop rows with no ward prefix (shouldn't happen, but be safe)
+  pop_ward_raw <- pop_ward_raw[ward_prefix != ""]
+
+  pop_ward_raw[, age := as.numeric(gsub("\\+", "", Alder))]
+  pop_ward_raw[, calyear := as.numeric(Tid)]
+  setnames(pop_ward_raw, "value", "population")
+
+  # Use ward_code as municip_code for consistency with downstream
+  pop_ward <- pop_ward_raw[, .(
+    population = sum(population)
+  ), keyby = .(
+    municip_code = ward_code, age, calyear
+  )]
+
+  # Combine municipality and ward data
+  pop_municip <- rbind(pop_municip, pop_ward)
+
+  # NOTE: The old CSV-based pipeline had "Fixing broken parts" code that split
+  # merged municipality populations (0710, 1756, 5046, 1505) back into their
+  # constituent parts using crude division (e.g., /3, /2). This was necessary
+  # because the CSVs only had the merged code for all years.
   #
-  # # part 3: municip5046
-  pop_municip1901 <- pop_municip[municip_code == "municip_nor5046" & calyear <= 2018]
-  pop_municip1901[, population := max(population), by = age]
-  pop_municip1901 <- pop_municip1901[calyear != max(calyear)]
-  pop_municip1901[, municip_code := "municip_nor1901"]
-  pop_municip1901[, population := round(population/2)]
-  pop_municip <- rbind(pop_municip, pop_municip1901)
-
-  pop_municip1915 <- pop_municip[municip_code == "municip_nor1756" & calyear <= 2018]
-  pop_municip1915[, population := max(population), by = age]
-  pop_municip1915 <- pop_municip1915[calyear != max(calyear)]
-  pop_municip1915[, municip_code := "municip_nor1915"]
-  pop_municip1915[, population := round(population/2)]
-  pop_municip <- rbind(pop_municip, pop_municip1915)
-
-
-  # # part 4: municip1505
-
-  pop_municip1503 <- pop_municip[municip_code == "municip_nor1505" & calyear <= 2008]
-  pop_municip1503[, population := max(population), by = age]
-  pop_municip1503 <- pop_municip1503[calyear != max(calyear)]
-  pop_municip1503[, municip_code := "municip_nor1503"]
-  pop_municip1503[, population := round(population/2)]
-  pop_municip <- rbind(pop_municip, pop_municip1503)
-
-  pop_municip1556 <- pop_municip[municip_code == "municip_nor1505" & calyear <= 2008]
-  pop_municip1556[, population := max(population), by = age]
-  pop_municip1556 <- pop_municip1556[calyear != max(calyear)]
-  pop_municip1556[, municip_code := "municip_nor1556"]
-  pop_municip1556[, population := round(population/2)]
-  pop_municip <- rbind(pop_municip, pop_municip1556)
+  # The SSB API already provides correct data for each historical municipality
+  # code (e.g., 0706 = old Sandefjord pre-2016, 0710 = merged Sandefjord
+  # 2017-2019, 3804 = renumbered Sandefjord 2020+). No split fixes needed.
 
 
   pop_municip[, imputed := FALSE]
@@ -192,30 +156,36 @@ nor_population_by_age_original <- function() {
   setnames(pop_municip, "municip_code", "location_code")
   setnames(pop_municip, "population", "pop_jan1_n")
 
-  # calyear, municip_code, age, imputed, pop
-  # imputing the future (2 calyears+)
-  # missing_calyears <- max(pop_municip$calyear):(lubridate::year(lubridate::today()) + 10)
-  #
-  # if (length(missing_calyears) > 1) {
-  #   copied_calyears <- vector("list", length = length(missing_calyears) - 1)
-  #   for (i in seq_along(copied_calyears)) {
-  #     copied_calyears[[i]] <- pop_municip[calyear == missing_calyears[1]]
-  #     copied_calyears[[i]][, calyear := calyear + i]
-  #   }
-  #   copied_calyears <- rbindlist(copied_calyears)
-  #   copied_calyears[, imputed := TRUE]
-  #   pop_municip <- rbind(pop_municip, copied_calyears)
-  # }
-
   pop_municip[, granularity_geo := stringr::str_extract(location_code, "^[a-z]+")]
 
-  return(pop_municip)
+  # ---- National data from table 07459 (Region = "0") ----
+  cat("Fetching national population from SSB table 07459...\n")
+
+  pop_national_raw <- fetch_ssb_table(
+    "07459",
+    Region = "0",
+    Kjonn = FALSE,
+    Alder = TRUE,
+    ContentsCode = "Personer1",
+    Tid = all_years_07459,
+    cache_name = paste0("07459_national_", min(all_years_07459), "_", max(all_years_07459)),
+    force_refresh = force_refresh
+  )
+
+  pop_national <- pop_national_raw[, .(
+    location_code = "nation_nor",
+    age = as.numeric(gsub("\\+", "", Alder)),
+    calyear = as.numeric(Tid),
+    pop_jan1_n = value,
+    imputed = FALSE,
+    granularity_geo = "nation"
+  )]
+
+  # Combine all
+  pop_all <- rbind(pop_municip, pop_national)
+
+  return(pop_all)
 }
 
 nor_population_by_age_b0000 <- nor_population_by_age_original()
 saveRDS(nor_population_by_age_b0000, "data-raw/data-temp/nor_population_by_age_b0000.rds")
-
-
-
-
-

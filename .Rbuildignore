@@ -8,3 +8,6 @@ cran-comments.md
 ^doc$
 ^Meta$
 @eaDir
+^CLAUDE\.md$
+^\.github$
+.DS_Store

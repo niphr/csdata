@@ -47,3 +47,10 @@ _pkgdown.yml
 
 @eaDir
 .DS_Store
+
+# SSB API response cache (raw data, can be re-fetched)
+data-raw/files/population/api_responses/
+
+# Reference files for verification (temporary)
+data-raw/data-temp/sysdata_reference.rda
+data-raw/data-temp/nor_population_by_age_b0000_reference.rds

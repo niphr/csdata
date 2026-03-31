@@ -1,3 +1,12 @@
+# Version 2026.3.30
+
+- Population data pipeline now fetches directly from SSB PxWeb API (tables 07459 and 10826) instead of manually downloaded CSV files.
+- Including 2025 and 2026 population data.
+- Municipality population data now uses actual historical data per municipality code instead of crude split approximations for merged municipalities.
+- National population data sourced from table 07459 (1986+), replacing the defunct dataset 59322.
+- Svalbard population data now fetched from SSB table 07430 (up to 2026), replacing the static Excel file.
+- Removed unused Nordic country population and location Excel files.
+
 # Version 2024.9.26
 
 - location_name_file_nb_ascii in csdata::nor_location_names is now in lowercase.
@@ -50,4 +59,3 @@
 # Version 2023.4.21
 
 - Include population data for 2023.
-- [CRAN submission](https://github.com/csids/csdata/releases/tag/2023.4.21)
