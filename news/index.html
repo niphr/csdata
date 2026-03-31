@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">csdata</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2024.4.26</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2026.3.30</span>
       </span>
     </div>
 
@@ -63,6 +63,15 @@
       <small>Source: <a href="https://github.com/niphr/csdata/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="2026.3.30" id="version-2026330">Version 2026.3.30<small>2026-03-31</small><a class="anchor" aria-label="anchor" href="#version-2026330"></a></h2>
+<ul><li>Population data pipeline now fetches directly from SSB PxWeb API (tables 07459 and 10826) instead of manually downloaded CSV files.</li>
+<li>Including 2025 and 2026 population data.</li>
+<li>Municipality population data now uses actual historical data per municipality code instead of crude split approximations for merged municipalities.</li>
+<li>National population data sourced from table 07459 (1986+), replacing the defunct dataset 59322.</li>
+<li>Svalbard population data now fetched from SSB table 07430 (up to 2026), replacing the static Excel file.</li>
+<li>Removed unused Nordic country population and location Excel files.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2024.9.26" id="version-2024926">Version 2024.9.26<a class="anchor" aria-label="anchor" href="#version-2024926"></a></h2>
 <ul><li>location_name_file_nb_ascii in csdata::nor_location_names is now in lowercase.</li>
@@ -116,7 +125,6 @@
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2023.4.21" id="version-2023421">Version 2023.4.21<small>2023-04-21</small><a class="anchor" aria-label="anchor" href="#version-2023421"></a></h2>
 <ul><li>Include population data for 2023.</li>
-<li><a href="https://github.com/csids/csdata/releases/tag/2023.4.21" class="external-link">CRAN submission</a></li>
 </ul></div>
   </div>
 
