@@ -50,3 +50,4 @@ RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Date/Publication: 2021-07-22 05:30:11 UTC
+Config/Needs/website: niphr/cstemplate
