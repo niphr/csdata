@@ -1,0 +1,28 @@
+# Package index
+
+## All functions
+
+- [`add_granularity_geo_to_data_set()`](https://niphr.github.io/csdata/reference/add_granularity_geo_to_data_set.md)
+  : Adds granularity_geo to a given data set
+- [`add_iso3_to_data_set()`](https://niphr.github.io/csdata/reference/add_iso3_to_data_set.md)
+  : Adds iso3 to a given data set
+- [`config`](https://niphr.github.io/csdata/reference/config.md) : An
+  environment containing configuration variables
+- [`location_code_to_granularity_geo()`](https://niphr.github.io/csdata/reference/location_code_to_granularity_geo.md)
+  : Convert location_code to granularity_geo
+- [`location_code_to_iso3()`](https://niphr.github.io/csdata/reference/location_code_to_iso3.md)
+  : Convert location_code to iso3
+- [`nb`](https://niphr.github.io/csdata/reference/nb.md) : Norwegian
+  characters in unicode
+- [`nor_locations_hierarchy_from_to()`](https://niphr.github.io/csdata/reference/nor_locations_hierarchy_from_to.md)
+  : Location hierarchies in Norway
+- [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
+  : All names in Norway
+- [`nor_locations_redistricting()`](https://niphr.github.io/csdata/reference/nor_locations_redistricting.md)
+  : All redistricting in Norway
+- [`nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
+  : Population in Norway by categories
+- [`se`](https://niphr.github.io/csdata/reference/se.md) : Swedish
+  characters in unicode
+- [`set_config()`](https://niphr.github.io/csdata/reference/set_config.md)
+  : Set options in the package config
