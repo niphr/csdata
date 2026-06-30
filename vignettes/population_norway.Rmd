@@ -20,7 +20,9 @@ library(magrittr)
 library(ggplot2)
 ```
 
-Populations are available in `csdata::nor_population_by_age_cats()`.
+Population counts for Norway are available in `csdata::nor_population_by_age_cats()`. The dataset covers population as of 1 January each year, broken down by location and age category.
+
+## National trend
 
 ```{r, results='asis'}
 pd <- csdata::nor_population_by_age_cats()[granularity_geo %in% "nation" & calyear>=1990]
@@ -35,7 +37,9 @@ q <- q + labs(title = "Norway (nation_nor)")
 q
 ```
 
-Here we list as a reference table the valid populations as of January 1st (`pop_jan1_n`).
+## Reference tables
+
+The tables below show `pop_jan1_n` (population as of 1 January) for each location and calendar year.
 
 ```{r echo=FALSE, results='asis'}
 d <- csdata::nor_population_by_age_cats()[csdata::nor_locations_names(),on="location_code"][granularity_geo %in% c("nation", "georegion") & calyear>=2005]

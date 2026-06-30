@@ -19,9 +19,9 @@ library(data.table)
 library(magrittr)
 ```
 
-Valid locations (and location types) are available in `csdata::nor_locations_names()`.
+Valid locations and location types are available in `csdata::nor_locations_names()`.
 
-Here we list as a reference table the valid `location_code`s and `location_name_description_nb`s (the two most commonly used locations).
+The table below lists every `location_code` alongside its `location_name_description_nb`. These are the two location fields used most often in practice: `location_code` in datasets and file names, and `location_name_description_nb` in figures, tables, and documents.
 
 ```{r echo=FALSE, results='asis'}
 d <- csdata::nor_locations_names()[, .(
