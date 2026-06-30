@@ -2,6 +2,21 @@ url: https://niphr.github.io/csdata/
 
 template:
   package: cstemplate
+  params:
+    hero:
+      overline: "R package · Structural data"
+      title: "Structural data for Norway."
+      lede: >
+        Preformatted structural data for Norway — population by municipality,
+        municipality/county matching, and how municipalities merged and redistricted
+        from 2006 to 2024.
+      cta:
+        primary:
+          text: "Get started"
+          href: "articles/csdata.html"
+        secondary:
+          text: "Browse the reference →"
+          href: "reference/index.html"
 
 authors:
   footer:
