@@ -1,6 +1,10 @@
-# Adds granularity_geo to a given data set
+# Add a granularity_geo column to a data set
 
-Adds granularity_geo to a given data set
+Derives the geographic granularity label from the `location_code` column
+and adds it as a new `granularity_geo` column, modifying `x` in place.
+When `location_reference` is `NULL` the granularity is inferred from the
+location code prefix; when a reference table is supplied, it is looked
+up directly.
 
 ## Usage
 
@@ -12,15 +16,17 @@ add_granularity_geo_to_data_set(x, location_reference = NULL)
 
 - x:
 
-  A data.table containing a column called "location_code".
+  A data.table containing a column named `location_code`.
 
 - location_reference:
 
-  A location reference data.table.
+  A data.table with columns `location_code` and `granularity_geo` to use
+  for lookup. When `NULL` (default), granularity is derived from the
+  location code prefix (e.g. `"county_nor03"` -\> `"county"`).
 
 ## Value
 
-A data.table containing an extra column called "granularity_geo".
+`x`, invisibly, with the `granularity_geo` column added or updated.
 
 ## Examples
 
@@ -31,22 +37,22 @@ library(data.table)
 #> The following object is masked from ‘package:base’:
 #> 
 #>     %notin%
-data <- data.table(location_code = c("norge", "county03", "blah"))
+data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_granularity_geo_to_data_set(data)
 print(data)
 #>    location_code granularity_geo
 #>           <char>          <char>
-#> 1:         norge          nation
-#> 2:      county03          county
+#> 1:    nation_nor          nation
+#> 2:  county_nor03          county
 #> 3:          blah            blah
 
 library(data.table)
-data <- data.table(location_code = c("norge", "county03", "blah"))
+data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_granularity_geo_to_data_set(data, location_reference = csdata::nor_locations_names())
 print(data)
 #>    location_code granularity_geo
 #>           <char>          <char>
-#> 1:         norge            <NA>
-#> 2:      county03            <NA>
+#> 1:    nation_nor          nation
+#> 2:  county_nor03          county
 #> 3:          blah            <NA>
 ```

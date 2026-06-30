@@ -1,6 +1,8 @@
-# Adds iso3 to a given data set
+# Add an iso3 column to a data set
 
-Adds iso3 to a given data set
+Derives the ISO 3166-1 alpha-3 country code from the `location_code`
+column and adds it as a new column, modifying `x` in place. Currently
+all Norwegian location codes map to `"nor"`.
 
 ## Usage
 
@@ -12,22 +14,23 @@ add_iso3_to_data_set(x)
 
 - x:
 
-  A data.table containing a column called "location_code".
+  A data.table containing a column named `location_code`.
 
 ## Value
 
-A data.table containing an extra column called "iso3".
+`x`, invisibly, with a new `granularity_geo` column containing the ISO
+3166-1 alpha-3 country code (always `"nor"` for Norwegian locations).
 
 ## Examples
 
 ``` r
 library(data.table)
-data <- data.table(location_code = c("norge", "county03", "blah"))
+data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_iso3_to_data_set(data)
 print(data)
 #>    location_code granularity_geo
 #>           <char>          <char>
-#> 1:         norge             nor
-#> 2:      county03             nor
+#> 1:    nation_nor             nor
+#> 2:  county_nor03             nor
 #> 3:          blah             nor
 ```

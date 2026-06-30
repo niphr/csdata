@@ -1,9 +1,9 @@
-# An environment containing configuration variables
+# Package configuration environment
 
-Available configuration variables:
-
-- border_nor (default 2024): The year in which Norwegian geographical
-  boundaries were designated. Valid values: 2020, 2024.
+An environment that stores package-level configuration variables. Modify
+via
+[`set_config()`](https://niphr.github.io/csdata/reference/set_config.md);
+read directly (e.g. `config$border_nor`).
 
 ## Usage
 
@@ -11,9 +11,12 @@ Available configuration variables:
 config
 ```
 
-## Format
+## Details
 
-An object of class `environment` of length 1.
+Available variables:
+
+- `border_nor` (default `2024`): the border year used when selecting
+  Norwegian geographic datasets. Valid values: `2020`, `2024`.
 
 ## Examples
 

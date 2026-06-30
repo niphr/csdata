@@ -1,6 +1,9 @@
-# Set options in the package config
+# Set package configuration options
 
-Set options in the package config
+Updates one or more variables in the
+[config](https://niphr.github.io/csdata/reference/config.md)
+environment. Call this at the start of a script to change the default
+border year used by all data-returning functions.
 
 ## Usage
 
@@ -12,9 +15,20 @@ set_config(border_nor = NULL)
 
 - border_nor:
 
-  The year in which Norwegian geographical boundaries were designated.
-  Valid values: 2020, 2024.
+  Integer. The Norwegian geographic border year to use as the default.
+  Valid values: `2020`, `2024`. Pass `NULL` to leave unchanged.
 
 ## Value
 
-Nothing. Side effect of setting the `config` environment.
+`NULL`, invisibly. Called for the side effect of updating
+[config](https://niphr.github.io/csdata/reference/config.md).
+
+## Examples
+
+``` r
+old <- csdata::config$border_nor
+csdata::set_config(border_nor = 2020)
+csdata::config$border_nor  # 2020
+#> [1] 2020
+csdata::set_config(border_nor = old)  # restore
+```

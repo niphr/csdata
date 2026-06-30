@@ -1,16 +1,14 @@
 # Norwegian characters in unicode
 
-Norwegian characters in unicode
+A named list of Norwegian special characters as unicode strings, for use
+where literal non-ASCII characters are inconvenient. Elements: `AA`/`aa`
+(Aa/aa), `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae).
 
 ## Usage
 
 ``` r
 nb
 ```
-
-## Format
-
-An object of class `list` of length 6.
 
 ## Examples
 
@@ -34,4 +32,6 @@ print(csdata::nb)
 #> $ae
 #> [1] "æ"
 #> 
+csdata::nb$AA  # uppercase Aa
+#> [1] "Å"
 ```
