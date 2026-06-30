@@ -18,6 +18,47 @@ template:
           text: "Browse the reference →"
           href: "reference/index.html"
 
+reference:
+  - title: Location data
+    desc: >
+      Reference datasets for Norwegian geographic locations: codes, names,
+      hierarchies, and redistricting weights.
+    contents:
+      - nor_locations_names
+      - nor_locations_hierarchy_from_to
+      - nor_locations_redistricting
+
+  - title: Population data
+    desc: >
+      Norwegian population counts aggregated by municipality and custom age
+      categories.
+    contents:
+      - nor_population_by_age_cats
+
+  - title: Location-code utilities
+    desc: >
+      Functions that derive or attach geographic metadata from location codes.
+    contents:
+      - location_code_to_granularity_geo
+      - location_code_to_iso3
+      - add_granularity_geo_to_data_set
+      - add_iso3_to_data_set
+
+  - title: Package configuration
+    desc: >
+      Read and update package-wide settings such as the active border year.
+    contents:
+      - config
+      - set_config
+
+  - title: Character utilities
+    desc: >
+      Named lists of Norwegian and Swedish special characters for use in
+      scripts and labels.
+    contents:
+      - nb
+      - se
+
 authors:
   footer:
     roles: [cre, aut]
