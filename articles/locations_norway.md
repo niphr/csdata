@@ -1,10 +1,12 @@
 # Locations (Norway)
 
-Valid locations (and location types) are available in
+Valid locations and location types are available in
 [`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md).
 
-Here we list as a reference table the valid `location_code`s and
-`location_name_description_nb`s (the two most commonly used locations).
+The table below lists every `location_code` alongside its
+`location_name_description_nb`. These are the two location fields used
+most often in practice: `location_code` in datasets and file names, and
+`location_name_description_nb` in figures, tables, and documents.
 
 | Reference table of location_code and location_name_description_nb |                                |                                                             |
 |-------------------------------------------------------------------|--------------------------------|-------------------------------------------------------------|

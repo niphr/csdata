@@ -85,15 +85,17 @@
 
     
     
-<p><code>csdata</code> provides structural data for Norway.</p>
-<p>Please see <a href="https://niphr.github.io/csdata/reference/index.html" class="uri">https://niphr.github.io/csdata/reference/index.html</a> for
-a quick overview of all available datasets and functions.</p>
+<p><code>csdata</code> provides structural reference data for Norway:
+location hierarchies, population counts, and the conventions used across
+the csverse format.</p>
+<p>See <a href="https://niphr.github.io/csdata/reference/index.html" class="uri">https://niphr.github.io/csdata/reference/index.html</a> for
+an overview of all available datasets and functions.</p>
 <div class="section level2">
 <h2 id="location">Location<a class="anchor" aria-label="anchor" href="#location"></a>
 </h2>
-<p>Valid locations (and location types) are available in
-<code><a href="../reference/nor_locations_names.html">csdata::nor_locations_names()</a></code>. Uncommon/internal use is
-demarcated by a line through the text.</p>
+<p>Valid locations and location types are available in
+<code><a href="../reference/nor_locations_names.html">csdata::nor_locations_names()</a></code>. Entries with uncommon or
+internal use are shown with a strikethrough.</p>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -798,12 +800,12 @@ demarcated by a line through the text.</p>
 <div class="section level2">
 <h2 id="ages">Ages<a class="anchor" aria-label="anchor" href="#ages"></a>
 </h2>
-<p>Ages should be coded as characters and should always contain 3
-digits. If it is an age range, the two ages are joined by an underscore
+<p>Ages must be coded as characters and must always contain three
+digits. For age ranges, join the two ages with an underscore
 (e.g. <code>005_010</code>).</p>
-<p>Use <code>085p</code> instead of <code>&gt;=085</code> or
-<code>85+</code>, as this will allow for an easy conversion from long to
-wide formatted data.</p>
+<p>Use <code>085p</code> rather than <code>&gt;=085</code> or
+<code>85+</code>; this keeps conversion from long to wide format
+straightforward.</p>
 <div id="ubqtxvafbs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ubqtxvafbs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1298,15 +1300,14 @@ wide formatted data.</p>
 </tbody>
 </table>
 </div>
-<p>This format will help your data be easily sorted, kept in the right
-order, and generate valid variable names if converted to
-wide-format.</p>
-<p>Missing ages should be coded as “missing”.</p>
+<p>This format keeps data sorted correctly and produces valid variable
+names when pivoted to wide format.</p>
+<p>Missing ages should be coded as <code>"missing"</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="sex">Sex<a class="anchor" aria-label="anchor" href="#sex"></a>
 </h2>
-<p>Sex should be coded as characters.</p>
+<p>Sex must be coded as a character.</p>
 <div id="nayorehals" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#nayorehals table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1791,7 +1792,7 @@ wide-format.</p>
 </tbody>
 </table>
 </div>
-<p>Missing sexes should be coded as “missing”.</p>
+<p>Missing sex should be coded as <code>"missing"</code>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

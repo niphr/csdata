@@ -1,7 +1,11 @@
 # Population (Norway)
 
-Populations are available in
+Population counts for Norway are available in
 [`csdata::nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md).
+The dataset covers population as of 1 January each year, broken down by
+location and age category.
+
+## National trend
 
 ``` r
 pd <- csdata::nor_population_by_age_cats()[granularity_geo %in% "nation" & calyear>=1990]
@@ -18,8 +22,10 @@ q
 
 ![](population_norway_files/figure-html/unnamed-chunk-2-1.png)
 
-Here we list as a reference table the valid populations as of January
-1st (`pop_jan1_n`).
+## Reference tables
+
+The tables below show `pop_jan1_n` (population as of 1 January) for each
+location and calendar year.
 
 | Reference table of calyear and pop_jan1_n (nation and georegion) |                    |                          |                       |            |         |                      |
 |------------------------------------------------------------------|--------------------|--------------------------|-----------------------|------------|---------|----------------------|

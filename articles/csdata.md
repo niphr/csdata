@@ -1,26 +1,27 @@
 # csdata
 
-`csdata` provides structural data for Norway.
+`csdata` provides structural reference data for Norway: location
+hierarchies, population counts, and the conventions used across the
+csverse format.
 
-Please see <https://niphr.github.io/csdata/reference/index.html> for a
-quick overview of all available datasets and functions.
+See <https://niphr.github.io/csdata/reference/index.html> for an
+overview of all available datasets and functions.
 
 ## Location
 
-Valid locations (and location types) are available in
+Valid locations and location types are available in
 [`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md).
-Uncommon/internal use is demarcated by a line through the text.
+Entries with uncommon or internal use are shown with a strikethrough.
 
 [TABLE]
 
 ## Ages
 
-Ages should be coded as characters and should always contain 3 digits.
-If it is an age range, the two ages are joined by an underscore
-(e.g. `005_010`).
+Ages must be coded as characters and must always contain three digits.
+For age ranges, join the two ages with an underscore (e.g. `005_010`).
 
-Use `085p` instead of `>=085` or `85+`, as this will allow for an easy
-conversion from long to wide formatted data.
+Use `085p` rather than `>=085` or `85+`; this keeps conversion from long
+to wide format straightforward.
 
 | Valid ages in the csverse format |           |                                  |
 |----------------------------------|-----------|----------------------------------|
@@ -32,14 +33,14 @@ conversion from long to wide formatted data.
 | "missing"                        | character | Missing/unknown                  |
 | "total"                          | character | Everyone                         |
 
-This format will help your data be easily sorted, kept in the right
-order, and generate valid variable names if converted to wide-format.
+This format keeps data sorted correctly and produces valid variable
+names when pivoted to wide format.
 
-Missing ages should be coded as “missing”.
+Missing ages should be coded as `"missing"`.
 
 ## Sex
 
-Sex should be coded as characters.
+Sex must be coded as a character.
 
 | Valid sexes in the csverse format |           |                 |
 |-----------------------------------|-----------|-----------------|
@@ -49,4 +50,4 @@ Sex should be coded as characters.
 | "missing"                         | character | Missing/unknown |
 | "total"                           | character | Everyone        |
 
-Missing sexes should be coded as “missing”.
+Missing sex should be coded as `"missing"`.
