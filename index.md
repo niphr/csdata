@@ -1,10 +1,3 @@
-# csdata
-
-[![CRAN
-status](https://www.r-pkg.org/badges/version/csdata)](https://cran.r-project.org/package=csdata)
-[![CRAN
-downloads](https://cranlogs.r-pkg.org/badges/csdata)](https://cran.r-project.org/package=csdata)
-
 ## Overview
 
 [csdata](https://niphr.github.io/csdata/) contains preformatted
