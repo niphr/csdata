@@ -1,29 +1,43 @@
 #' Norwegian characters in unicode
+#'
+#' A named list of Norwegian special characters as unicode strings,
+#' for use where literal non-ASCII characters are inconvenient.
+#' Elements: `AA`/`aa` (Aa/aa), `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae).
 #' @examples
 #' print(csdata::nb)
+#' csdata::nb$AA  # uppercase Aa
 #' @export nb
 nb <- list()
-nb$AA <- "\u00C5"
-nb$aa <- "\u00E5"
-nb$OE <- "\u00D8"
-nb$oe <- "\u00F8"
-nb$AE <- "\u00C6"
-nb$ae <- "\u00E6"
+nb$AA <- "Å"
+nb$aa <- "å"
+nb$OE <- "Ø"
+nb$oe <- "ø"
+nb$AE <- "Æ"
+nb$ae <- "æ"
 
 #' Swedish characters in unicode
+#'
+#' A named list of Swedish special characters as unicode strings,
+#' for use where literal non-ASCII characters are inconvenient.
+#' Elements: `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae).
 #' @examples
 #' print(csdata::se)
+#' csdata::se$oe  # lowercase oe
 #' @export se
 se <- list()
-se$OE <- "\u00D6"
-se$oe <- "\u00F6"
-se$AE <- "\u00C4"
-se$ae <- "\u00E4"
+se$OE <- "Ö"
+se$oe <- "ö"
+se$AE <- "Ä"
+se$ae <- "ä"
 
-#' An environment containing configuration variables
+#' Package configuration environment
 #'
-#' Available configuration variables:
-#' - border_nor (default 2024): The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.
+#' An environment that stores package-level configuration variables.
+#' Modify via [set_config()]; read directly (e.g. `config$border_nor`).
+#'
+#' Available variables:
+#' - `border_nor` (default `2024`): the border year used when selecting
+#'   Norwegian geographic datasets. Valid values: `2020`, `2024`.
 #' @examples
 #' print(ls(csdata::config))
 #' for(i in names(csdata::config)){
@@ -33,9 +47,20 @@ se$ae <- "\u00E4"
 config <- new.env()
 config$border_nor <- 2024
 
-#' Set options in the package config
-#' @param border_nor The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.
-#' @returns Nothing. Side effect of setting the `config` environment.
+#' Set package configuration options
+#'
+#' Updates one or more variables in the [config] environment.
+#' Call this at the start of a script to change the default border year
+#' used by all data-returning functions.
+#'
+#' @param border_nor Integer. The Norwegian geographic border year to use as
+#'   the default. Valid values: `2020`, `2024`. Pass `NULL` to leave unchanged.
+#' @returns `NULL`, invisibly. Called for the side effect of updating [config].
+#' @examples
+#' old <- csdata::config$border_nor
+#' csdata::set_config(border_nor = 2020)
+#' csdata::config$border_nor  # 2020
+#' csdata::set_config(border_nor = old)  # restore
 #' @export
 set_config <- function(border_nor = NULL){
   if(!is.null(border_nor)){

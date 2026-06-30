@@ -12,27 +12,43 @@ nor_locations_hierarchy_from_to(
 )
 }
 \arguments{
-\item{from}{wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, georegion, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty}
+\item{from}{Character vector. The source geographic granularity. One or more
+of: \code{"wardoslo"}, \code{"extrawardoslo"}, \code{"wardbergen"}, \code{"wardtrondheim"},
+\code{"wardstavanger"}, \code{"missingwardoslo"}, \code{"missingwardbergen"},
+\code{"missingwardtrondheim"}, \code{"missingwardstavanger"}, \code{"municip"},
+\code{"baregion"}, \code{"county"}, \code{"georegion"}, \code{"mtregion"},
+\code{"notmainlandmunicip"}, \code{"notmainlandcounty"}, \code{"missingmunicip"},
+\code{"missingcounty"}.}
 
-\item{to}{wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, georegion, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty}
+\item{to}{Character vector. The target geographic granularity. Same valid
+values as \code{from}.}
 
-\item{include_to_name}{Do you want to include the name of the 'to' location?}
+\item{include_to_name}{Logical. If \code{TRUE}, include the name of each \code{to}
+location as a third column \code{to_name}. Default \code{FALSE}.}
 
-\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
+\item{border}{Integer. The geographic border year. Valid values: \code{2020},
+\code{2024}. Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
-Data.table containing the columns:
-\itemize{
-\item from_code
-\item to_code
-\item to_name (if include_to_name==TRUE)
+A data.table with columns:
+\describe{
+\item{from_code}{Location code at the \code{from} granularity level.}
+\item{to_code}{Location code at the \code{to} granularity level.}
+\item{to_name}{Name of the \code{to} location (only present when
+\code{include_to_name = TRUE}).}
 }
 }
 \description{
-Calculates the relationship between different locations in Norway, according
-to geographic granularity. For example, which municipalities are inside which counties.
+Returns a mapping between two geographic levels in Norway. Both \code{from} and
+\code{to} accept character vectors, in which case all requested combinations are
+returned combined into a single data.table.
 }
 \examples{
-csdata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
-csdata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
+csdata::nor_locations_hierarchy_from_to(from = "wardoslo", to = "county")
+csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion")
+csdata::nor_locations_hierarchy_from_to(
+  from = c("municip", "county"),
+  to   = "georegion",
+  include_to_name = TRUE
+)
 }

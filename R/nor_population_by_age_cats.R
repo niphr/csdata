@@ -19,27 +19,47 @@ nor_population_by_age_internal <- function(
   return(d)
 }
 
-#' Population in Norway by categories
+#' Norwegian population aggregated into custom age categories
 #'
-#' A function that easily categorizes the Norwegian population into different age categories.
+#' Aggregates the bundled Norwegian population dataset (from Statistics Norway)
+#' into caller-defined age bands. The underlying data covers every integer age
+#' from 0 to 105 at national, county, municipality, and city-district level.
 #'
-#' @param cats A list containing vectors that you want to categorize.
-#' @param include_total Boolean. Should 'total' be included as an age cat?
-#' @param include_9999 Boolean. Should the current year is duplicated and added as "calyear==9999".
-#' This is in accordance with the cstidy principles regarding granularity_time=="event_*".
-#' @param border The year in which Norwegian geographical boundaries were designated (2020, 2024).
+#' @param cats A named or unnamed list of integer vectors specifying the age
+#'   values to include in each category. Each vector element defines one age
+#'   band. If a list element is named, that name is used as the `age` label;
+#'   otherwise the label is auto-generated as `"LLL_HHH"` (zero-padded lower
+#'   and upper bounds). Defaults to `NULL` (no custom bands; only `"total"` is
+#'   returned when `include_total = TRUE`).
+#' @param include_total Logical. If `TRUE` (default), an additional row group
+#'   with `age = "total"` covering all ages is appended.
+#' @param include_9999 Logical. If `TRUE`, the most recent calendar year is
+#'   duplicated and added with `calyear = 9999`, following the cstidy
+#'   convention for `granularity_time == "event_*"`. Default `FALSE`.
+#' @param border Integer. The geographic border year. Valid values: `2020`,
+#'   `2024`. Defaults to `csdata::config$border_nor`.
+#' @returns A data.table with columns:
+#'   \describe{
+#'     \item{granularity_geo}{Geographic granularity level.}
+#'     \item{location_code}{Location code.}
+#'     \item{age}{Age category label, as derived from `cats` names or
+#'       auto-generated, plus `"total"` if `include_total = TRUE`.}
+#'     \item{sex}{Sex. Always `"total"` in the current dataset.}
+#'     \item{calyear}{Calendar year.}
+#'     \item{pop_jan1_n}{Population count as of 1 January of `calyear`.}
+#'     \item{imputed}{Logical. `TRUE` if the value was imputed.}
+#'   }
 #' @examples
-#' \dontrun{
-#' nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))
-#' }
-#' @return A data.table containing the following columns:
-#' - granularity_geo
-#' - location_code
-#' - age (as specified in the argument "cats")
-#' - sex ("total")
-#' - calyear
-#' - pop_jan1_n
-#' - imputed
+#' # Default: return total population only
+#' d <- nor_population_by_age_cats()
+#' head(d[granularity_geo == "nation"])
+#'
+#' # Named age bands
+#' d2 <- nor_population_by_age_cats(
+#'   cats = list("children" = 0:17, "working_age" = 18:66, "elderly" = 67:105),
+#'   include_total = TRUE
+#' )
+#' d2[granularity_geo == "nation" & calyear == 2024]
 #' @export
 nor_population_by_age_cats <- function(
   cats = NULL,

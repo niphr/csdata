@@ -2,7 +2,7 @@
 % Please edit documentation in R/nor_population_by_age_cats.R
 \name{nor_population_by_age_cats}
 \alias{nor_population_by_age_cats}
-\title{Population in Norway by categories}
+\title{Norwegian population aggregated into custom age categories}
 \usage{
 nor_population_by_age_cats(
   cats = NULL,
@@ -12,32 +12,50 @@ nor_population_by_age_cats(
 )
 }
 \arguments{
-\item{cats}{A list containing vectors that you want to categorize.}
+\item{cats}{A named or unnamed list of integer vectors specifying the age
+values to include in each category. Each vector element defines one age
+band. If a list element is named, that name is used as the \code{age} label;
+otherwise the label is auto-generated as \code{"LLL_HHH"} (zero-padded lower
+and upper bounds). Defaults to \code{NULL} (no custom bands; only \code{"total"} is
+returned when \code{include_total = TRUE}).}
 
-\item{include_total}{Boolean. Should 'total' be included as an age cat?}
+\item{include_total}{Logical. If \code{TRUE} (default), an additional row group
+with \code{age = "total"} covering all ages is appended.}
 
-\item{include_9999}{Boolean. Should the current year is duplicated and added as "calyear==9999".
-This is in accordance with the cstidy principles regarding granularity_time=="event_*".}
+\item{include_9999}{Logical. If \code{TRUE}, the most recent calendar year is
+duplicated and added with \code{calyear = 9999}, following the cstidy
+convention for \code{granularity_time == "event_*"}. Default \code{FALSE}.}
 
-\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
+\item{border}{Integer. The geographic border year. Valid values: \code{2020},
+\code{2024}. Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
-A data.table containing the following columns:
-\itemize{
-\item granularity_geo
-\item location_code
-\item age (as specified in the argument "cats")
-\item sex ("total")
-\item calyear
-\item pop_jan1_n
-\item imputed
+A data.table with columns:
+\describe{
+\item{granularity_geo}{Geographic granularity level.}
+\item{location_code}{Location code.}
+\item{age}{Age category label, as derived from \code{cats} names or
+auto-generated, plus \code{"total"} if \code{include_total = TRUE}.}
+\item{sex}{Sex. Always \code{"total"} in the current dataset.}
+\item{calyear}{Calendar year.}
+\item{pop_jan1_n}{Population count as of 1 January of \code{calyear}.}
+\item{imputed}{Logical. \code{TRUE} if the value was imputed.}
 }
 }
 \description{
-A function that easily categorizes the Norwegian population into different age categories.
+Aggregates the bundled Norwegian population dataset (from Statistics Norway)
+into caller-defined age bands. The underlying data covers every integer age
+from 0 to 105 at national, county, municipality, and city-district level.
 }
 \examples{
-\dontrun{
-nor_population_by_age_cats(cats = list(c(1:10), c(11:20)))
-}
+# Default: return total population only
+d <- nor_population_by_age_cats()
+head(d[granularity_geo == "nation"])
+
+# Named age bands
+d2 <- nor_population_by_age_cats(
+  cats = list("children" = 0:17, "working_age" = 18:66, "elderly" = 67:105),
+  include_total = TRUE
+)
+d2[granularity_geo == "nation" & calyear == 2024]
 }

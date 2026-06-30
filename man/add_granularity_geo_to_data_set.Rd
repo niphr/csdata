@@ -2,29 +2,35 @@
 % Please edit documentation in R/add_variable_to_data_set.R
 \name{add_granularity_geo_to_data_set}
 \alias{add_granularity_geo_to_data_set}
-\title{Adds granularity_geo to a given data set}
+\title{Add a granularity_geo column to a data set}
 \usage{
 add_granularity_geo_to_data_set(x, location_reference = NULL)
 }
 \arguments{
-\item{x}{A data.table containing a column called "location_code".}
+\item{x}{A data.table containing a column named \code{location_code}.}
 
-\item{location_reference}{A location reference data.table.}
+\item{location_reference}{A data.table with columns \code{location_code} and
+\code{granularity_geo} to use for lookup. When \code{NULL} (default), granularity
+is derived from the location code prefix (e.g. \code{"county_nor03"} -> \code{"county"}).}
 }
 \value{
-A data.table containing an extra column called "granularity_geo".
+\code{x}, invisibly, with the \code{granularity_geo} column added or updated.
 }
 \description{
-Adds granularity_geo to a given data set
+Derives the geographic granularity label from the \code{location_code} column
+and adds it as a new \code{granularity_geo} column, modifying \code{x} in place.
+When \code{location_reference} is \code{NULL} the granularity is inferred from the
+location code prefix; when a reference table is supplied, it is looked up
+directly.
 }
 \examples{
 library(data.table)
-data <- data.table(location_code = c("norge", "county03", "blah"))
+data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_granularity_geo_to_data_set(data)
 print(data)
 
 library(data.table)
-data <- data.table(location_code = c("norge", "county03", "blah"))
+data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_granularity_geo_to_data_set(data, location_reference = csdata::nor_locations_names())
 print(data)
 }

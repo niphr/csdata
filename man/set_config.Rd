@@ -2,16 +2,25 @@
 % Please edit documentation in R/config_aa_environments.r
 \name{set_config}
 \alias{set_config}
-\title{Set options in the package config}
+\title{Set package configuration options}
 \usage{
 set_config(border_nor = NULL)
 }
 \arguments{
-\item{border_nor}{The year in which Norwegian geographical boundaries were designated. Valid values: 2020, 2024.}
+\item{border_nor}{Integer. The Norwegian geographic border year to use as
+the default. Valid values: \code{2020}, \code{2024}. Pass \code{NULL} to leave unchanged.}
 }
 \value{
-Nothing. Side effect of setting the \code{config} environment.
+\code{NULL}, invisibly. Called for the side effect of updating \link{config}.
 }
 \description{
-Set options in the package config
+Updates one or more variables in the \link{config} environment.
+Call this at the start of a script to change the default border year
+used by all data-returning functions.
+}
+\examples{
+old <- csdata::config$border_nor
+csdata::set_config(border_nor = 2020)
+csdata::config$border_nor  # 2020
+csdata::set_config(border_nor = old)  # restore
 }

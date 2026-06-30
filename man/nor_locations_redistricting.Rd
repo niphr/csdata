@@ -2,26 +2,42 @@
 % Please edit documentation in R/nor_locations_redistricting.R
 \name{nor_locations_redistricting}
 \alias{nor_locations_redistricting}
-\title{All redistricting in Norway}
+\title{Redistricting weights for Norwegian geographic units}
+\source{
+Statistics Norway (SSB) municipal reform documentation.
+}
 \usage{
 nor_locations_redistricting(border = csdata::config$border_nor)
 }
 \arguments{
-\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
+\item{border}{Integer. The target geographic border year. Valid values:
+\code{2020}, \code{2024}. Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
+A data.table with columns:
 \describe{
-\item{location_code_current}{The location code per today.}
-\item{location_code_original}{The location code as of "calyear".}
-\item{calyear}{The year corresponding to "county_code_original".}
-\item{weighting}{The weighting that needs to be applied.}
-\item{granularity_geo}{nation, county, municip, wardbergen, wardoslo, wardstavanger, wardtrondheim, missingwardbergen, missingwardoslo, missingwardstavanger, missingwardtrondheim, notmainlandcounty, notmainlandmunicip, missingcounty}
+\item{location_code_current}{Location code under the target border year.}
+\item{location_code_original}{Location code as it existed in \code{calyear}.}
+\item{calyear}{The calendar year to which \code{location_code_original}
+applies.}
+\item{weighting}{Proportional weight to apply when aggregating from the
+original location to the current location (values sum to 1 within each
+\code{location_code_original} / \code{calyear} group).}
+\item{granularity_geo}{Geographic granularity: one of \code{"nation"},
+\code{"county"}, \code{"municip"}, \code{"wardbergen"}, \code{"wardoslo"},
+\code{"wardstavanger"}, \code{"wardtrondheim"}, \code{"missingwardbergen"},
+\code{"missingwardoslo"}, \code{"missingwardstavanger"}, \code{"missingwardtrondheim"},
+\code{"notmainlandcounty"}, \code{"notmainlandmunicip"}, \code{"missingcounty"}.}
 }
 }
 \description{
-This function returns a dataset that is used to transfer "original" datasets
-to the 2020 or 2024 borders.
+Returns a data.table of weighting factors used to convert historical data
+recorded under old administrative boundaries to the 2020 or 2024 borders.
+Each row maps an original location code (as of a given calendar year) to
+the current location code, with a proportional weighting.
 }
 \examples{
-csdata::nor_locations_redistricting()
+d <- csdata::nor_locations_redistricting()
+head(d)
+d[calyear == 2019 & granularity_geo == "municip"]
 }

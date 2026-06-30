@@ -2,21 +2,34 @@
 % Please edit documentation in R/location_code_to.R
 \name{location_code_to_granularity_geo}
 \alias{location_code_to_granularity_geo}
-\title{Convert location_code to granularity_geo}
+\title{Convert location codes to granularity_geo}
 \usage{
 location_code_to_granularity_geo(x, location_reference = NULL)
 }
 \arguments{
-\item{x}{Either a vector, or a data.frame/data.table containing a column called "location_code".}
+\item{x}{A character vector of location codes, or a data.table / data.frame
+containing a column named \code{location_code}.}
 
-\item{location_reference}{A location reference data.table.}
+\item{location_reference}{A data.table with columns \code{location_code} and
+\code{granularity_geo} to use for lookup. When \code{NULL} (default), granularity
+is inferred from the location code prefix.}
 }
 \value{
-Character vector the same length as x, containing the corresponding granularity_geo.
+A character vector the same length as \code{x} (or with as many elements
+as there are rows in \code{x} when \code{x} is a data.table), containing the
+corresponding \code{granularity_geo} values.
 }
 \description{
-Convert location_code to granularity_geo
+Extracts the geographic granularity label from one or more location codes.
+When \code{location_reference} is \code{NULL}, the granularity is derived from the
+lowercase alphabetic prefix of the location code (e.g. \code{"county_nor03"} ->
+\code{"county"}); the special prefix \code{"norge"} is mapped to \code{"nation"}. When a
+reference table is supplied, the granularity is looked up directly.
 }
 \examples{
-csdata::location_code_to_granularity_geo(c("nation_nor", "county_nor03"))
+csdata::location_code_to_granularity_geo(c("nation_nor", "county_nor03", "municip_nor0301"))
+
+library(data.table)
+dt <- data.table(location_code = c("nation_nor", "county_nor03"))
+csdata::location_code_to_granularity_geo(dt)
 }

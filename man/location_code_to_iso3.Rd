@@ -2,19 +2,27 @@
 % Please edit documentation in R/location_code_to.R
 \name{location_code_to_iso3}
 \alias{location_code_to_iso3}
-\title{Convert location_code to iso3}
+\title{Convert location codes to ISO 3166-1 alpha-3 country codes}
 \usage{
 location_code_to_iso3(x)
 }
 \arguments{
-\item{x}{Either a vector, or a data.frame/data.table containing a column called "location_code".}
+\item{x}{A character vector of location codes, or a data.table / data.frame
+containing a column named \code{location_code}.}
 }
 \value{
-Character vector the same length as x, containing the corresponding iso3.
+A character vector the same length as \code{x} (or with as many elements
+as there are rows in \code{x} when \code{x} is a data.table), containing the
+corresponding ISO 3166-1 alpha-3 country code (always \code{"nor"}).
 }
 \description{
-Convert location_code to iso3
+Returns the ISO 3166-1 alpha-3 country code for each location code.
+Currently all Norwegian location codes map to \code{"nor"}.
 }
 \examples{
-csdata::location_code_to_iso3(c("nation_nor", "county_nor03"))
+csdata::location_code_to_iso3(c("nation_nor", "county_nor03", "municip_nor0301"))
+
+library(data.table)
+dt <- data.table(location_code = c("nation_nor", "county_nor03"))
+csdata::location_code_to_iso3(dt)
 }

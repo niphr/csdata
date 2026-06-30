@@ -2,22 +2,25 @@
 % Please edit documentation in R/add_variable_to_data_set.R
 \name{add_iso3_to_data_set}
 \alias{add_iso3_to_data_set}
-\title{Adds iso3 to a given data set}
+\title{Add an iso3 column to a data set}
 \usage{
 add_iso3_to_data_set(x)
 }
 \arguments{
-\item{x}{A data.table containing a column called "location_code".}
+\item{x}{A data.table containing a column named \code{location_code}.}
 }
 \value{
-A data.table containing an extra column called "iso3".
+\code{x}, invisibly, with a new \code{granularity_geo} column containing the
+ISO 3166-1 alpha-3 country code (always \code{"nor"} for Norwegian locations).
 }
 \description{
-Adds iso3 to a given data set
+Derives the ISO 3166-1 alpha-3 country code from the \code{location_code} column
+and adds it as a new column, modifying \code{x} in place. Currently all Norwegian
+location codes map to \code{"nor"}.
 }
 \examples{
 library(data.table)
-data <- data.table(location_code = c("norge", "county03", "blah"))
+data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_iso3_to_data_set(data)
 print(data)
 }

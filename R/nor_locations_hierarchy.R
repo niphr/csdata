@@ -147,20 +147,38 @@ nor_loc_hierarchy_from_to <- function(
 
 #' Location hierarchies in Norway
 #'
-#' Calculates the relationship between different locations in Norway, according
-#' to geographic granularity. For example, which municipalities are inside which counties.
+#' Returns a mapping between two geographic levels in Norway. Both `from` and
+#' `to` accept character vectors, in which case all requested combinations are
+#' returned combined into a single data.table.
 #'
-#' @param from wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, georegion, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
-#' @param to wardoslo, wardbergen, wardtrondheim, wardstavanger, municip, baregion, county, georegion, mtregion, notmainlandmunicip, notmainlandcounty, missingmunicip, missingcounty
-#' @param include_to_name Do you want to include the name of the 'to' location?
-#' @param border The year in which Norwegian geographical boundaries were designated (2020, 2024).
+#' @param from Character vector. The source geographic granularity. One or more
+#'   of: `"wardoslo"`, `"extrawardoslo"`, `"wardbergen"`, `"wardtrondheim"`,
+#'   `"wardstavanger"`, `"missingwardoslo"`, `"missingwardbergen"`,
+#'   `"missingwardtrondheim"`, `"missingwardstavanger"`, `"municip"`,
+#'   `"baregion"`, `"county"`, `"georegion"`, `"mtregion"`,
+#'   `"notmainlandmunicip"`, `"notmainlandcounty"`, `"missingmunicip"`,
+#'   `"missingcounty"`.
+#' @param to Character vector. The target geographic granularity. Same valid
+#'   values as `from`.
+#' @param include_to_name Logical. If `TRUE`, include the name of each `to`
+#'   location as a third column `to_name`. Default `FALSE`.
+#' @param border Integer. The geographic border year. Valid values: `2020`,
+#'   `2024`. Defaults to `csdata::config$border_nor`.
+#' @returns A data.table with columns:
+#'   \describe{
+#'     \item{from_code}{Location code at the `from` granularity level.}
+#'     \item{to_code}{Location code at the `to` granularity level.}
+#'     \item{to_name}{Name of the `to` location (only present when
+#'       `include_to_name = TRUE`).}
+#'   }
 #' @examples
-#' csdata::nor_locations_hierarchy_from_to(from="wardoslo", to="county")
-#' csdata::nor_locations_hierarchy_from_to(from="municip", to="baregion")
-#' @returns Data.table containing the columns:
-#' - from_code
-#' - to_code
-#' - to_name (if include_to_name==TRUE)
+#' csdata::nor_locations_hierarchy_from_to(from = "wardoslo", to = "county")
+#' csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion")
+#' csdata::nor_locations_hierarchy_from_to(
+#'   from = c("municip", "county"),
+#'   to   = "georegion",
+#'   include_to_name = TRUE
+#' )
 #' @export
 nor_locations_hierarchy_from_to <- function(
   from,
