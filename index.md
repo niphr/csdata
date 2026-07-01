@@ -9,11 +9,3 @@ title: csdata
 <div class="cs-card"><div class="cs-card-num">02</div><h3>Population by age</h3><p>Annual population counts (1 January) broken down by location and age category, from national totals down to individual municipalities.</p></div>
 <div class="cs-card"><div class="cs-card-num">03</div><h3>Redistricting weights</h3><p>Proportional weights that convert data recorded under old municipal borders to the 2020 or 2024 boundaries, covering mergers and splits from 2006 onward.</p></div>
 </div>
-
-## Overview 
-
-[csdata](https://niphr.github.io/csdata/) contains preformatted structural data for Norway.
-
-Datasets relating to population in municipalities, municipality/county matching, and how different municipalities have merged/redistricted over time from 2006 to 2024.
-
-Read the introduction vignette [here](https://niphr.github.io/csdata/articles/csdata.html) or run `help(package="csdata")`.
