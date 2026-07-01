@@ -93,7 +93,7 @@ This is in accordance with the cstidy principles regarding granularity_time=="ev
 
 
 <dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
-<dd><p>The year in which Norwegian geographical boundaries were designated (2020, 2024).</p></dd>
+<dd><p>The year in which Norwegian geographical boundaries were designated (2024).</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -108,10 +108,9 @@ This is in accordance with the cstidy principles regarding granularity_time=="ev
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Real male/female splits are only available for the 2024 borders (<code>border = 2024</code>).
-For the 2020 borders (a frozen legacy dataset) and for locations where Statistics
-Norway provides no sex breakdown (Svalbard, Jan Mayen, unknown), <code>male</code> and <code>female</code>
-are returned as <code>NA</code> while <code>total</code> holds the real count.</p>
+    <p>For locations where Statistics Norway provides no sex breakdown (Svalbard,
+Jan Mayen, unknown), <code>male</code> and <code>female</code> are returned as <code>NA</code> while <code>total</code>
+holds the real count.</p>
 <p>Note that when <code>include_total_sex = TRUE</code> the output holds <code>male</code>, <code>female</code> and
 <code>total</code> in long format, so summing <code>pop_jan1_n</code> across all sex values double-counts.
 Filter to a single sex, or sum only the <code>male</code>/<code>female</code> components.</p>

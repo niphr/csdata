@@ -16,7 +16,7 @@ set_config(border_nor = NULL)
 - border_nor:
 
   Integer. The Norwegian geographic border year to use as the default.
-  Valid values: `2020`, `2024`. Pass `NULL` to leave unchanged.
+  Valid values: `2024`. Pass `NULL` to leave unchanged.
 
 ## Value
 
@@ -27,8 +27,8 @@ set_config(border_nor = NULL)
 
 ``` r
 old <- csdata::config$border_nor
-csdata::set_config(border_nor = 2020)
-csdata::config$border_nor  # 2020
-#> [1] 2020
+csdata::set_config(border_nor = 2024)
+csdata::config$border_nor  # 2024
+#> [1] 2024
 csdata::set_config(border_nor = old)  # restore
 ```

@@ -16,7 +16,7 @@ config
 Available variables:
 
 - `border_nor` (default `2024`): the border year used when selecting
-  Norwegian geographic datasets. Valid values: `2020`, `2024`.
+  Norwegian geographic datasets. Valid values: `2024`.
 
 ## Examples
 

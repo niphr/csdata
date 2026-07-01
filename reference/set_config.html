@@ -73,7 +73,7 @@ used by all data-returning functions.</p>
 
 <dl><dt id="arg-border-nor">border_nor<a class="anchor" aria-label="anchor" href="#arg-border-nor"></a></dt>
 <dd><p>Integer. The Norwegian geographic border year to use as
-the default. Valid values: <code>2020</code>, <code>2024</code>. Pass <code>NULL</code> to leave unchanged.</p></dd>
+the default. Valid values: <code>2024</code>. Pass <code>NULL</code> to leave unchanged.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -84,9 +84,9 @@ the default. Valid values: <code>2020</code>, <code>2024</code>. Pass <code>NULL
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu">csdata</span><span class="fu">::</span><span class="va"><a href="config.html">config</a></span><span class="op">$</span><span class="va">border_nor</span></span></span>
-<span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">set_config</span><span class="op">(</span>border_nor <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="va"><a href="config.html">config</a></span><span class="op">$</span><span class="va">border_nor</span>  <span class="co"># 2020</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2020</span>
+<span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">set_config</span><span class="op">(</span>border_nor <span class="op">=</span> <span class="fl">2024</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="va"><a href="config.html">config</a></span><span class="op">$</span><span class="va">border_nor</span>  <span class="co"># 2024</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 2024</span>
 <span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">set_config</span><span class="op">(</span>border_nor <span class="op">=</span> <span class="va">old</span><span class="op">)</span>  <span class="co"># restore</span></span></span>
 </code></pre></div>
     </div>

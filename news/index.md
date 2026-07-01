@@ -2,6 +2,10 @@
 
 ## Version 2026.7.1
 
+- **Breaking:** dropped support for the 2020 border year. All `_b2020`
+  datasets are removed and every data-returning function now accepts
+  only `border = 2024` (`set_config(border_nor = 2020)` and
+  `border = 2020` now error). Use `border = 2024`.
 - Population data now carries a sex dimension.
   `nor_population_by_age_b2024` includes real `male`/`female`/`total`
   splits (fetched from SSB tables 07459 and 10826 with `Kjonn = TRUE`);

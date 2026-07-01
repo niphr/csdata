@@ -1,9 +1,9 @@
 # Redistricting weights for Norwegian geographic units
 
 Returns a data.table of weighting factors used to convert historical
-data recorded under old administrative boundaries to the 2020 or 2024
-borders. Each row maps an original location code (as of a given calendar
-year) to the current location code, with a proportional weighting.
+data recorded under old administrative boundaries to the 2024 borders.
+Each row maps an original location code (as of a given calendar year) to
+the current location code, with a proportional weighting.
 
 ## Usage
 
@@ -19,8 +19,8 @@ Statistics Norway (SSB) municipal reform documentation.
 
 - border:
 
-  Integer. The target geographic border year. Valid values: `2020`,
-  `2024`. Defaults to `csdata::config$border_nor`.
+  Integer. The target geographic border year. Valid values: `2024`.
+  Defaults to `csdata::config$border_nor`.
 
 ## Value
 

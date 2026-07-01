@@ -40,8 +40,8 @@ nor_population_by_age_cats(
 
 - border:
 
-  Integer. The geographic border year. Valid values: `2020`, `2024`.
-  Defaults to `csdata::config$border_nor`.
+  Integer. The geographic border year. Valid values: `2024`. Defaults to
+  `csdata::config$border_nor`.
 
 ## Value
 

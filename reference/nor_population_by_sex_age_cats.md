@@ -40,7 +40,7 @@ nor_population_by_sex_age_cats(
 - border:
 
   The year in which Norwegian geographical boundaries were designated
-  (2020, 2024).
+  (2024).
 
 ## Value
 
@@ -62,9 +62,7 @@ A data.table containing the following columns:
 
 ## Details
 
-Real male/female splits are only available for the 2024 borders
-(`border = 2024`). For the 2020 borders (a frozen legacy dataset) and
-for locations where Statistics Norway provides no sex breakdown
+For locations where Statistics Norway provides no sex breakdown
 (Svalbard, Jan Mayen, unknown), `male` and `female` are returned as `NA`
 while `total` holds the real count.
 

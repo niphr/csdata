@@ -20,7 +20,7 @@ nor_locations_names(border = csdata::config$border_nor)
 - border:
 
   Integer. The geographic border year determining which administrative
-  boundaries are used. Valid values: `2020`, `2024`. Defaults to
+  boundaries are used. Valid values: `2024`. Defaults to
   `csdata::config$border_nor`.
 
 ## Value
