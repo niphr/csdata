@@ -32,6 +32,8 @@ nor_population_by_age_original <- function(force_refresh = FALSE) {
   . <- NULL
   value <- NULL
   age <- NULL
+  sex <- NULL
+  Kjonn <- NULL
   municip_code <- NULL
   ward_code <- NULL
   ward_prefix <- NULL
@@ -65,18 +67,19 @@ nor_population_by_age_original <- function(force_refresh = FALSE) {
     pop_municip_list[[i]] <- fetch_ssb_table(
       "07459",
       Region = municip_codes,
-      Kjonn = FALSE,
+      Kjonn = TRUE,
       Alder = TRUE,
       ContentsCode = "Personer1",
       Tid = municip_years[i],
-      cache_name = paste0("07459_municip_", municip_years[i]),
+      cache_name = paste0("07459_municip_bysex_", municip_years[i]),
       force_refresh = force_refresh
     )
   }
   pop_municip_raw <- rbindlist(pop_municip_list)
 
-  # Transform to match expected format
+  # Transform to match expected format (Kjonn: 1 = Males, 2 = Females)
   pop_municip_raw[, municip_code := paste0("municip_nor", Region)]
+  pop_municip_raw[, sex := fcase(as.character(Kjonn) == "1", "male", as.character(Kjonn) == "2", "female")]
   pop_municip_raw[, age := as.numeric(gsub("\\+", "", Alder))]
   pop_municip_raw[, calyear := as.numeric(Tid)]
   setnames(pop_municip_raw, "value", "population")
@@ -84,7 +87,7 @@ nor_population_by_age_original <- function(force_refresh = FALSE) {
   pop_municip <- pop_municip_raw[, .(
     population = sum(population)
   ), keyby = .(
-    municip_code, age, calyear
+    municip_code, age, sex, calyear
   )]
 
   # Remove municipality-year combinations where total population is 0
@@ -99,13 +102,14 @@ nor_population_by_age_original <- function(force_refresh = FALSE) {
   pop_ward_raw <- fetch_ssb_table(
     "10826",
     Region = all_ward_codes,
-    Kjonn = FALSE,
+    Kjonn = TRUE,
     Alder = TRUE,
     ContentsCode = "Personer",
     Tid = all_years_10826,
-    cache_name = paste0("10826_ward_", min(all_years_10826), "_", max(all_years_10826)),
+    cache_name = paste0("10826_ward_bysex_", min(all_years_10826), "_", max(all_years_10826)),
     force_refresh = force_refresh
   )
+  pop_ward_raw[, sex := fcase(as.character(Kjonn) == "1", "male", as.character(Kjonn) == "2", "female")]
 
   # Strip letter suffixes to get numeric ward codes
   pop_ward_raw[, ward_numeric := gsub("[a-zA-Z]", "", Region)]
@@ -135,7 +139,7 @@ nor_population_by_age_original <- function(force_refresh = FALSE) {
   pop_ward <- pop_ward_raw[, .(
     population = sum(population)
   ), keyby = .(
-    municip_code = ward_code, age, calyear
+    municip_code = ward_code, age, sex, calyear
   )]
 
   # Combine municipality and ward data
@@ -164,25 +168,35 @@ nor_population_by_age_original <- function(force_refresh = FALSE) {
   pop_national_raw <- fetch_ssb_table(
     "07459",
     Region = "0",
-    Kjonn = FALSE,
+    Kjonn = TRUE,
     Alder = TRUE,
     ContentsCode = "Personer1",
     Tid = all_years_07459,
-    cache_name = paste0("07459_national_", min(all_years_07459), "_", max(all_years_07459)),
+    cache_name = paste0("07459_national_bysex_", min(all_years_07459), "_", max(all_years_07459)),
     force_refresh = force_refresh
   )
 
   pop_national <- pop_national_raw[, .(
     location_code = "nation_nor",
     age = as.numeric(gsub("\\+", "", Alder)),
+    sex = fcase(as.character(Kjonn) == "1", "male", as.character(Kjonn) == "2", "female"),
     calyear = as.numeric(Tid),
     pop_jan1_n = value,
     imputed = FALSE,
     granularity_geo = "nation"
   )]
 
-  # Combine all
+  # Combine all (each row is male/female); build sex == "total" as their sum
   pop_all <- rbind(pop_municip, pop_national)
+
+  pop_total <- pop_all[, .(
+    pop_jan1_n = sum(pop_jan1_n),
+    sex = "total"
+  ), keyby = .(
+    location_code, age, calyear, imputed, granularity_geo
+  )]
+
+  pop_all <- rbindlist(list(pop_all, pop_total), use.names = TRUE)
 
   return(pop_all)
 }

@@ -34,7 +34,7 @@ nor_population_by_age <- function(
 
   # municip/ward (exclude national data — it's handled separately below)
   pop <- merge(
-    nor_population_by_age_b0000[granularity_geo != "nation", c("location_code", "age", "calyear", "pop_jan1_n", "imputed")],
+    nor_population_by_age_b0000[granularity_geo != "nation", c("location_code", "age", "sex", "calyear", "pop_jan1_n", "imputed")],
     nor_locations_redistricting(border = x_year_end),
     by.x = c("location_code", "calyear"),
     by.y = c("location_code_original", "calyear")
@@ -48,6 +48,7 @@ nor_population_by_age <- function(
                                calyear,
                                location_code = location_code_current,
                                age,
+                               sex,
                                imputed
                              )
   ]
@@ -82,6 +83,7 @@ nor_population_by_age <- function(
     calyear,
     location_code = to_code,
     age,
+    sex,
     imputed
   )]
 
@@ -99,13 +101,14 @@ nor_population_by_age <- function(
     by.y = "from_code"
   )
 
-  # aggregate by county
+  # aggregate by baregion
   pop_baregion <- pop_baregion[, .(
     pop_jan1_n = sum(pop_jan1_n )
   ), keyby = .(
     calyear,
     location_code = to_code,
     age,
+    sex,
     imputed
   )]
 
@@ -129,6 +132,7 @@ nor_population_by_age <- function(
     calyear,
     location_code = to_code,
     age,
+    sex,
     imputed
   )]
 
@@ -138,7 +142,7 @@ nor_population_by_age <- function(
 
   # National data is now included in the intermediate RDS from 01_nor_pop_original.R
   # (fetched from SSB table 07459, Region = "0")
-  pop_norway <- nor_population_by_age_b0000[granularity_geo == "nation", .(calyear, pop_jan1_n, age, imputed, location_code)]
+  pop_norway <- nor_population_by_age_b0000[granularity_geo == "nation", .(calyear, pop_jan1_n, age, sex, imputed, location_code)]
 
   # Forward-fill to match municipality year range
   missing_years_national <- (max(pop_norway$calyear) + 1):max(pop_municip$calyear)
@@ -156,8 +160,6 @@ nor_population_by_age <- function(
 
   pop_all <- rbind(pop_norway, pop_county, pop_municip, pop_baregion, pop_georegion)
   pop_all[, granularity_geo := location_code_to_granularity_geo(location_code)]
-
-  pop_all[, sex := "total"]
 
   cat("done \n")
 
@@ -275,7 +277,16 @@ nor_population_by_age <- function(
     pop_municip_unknown
   )
   pop_notmain_missing[, age := -99]
+  # SSB provides no sex split for Svalbard / Jan Mayen / unknown; keep the real
+  # count as sex == "total" and add NA male/female rows so every location is rectangular
   pop_notmain_missing[, sex := "total"]
+  pop_notmain_missing_sex <- rbindlist(lapply(c("male", "female"), function(s) {
+    x <- copy(pop_notmain_missing)
+    x[, sex := s]
+    x[, pop_jan1_n := NA_real_]
+    x
+  }))
+  pop_notmain_missing <- rbindlist(list(pop_notmain_missing, pop_notmain_missing_sex), use.names = TRUE)
 
   cat("done \n")
 
@@ -302,6 +313,23 @@ env = new.env()
 load("R/sysdata.rda", envir = env)
 
 env$nor_population_by_age_b2024 <- nor_population_by_age(2024)
+
+# b2020 is the frozen legacy dataset (older CSV pipeline, not reproducible from the
+# SSB PxWeb API pipeline). Keep its totals byte-identical and add NA male/female rows
+# so it is rectangular with b2024 (real sex splits only exist from 2024 borders).
+final_order <- c("granularity_geo", "location_code", "age", "sex", "calyear", "pop_jan1_n", "imputed")
+b2020_total <- copy(env$nor_population_by_age_b2020)
+b2020_total[, sex := "total"]
+b2020_sex <- rbindlist(lapply(c("male", "female"), function(s) {
+  x <- copy(b2020_total)
+  x[, sex := s]
+  x[, pop_jan1_n := NA_real_]
+  x
+}))
+env$nor_population_by_age_b2020 <- rbindlist(list(b2020_total, b2020_sex), use.names = TRUE)
+setcolorder(env$nor_population_by_age_b2020, final_order)
+setorderv(env$nor_population_by_age_b2020, final_order)
+setkeyv(env$nor_population_by_age_b2020, final_order)
 
 for(i in names(env)){
   .GlobalEnv[[i]] <- env[[i]]

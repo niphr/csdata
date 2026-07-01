@@ -1,6 +1,6 @@
 Package: csdata
 Title: Structural Data for Norway
-Version: 2026.3.30
+Version: 2026.7.1
 Authors@R: c(
   person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"),
     comment = c(ORCID = "0000-0002-6747-1726")
@@ -46,8 +46,8 @@ Suggests: testthat,
     sf,
     tidyr,
     zoo
-RoxygenNote: 7.2.3
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Date/Publication: 2021-07-22 05:30:11 UTC
 Config/Needs/website: niphr/cstemplate
+Config/roxygen2/version: 8.0.0

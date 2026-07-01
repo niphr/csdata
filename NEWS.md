@@ -1,3 +1,10 @@
+# Version 2026.7.1
+
+- Population data now carries a sex dimension. `nor_population_by_age_b2024` includes real `male`/`female`/`total` splits (fetched from SSB tables 07459 and 10826 with `Kjonn = TRUE`); the frozen legacy `nor_population_by_age_b2020` carries `total` with `NA` male/female for a rectangular schema.
+- New exported function `nor_population_by_sex_age_cats()` returns population by custom age categories split by sex, with `include_total_age` and `include_total_sex` toggles.
+- `nor_population_by_age_cats()` is unchanged for callers: it now filters to `sex == "total"` internally, so its output remains identical (total only).
+- Note: at redistricted sub-national levels each sex is rounded independently, so `male + female` may differ from `total` by up to 3 people in ~0.6% of historical cells (exact at the national level).
+
 # Version 2026.3.30
 
 - Population data pipeline now fetches directly from SSB PxWeb API (tables 07459 and 10826) instead of manually downloaded CSV files.

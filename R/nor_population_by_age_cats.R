@@ -69,6 +69,7 @@ nor_population_by_age_cats <- function(
 ){
 
   calyear <- NULL
+  sex <- NULL
   if(is.null(cats)) cats <- list()
   stopifnot(is.list(cats))
   stopifnot(border %in% c(2020, 2024))
@@ -78,7 +79,9 @@ nor_population_by_age_cats <- function(
   } else if(border==2024){
     x <- get0("nor_population_by_age_b2024", envir = asNamespace("csdata"))
   }
-  data <- copy(x)
+  # This function is sex-agnostic and returns totals only; sex-specific breakdowns
+  # are available via nor_population_by_sex_age_cats().
+  data <- copy(x[sex == "total"])
 
   if(include_total){
     cats[[length(cats)+1]] <- -99:1000
