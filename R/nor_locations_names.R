@@ -7,7 +7,7 @@
 #' Trondheim), BA-regions, and lab regions.
 #'
 #' @param border Integer. The geographic border year determining which
-#'   administrative boundaries are used. Valid values: `2020`, `2024`.
+#'   administrative boundaries are used. Valid values: `2024`.
 #'   Defaults to `csdata::config$border_nor`.
 #' @returns A data.table with one row per geographic unit and the columns:
 #'   \describe{
@@ -34,12 +34,8 @@
 #' d[granularity_geo == "county"]
 #' @export
 nor_locations_names <- function(border = csdata::config$border_nor){
-  stopifnot(border %in% c(2020, 2024))
-  if(border==2020){
-    x <- get0("nor_locations_names_b2020", envir = asNamespace("csdata"))
-  } else if(border==2024){
-    x <- get0("nor_locations_names_b2024", envir = asNamespace("csdata"))
-  }
+  stopifnot(border == 2024)
+  x <- get0("nor_locations_names_b2024", envir = asNamespace("csdata"))
   d <- copy(x)
   return(d)
 }

@@ -23,7 +23,7 @@ as a sex, alongside 'male' and 'female'?}
 \item{include_9999}{Boolean. Should the current year is duplicated and added as "calyear==9999".
 This is in accordance with the cstidy principles regarding granularity_time=="event_*".}
 
-\item{border}{The year in which Norwegian geographical boundaries were designated (2020, 2024).}
+\item{border}{The year in which Norwegian geographical boundaries were designated (2024).}
 }
 \value{
 A data.table containing the following columns:
@@ -42,10 +42,9 @@ A function that categorizes the Norwegian population into custom age categories,
 split by sex (male/female) and optionally the total of both sexes.
 }
 \details{
-Real male/female splits are only available for the 2024 borders (\code{border = 2024}).
-For the 2020 borders (a frozen legacy dataset) and for locations where Statistics
-Norway provides no sex breakdown (Svalbard, Jan Mayen, unknown), \code{male} and \code{female}
-are returned as \code{NA} while \code{total} holds the real count.
+For locations where Statistics Norway provides no sex breakdown (Svalbard,
+Jan Mayen, unknown), \code{male} and \code{female} are returned as \code{NA} while \code{total}
+holds the real count.
 
 Note that when \code{include_total_sex = TRUE} the output holds \code{male}, \code{female} and
 \code{total} in long format, so summing \code{pop_jan1_n} across all sex values double-counts.

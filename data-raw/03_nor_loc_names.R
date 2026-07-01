@@ -441,8 +441,8 @@ norway_locations_names <- function(border = csdata::config$border_nor){
 
 env = new.env()
 if(file.exists("R/sysdata.rda")) load("R/sysdata.rda", envir = env)
+rm(list = grep("b2020", names(env), value = TRUE), envir = env)
 
-env$nor_locations_names_b2020 <- nor_loc_name_all(2020)
 env$nor_locations_names_b2024 <- nor_loc_name_all(2024)
 
 for(i in names(env)){

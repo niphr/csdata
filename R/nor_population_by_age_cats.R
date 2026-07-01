@@ -2,19 +2,38 @@ nor_population_by_age_internal <- function(
   data,
   vals,
   name
-  ){
-
+) {
   . <- age <- age_cat <- pop_jan1_n <- calyear <- location_code <- sex <- imputed <- granularity_geo <- NULL
 
   d <- copy(data[age %in% vals])
   d[, age_cat := name]
 
-  d <- d[!is.na(age_cat),.(
-    pop_jan1_n = sum(pop_jan1_n)
-  ),keyby=.(
-    calyear, location_code, age=age_cat, sex, imputed, granularity_geo
-  )]
-  setcolorder(d, c("granularity_geo", "location_code", "age", "sex", "calyear", "pop_jan1_n", "imputed"))
+  d <- d[
+    !is.na(age_cat),
+    .(
+      pop_jan1_n = sum(pop_jan1_n)
+    ),
+    keyby = .(
+      calyear,
+      location_code,
+      age = age_cat,
+      sex,
+      imputed,
+      granularity_geo
+    )
+  ]
+  setcolorder(
+    d,
+    c(
+      "granularity_geo",
+      "location_code",
+      "age",
+      "sex",
+      "calyear",
+      "pop_jan1_n",
+      "imputed"
+    )
+  )
 
   return(d)
 }
@@ -36,8 +55,8 @@ nor_population_by_age_internal <- function(
 #' @param include_9999 Logical. If `TRUE`, the most recent calendar year is
 #'   duplicated and added with `calyear = 9999`, following the cstidy
 #'   convention for `granularity_time == "event_*"`. Default `FALSE`.
-#' @param border Integer. The geographic border year. Valid values: `2020`,
-#'   `2024`. Defaults to `csdata::config$border_nor`.
+#' @param border Integer. The geographic border year. Valid values: `2024`.
+#'   Defaults to `csdata::config$border_nor`.
 #' @returns A data.table with columns:
 #'   \describe{
 #'     \item{granularity_geo}{Geographic granularity level.}
@@ -66,37 +85,42 @@ nor_population_by_age_cats <- function(
   include_total = TRUE,
   include_9999 = FALSE,
   border = csdata::config$border_nor
-){
-
+) {
   calyear <- NULL
   sex <- NULL
-  if(is.null(cats)) cats <- list()
-  stopifnot(is.list(cats))
-  stopifnot(border %in% c(2020, 2024))
-
-  if(border==2020){
-    x <- get0("nor_population_by_age_b2020", envir = asNamespace("csdata"))
-  } else if(border==2024){
-    x <- get0("nor_population_by_age_b2024", envir = asNamespace("csdata"))
+  if (is.null(cats)) {
+    cats <- list()
   }
+  stopifnot(is.list(cats))
+  stopifnot(border == 2024)
+
+  x <- get0("nor_population_by_age_b2024", envir = asNamespace("csdata"))
   # This function is sex-agnostic and returns totals only; sex-specific breakdowns
   # are available via nor_population_by_sex_age_cats().
   data <- copy(x[sex == "total"])
 
-  if(include_total){
-    cats[[length(cats)+1]] <- -99:1000
+  if (include_total) {
+    cats[[length(cats) + 1]] <- -99:1000
   }
 
   retval <- vector("list", length = length(cats))
-  for(i in seq_along(cats)){
+  for (i in seq_along(cats)) {
     vals <- cats[[i]]
     name <- names(cats)[i]
-    if(include_total & i==length(cats)){
+    if (include_total & i == length(cats)) {
       name <- "total"
-    } else if(is.null(name)){
-      name <- paste0(formatC(vals[1],width=3,flag="0"),"_",formatC(vals[length(vals)],width=3,flag="0"))
-    } else if(is.na(name) | name==""){
-      name <- paste0(formatC(vals[1],width=3,flag="0"),"_",formatC(vals[length(vals)],width=3,flag="0"))
+    } else if (is.null(name)) {
+      name <- paste0(
+        formatC(vals[1], width = 3, flag = "0"),
+        "_",
+        formatC(vals[length(vals)], width = 3, flag = "0")
+      )
+    } else if (is.na(name) | name == "") {
+      name <- paste0(
+        formatC(vals[1], width = 3, flag = "0"),
+        "_",
+        formatC(vals[length(vals)], width = 3, flag = "0")
+      )
     }
 
     retval[[i]] <- nor_population_by_age_internal(
@@ -109,8 +133,8 @@ nor_population_by_age_cats <- function(
   retval <- rbindlist(retval)
 
   # 9999 as current year
-  if(include_9999){
-    x <- retval[calyear==format.Date(Sys.time(),"%Y")]
+  if (include_9999) {
+    x <- retval[calyear == format.Date(Sys.time(), "%Y")]
     x[, calyear := 9999]
     retval <- rbindlist(list(retval, x), use.names = T)
   }

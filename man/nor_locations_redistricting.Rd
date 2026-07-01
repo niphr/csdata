@@ -11,7 +11,7 @@ nor_locations_redistricting(border = csdata::config$border_nor)
 }
 \arguments{
 \item{border}{Integer. The target geographic border year. Valid values:
-\code{2020}, \code{2024}. Defaults to \code{csdata::config$border_nor}.}
+\code{2024}. Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
 A data.table with columns:
@@ -32,7 +32,7 @@ original location to the current location (values sum to 1 within each
 }
 \description{
 Returns a data.table of weighting factors used to convert historical data
-recorded under old administrative boundaries to the 2020 or 2024 borders.
+recorded under old administrative boundaries to the 2024 borders.
 Each row maps an original location code (as of a given calendar year) to
 the current location code, with a proportional weighting.
 }

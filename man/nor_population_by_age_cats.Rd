@@ -26,8 +26,8 @@ with \code{age = "total"} covering all ages is appended.}
 duplicated and added with \code{calyear = 9999}, following the cstidy
 convention for \code{granularity_time == "event_*"}. Default \code{FALSE}.}
 
-\item{border}{Integer. The geographic border year. Valid values: \code{2020},
-\code{2024}. Defaults to \code{csdata::config$border_nor}.}
+\item{border}{Integer. The geographic border year. Valid values: \code{2024}.
+Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
 A data.table with columns:

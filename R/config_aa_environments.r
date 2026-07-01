@@ -37,7 +37,7 @@ se$ae <- "\u00E4"
 #'
 #' Available variables:
 #' - `border_nor` (default `2024`): the border year used when selecting
-#'   Norwegian geographic datasets. Valid values: `2020`, `2024`.
+#'   Norwegian geographic datasets. Valid values: `2024`.
 #' @examples
 #' print(ls(csdata::config))
 #' for(i in names(csdata::config)){
@@ -54,17 +54,17 @@ config$border_nor <- 2024
 #' used by all data-returning functions.
 #'
 #' @param border_nor Integer. The Norwegian geographic border year to use as
-#'   the default. Valid values: `2020`, `2024`. Pass `NULL` to leave unchanged.
+#'   the default. Valid values: `2024`. Pass `NULL` to leave unchanged.
 #' @returns `NULL`, invisibly. Called for the side effect of updating [config].
 #' @examples
 #' old <- csdata::config$border_nor
-#' csdata::set_config(border_nor = 2020)
-#' csdata::config$border_nor  # 2020
+#' csdata::set_config(border_nor = 2024)
+#' csdata::config$border_nor  # 2024
 #' csdata::set_config(border_nor = old)  # restore
 #' @export
 set_config <- function(border_nor = NULL){
   if(!is.null(border_nor)){
-    stopifnot(border_nor %in% c(2020, 2024))
+    stopifnot(border_nor == 2024)
     config$border_nor <- border_nor
   }
 }

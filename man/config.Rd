@@ -14,7 +14,7 @@ Modify via \code{\link[=set_config]{set_config()}}; read directly (e.g. \code{co
 Available variables:
 \itemize{
 \item \code{border_nor} (default \code{2024}): the border year used when selecting
-Norwegian geographic datasets. Valid values: \code{2020}, \code{2024}.
+Norwegian geographic datasets. Valid values: \code{2024}.
 }
 }
 \examples{

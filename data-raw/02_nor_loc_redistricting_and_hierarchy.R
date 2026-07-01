@@ -993,6 +993,7 @@ nor_loc_hierarchy_all <- function(
 
 env = new.env()
 if(file.exists("R/sysdata.rda")) load("R/sysdata.rda", envir = env)
+rm(list = grep("b2020", names(env), value = TRUE), envir = env)
 
 env$nor_locations_redistricting_b2024 <- nor_loc_redistricting_all(2024)
 env$nor_locations_hierarchy_b2024 <- nor_loc_hierarchy_all(x_year_end = 2024)

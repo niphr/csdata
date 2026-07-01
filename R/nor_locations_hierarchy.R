@@ -6,7 +6,7 @@ nor_loc_hierarchy_from_to <- function(
     border = csdata::config$border_nor
   ){
 
-  stopifnot(border %in% c(2020, 2024))
+  stopifnot(border == 2024)
   stopifnot(from %in% c(
     "wardoslo",
     "extrawardoslo",
@@ -48,13 +48,8 @@ nor_loc_hierarchy_from_to <- function(
     "missingcounty"
   ))
 
-  if(border == 2020){
-    x <- get0("nor_locations_hierarchy_b2020", envir = asNamespace("csdata"))
-  } else if(border == 2024){
-    x <- get0("nor_locations_hierarchy_b2024", envir = asNamespace("csdata"))
-  }
+  x <- get0("nor_locations_hierarchy_b2024", envir = asNamespace("csdata"))
   d <- copy(x)
-  # d <- norway_locations_hierarchy_all_b2020
 
 
   if(from %in% c(
@@ -162,8 +157,8 @@ nor_loc_hierarchy_from_to <- function(
 #'   values as `from`.
 #' @param include_to_name Logical. If `TRUE`, include the name of each `to`
 #'   location as a third column `to_name`. Default `FALSE`.
-#' @param border Integer. The geographic border year. Valid values: `2020`,
-#'   `2024`. Defaults to `csdata::config$border_nor`.
+#' @param border Integer. The geographic border year. Valid values: `2024`.
+#'   Defaults to `csdata::config$border_nor`.
 #' @returns A data.table with columns:
 #'   \describe{
 #'     \item{from_code}{Location code at the `from` granularity level.}

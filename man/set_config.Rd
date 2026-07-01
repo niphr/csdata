@@ -8,7 +8,7 @@ set_config(border_nor = NULL)
 }
 \arguments{
 \item{border_nor}{Integer. The Norwegian geographic border year to use as
-the default. Valid values: \code{2020}, \code{2024}. Pass \code{NULL} to leave unchanged.}
+the default. Valid values: \code{2024}. Pass \code{NULL} to leave unchanged.}
 }
 \value{
 \code{NULL}, invisibly. Called for the side effect of updating \link{config}.
@@ -20,7 +20,7 @@ used by all data-returning functions.
 }
 \examples{
 old <- csdata::config$border_nor
-csdata::set_config(border_nor = 2020)
-csdata::config$border_nor  # 2020
+csdata::set_config(border_nor = 2024)
+csdata::config$border_nor  # 2024
 csdata::set_config(border_nor = old)  # restore
 }

@@ -26,8 +26,8 @@ values as \code{from}.}
 \item{include_to_name}{Logical. If \code{TRUE}, include the name of each \code{to}
 location as a third column \code{to_name}. Default \code{FALSE}.}
 
-\item{border}{Integer. The geographic border year. Valid values: \code{2020},
-\code{2024}. Defaults to \code{csdata::config$border_nor}.}
+\item{border}{Integer. The geographic border year. Valid values: \code{2024}.
+Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
 A data.table with columns:

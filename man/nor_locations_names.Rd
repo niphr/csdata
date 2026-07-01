@@ -11,7 +11,7 @@ nor_locations_names(border = csdata::config$border_nor)
 }
 \arguments{
 \item{border}{Integer. The geographic border year determining which
-administrative boundaries are used. Valid values: \code{2020}, \code{2024}.
+administrative boundaries are used. Valid values: \code{2024}.
 Defaults to \code{csdata::config$border_nor}.}
 }
 \value{

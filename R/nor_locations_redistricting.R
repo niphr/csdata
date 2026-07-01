@@ -1,12 +1,12 @@
 #' Redistricting weights for Norwegian geographic units
 #'
 #' Returns a data.table of weighting factors used to convert historical data
-#' recorded under old administrative boundaries to the 2020 or 2024 borders.
+#' recorded under old administrative boundaries to the 2024 borders.
 #' Each row maps an original location code (as of a given calendar year) to
 #' the current location code, with a proportional weighting.
 #'
 #' @param border Integer. The target geographic border year. Valid values:
-#'   `2020`, `2024`. Defaults to `csdata::config$border_nor`.
+#'   `2024`. Defaults to `csdata::config$border_nor`.
 #' @returns A data.table with columns:
 #'   \describe{
 #'     \item{location_code_current}{Location code under the target border year.}
@@ -32,12 +32,8 @@ nor_locations_redistricting <- function(
     border = csdata::config$border_nor
 ){
 
-  stopifnot(border %in% c(2020, 2024))
-  if(border == 2020){
-    x <- get0("nor_locations_redistricting_b2020", envir = asNamespace("csdata"))
-  } else if(border == 2024){
-    x <- get0("nor_locations_redistricting_b2024", envir = asNamespace("csdata"))
-  }
+  stopifnot(border == 2024)
+  x <- get0("nor_locations_redistricting_b2024", envir = asNamespace("csdata"))
   d <- copy(x)
   return(d)
 }
