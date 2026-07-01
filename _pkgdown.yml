@@ -31,9 +31,10 @@ reference:
   - title: Population data
     desc: >
       Norwegian population counts aggregated by municipality and custom age
-      categories.
+      categories, optionally split by sex.
     contents:
       - nor_population_by_age_cats
+      - nor_population_by_sex_age_cats
 
   - title: Location-code utilities
     desc: >
