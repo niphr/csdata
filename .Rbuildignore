@@ -3,6 +3,7 @@
 Makefile
 ^data-raw$
 _pkgdown.yml
+^index\.md$
 ^CRAN-SUBMISSION$
 cran-comments.md
 ^doc$
