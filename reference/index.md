@@ -15,10 +15,12 @@ hierarchies, and redistricting weights.
 ## Population data
 
 Norwegian population counts aggregated by municipality and custom age
-categories.
+categories, optionally split by sex.
 
 - [`nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
   : Norwegian population aggregated into custom age categories
+- [`nor_population_by_sex_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_sex_age_cats.md)
+  : Population in Norway by sex and age categories
 
 ## Location-code utilities
 

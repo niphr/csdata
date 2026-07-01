@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.3.30</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,14 @@
       <small>Source: <a href="https://github.com/niphr/csdata/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.7.1" id="version-202671">Version 2026.7.1<a class="anchor" aria-label="anchor" href="#version-202671"></a></h2>
+<ul><li>Population data now carries a sex dimension. <code>nor_population_by_age_b2024</code> includes real <code>male</code>/<code>female</code>/<code>total</code> splits (fetched from SSB tables 07459 and 10826 with <code>Kjonn = TRUE</code>); the frozen legacy <code>nor_population_by_age_b2020</code> carries <code>total</code> with <code>NA</code> male/female for a rectangular schema.</li>
+<li>New exported function <code><a href="../reference/nor_population_by_sex_age_cats.html">nor_population_by_sex_age_cats()</a></code> returns population by custom age categories split by sex, with <code>include_total_age</code> and <code>include_total_sex</code> toggles.</li>
+<li>
+<code><a href="../reference/nor_population_by_age_cats.html">nor_population_by_age_cats()</a></code> is unchanged for callers: it now filters to <code>sex == "total"</code> internally, so its output remains identical (total only).</li>
+<li>Note: at redistricted sub-national levels each sex is rounded independently, so <code>male + female</code> may differ from <code>total</code> by up to 3 people in ~0.6% of historical cells (exact at the national level).</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.3.30" id="version-2026330">Version 2026.3.30<a class="anchor" aria-label="anchor" href="#version-2026330"></a></h2><p class="text-muted">CRAN release: 2026-03-31</p>
 <ul><li>Population data pipeline now fetches directly from SSB PxWeb API (tables 07459 and 10826) instead of manually downloaded CSV files.</li>
