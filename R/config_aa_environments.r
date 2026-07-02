@@ -62,8 +62,8 @@ config$border_nor <- 2024
 #' csdata::config$border_nor  # 2024
 #' csdata::set_config(border_nor = old)  # restore
 #' @export
-set_config <- function(border_nor = NULL){
-  if(!is.null(border_nor)){
+set_config <- function(border_nor = NULL) {
+  if (!is.null(border_nor)) {
     stopifnot(border_nor == 2024)
     config$border_nor <- border_nor
   }

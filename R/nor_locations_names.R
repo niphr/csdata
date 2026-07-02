@@ -1,4 +1,3 @@
-
 #' Location codes and names for Norwegian geographic units
 #'
 #' Returns a data.table of all Norwegian geographic units with their location
@@ -33,11 +32,9 @@
 #' head(d)
 #' d[granularity_geo == "county"]
 #' @export
-nor_locations_names <- function(border = csdata::config$border_nor){
+nor_locations_names <- function(border = csdata::config$border_nor) {
   stopifnot(border == 2024)
   x <- get0("nor_locations_names_b2024", envir = asNamespace("csdata"))
   d <- copy(x)
   return(d)
 }
-
-

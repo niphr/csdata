@@ -29,9 +29,8 @@
 #' d[calyear == 2019 & granularity_geo == "municip"]
 #' @export
 nor_locations_redistricting <- function(
-    border = csdata::config$border_nor
-){
-
+  border = csdata::config$border_nor
+) {
   stopifnot(border == 2024)
   x <- get0("nor_locations_redistricting_b2024", envir = asNamespace("csdata"))
   d <- copy(x)

@@ -158,8 +158,17 @@ stopifnot(!"total" %in% unique(r_na$age))
 cat("include_total_sex / include_total_age toggles: OK\n")
 
 # 5d. border = 2020 is no longer supported
-stopifnot(inherits(try(nor_population_by_sex_age_cats(cats = cats, border = 2020), silent = TRUE), "try-error"))
-stopifnot(inherits(try(nor_population_by_age_cats(cats = cats, border = 2020), silent = TRUE), "try-error"))
+stopifnot(inherits(
+  try(
+    nor_population_by_sex_age_cats(cats = cats, border = 2020),
+    silent = TRUE
+  ),
+  "try-error"
+))
+stopifnot(inherits(
+  try(nor_population_by_age_cats(cats = cats, border = 2020), silent = TRUE),
+  "try-error"
+))
 cat("border = 2020 rejected: OK\n")
 
 cat("\nALL VALIDATION CHECKS PASSED\n")
