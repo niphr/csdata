@@ -1,3 +1,12 @@
+# Resubmission
+
+This is a resubmission of 2026.7.1, which was archived by the incoming
+pre-test with one NOTE on the Debian flavor: the `nor_population_by_age_cats`
+example exceeded the 5s example time limit (and the user/elapsed ratio
+threshold, due to data.table multi-threading). That example aggregates the
+full population dataset, so it is now wrapped in `\dontrun{}` with an
+explanatory comment. No other changes.
+
 # Submission
 
 This is a feature release that also removes a deprecated option.

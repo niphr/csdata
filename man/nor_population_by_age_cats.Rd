@@ -48,6 +48,10 @@ into caller-defined age bands. The underlying data covers every integer age
 from 0 to 105 at national, county, municipality, and city-district level.
 }
 \examples{
+\dontrun{
+# Not run: aggregates the full population dataset, which exceeds CRAN's
+# example time limit.
+
 # Default: return total population only
 d <- nor_population_by_age_cats()
 head(d[granularity_geo == "nation"])
@@ -58,4 +62,5 @@ d2 <- nor_population_by_age_cats(
   include_total = TRUE
 )
 d2[granularity_geo == "nation" & calyear == 2024]
+}
 }

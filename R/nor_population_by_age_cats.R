@@ -69,6 +69,10 @@ nor_population_by_age_internal <- function(
 #'     \item{imputed}{Logical. `TRUE` if the value was imputed.}
 #'   }
 #' @examples
+#' \dontrun{
+#' # Not run: aggregates the full population dataset, which exceeds CRAN's
+#' # example time limit.
+#'
 #' # Default: return total population only
 #' d <- nor_population_by_age_cats()
 #' head(d[granularity_geo == "nation"])
@@ -79,6 +83,7 @@ nor_population_by_age_internal <- function(
 #'   include_total = TRUE
 #' )
 #' d2[granularity_geo == "nation" & calyear == 2024]
+#' }
 #' @export
 nor_population_by_age_cats <- function(
   cats = NULL,
