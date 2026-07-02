@@ -79,17 +79,13 @@ A data.table with columns:
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
+# Not run: aggregates the full population dataset, which exceeds CRAN's
+# example time limit.
+
 # Default: return total population only
 d <- nor_population_by_age_cats()
 head(d[granularity_geo == "nation"])
-#>    granularity_geo location_code    age    sex calyear pop_jan1_n imputed
-#>             <char>        <char> <char> <char>   <num>      <num>  <lgcl>
-#> 1:          nation    nation_nor  total  total    1986    4159187   FALSE
-#> 2:          nation    nation_nor  total  total    1987    4175521   FALSE
-#> 3:          nation    nation_nor  total  total    1988    4198289   FALSE
-#> 4:          nation    nation_nor  total  total    1989    4220686   FALSE
-#> 5:          nation    nation_nor  total  total    1990    4233116   FALSE
-#> 6:          nation    nation_nor  total  total    1991    4249830   FALSE
 
 # Named age bands
 d2 <- nor_population_by_age_cats(
@@ -97,10 +93,5 @@ d2 <- nor_population_by_age_cats(
   include_total = TRUE
 )
 d2[granularity_geo == "nation" & calyear == 2024]
-#>    granularity_geo location_code         age    sex calyear pop_jan1_n imputed
-#>             <char>        <char>      <char> <char>   <num>      <num>  <lgcl>
-#> 1:          nation    nation_nor    children  total    2024    1112853   FALSE
-#> 2:          nation    nation_nor working_age  total    2024    3521869   FALSE
-#> 3:          nation    nation_nor     elderly  total    2024     915481   FALSE
-#> 4:          nation    nation_nor       total  total    2024    5550203   FALSE
+} # }
 ```

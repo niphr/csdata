@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 2026.7.1
+## Version 2026.7.2
 
 - **Breaking:** dropped support for the 2020 border year. All `_b2020`
   datasets are removed and every data-returning function now accepts
@@ -8,9 +8,9 @@
   `border = 2020` now error). Use `border = 2024`.
 - Population data now carries a sex dimension.
   `nor_population_by_age_b2024` includes real `male`/`female`/`total`
-  splits (fetched from SSB tables 07459 and 10826 with `Kjonn = TRUE`);
-  the frozen legacy `nor_population_by_age_b2020` carries `total` with
-  `NA` male/female for a rectangular schema.
+  splits (fetched from SSB tables 07459 and 10826 with `Kjonn = TRUE`).
+  Locations where Statistics Norway provides no sex breakdown (Svalbard,
+  Jan Mayen, unknown) carry `total` with `NA` male/female.
 - New exported function
   [`nor_population_by_sex_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_sex_age_cats.md)
   returns population by custom age categories split by sex, with

@@ -11,7 +11,7 @@ from 0 to 105 at national, county, municipality, and city-district level."><meta
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,17 +130,13 @@ auto-generated, plus <code>"total"</code> if <code>include_total = TRUE</code>.<
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Default: return total population only</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span><span class="co"># Not run: aggregates the full population dataset, which exceeds CRAN's</span></span></span>
+<span class="r-in"><span><span class="co"># example time limit.</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Default: return total population only</span></span></span>
 <span class="r-in"><span><span class="va">d</span> <span class="op">&lt;-</span> <span class="fu">nor_population_by_age_cats</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">d</span><span class="op">[</span><span class="va">granularity_geo</span> <span class="op">==</span> <span class="st">"nation"</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_geo location_code    age    sex calyear pop_jan1_n imputed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt;        &lt;char&gt; &lt;char&gt; &lt;char&gt;   &lt;num&gt;      &lt;num&gt;  &lt;lgcl&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:          nation    nation_nor  total  total    1986    4159187   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:          nation    nation_nor  total  total    1987    4175521   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:          nation    nation_nor  total  total    1988    4198289   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:          nation    nation_nor  total  total    1989    4220686   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5:          nation    nation_nor  total  total    1990    4233116   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6:          nation    nation_nor  total  total    1991    4249830   FALSE</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Named age bands</span></span></span>
 <span class="r-in"><span><span class="va">d2</span> <span class="op">&lt;-</span> <span class="fu">nor_population_by_age_cats</span><span class="op">(</span></span></span>
@@ -148,12 +144,7 @@ auto-generated, plus <code>"total"</code> if <code>include_total = TRUE</code>.<
 <span class="r-in"><span>  include_total <span class="op">=</span> <span class="cn">TRUE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">d2</span><span class="op">[</span><span class="va">granularity_geo</span> <span class="op">==</span> <span class="st">"nation"</span> <span class="op">&amp;</span> <span class="va">calyear</span> <span class="op">==</span> <span class="fl">2024</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    granularity_geo location_code         age    sex calyear pop_jan1_n imputed</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             &lt;char&gt;        &lt;char&gt;      &lt;char&gt; &lt;char&gt;   &lt;num&gt;      &lt;num&gt;  &lt;lgcl&gt;</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1:          nation    nation_nor    children  total    2024    1112853   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2:          nation    nation_nor working_age  total    2024    3521869   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3:          nation    nation_nor     elderly  total    2024     915481   FALSE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4:          nation    nation_nor       total  total    2024    5550203   FALSE</span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
