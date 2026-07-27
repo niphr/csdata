@@ -1,6 +1,27 @@
 # Changelog
 
+## Version 2026.7.27
+
+- Fixed
+  [`add_iso3_to_data_set()`](https://niphr.github.io/csdata/reference/add_iso3_to_data_set.md).
+  It assigned the ISO 3166-1 alpha-3 country code to the
+  `granularity_geo` column instead of `iso3`. It therefore never created
+  an `iso3` column, and it silently overwrote any existing
+  `granularity_geo`. It now assigns to `iso3` and leaves
+  `granularity_geo` untouched.
+- Corrected the documented return value of
+  [`add_iso3_to_data_set()`](https://niphr.github.io/csdata/reference/add_iso3_to_data_set.md),
+  which described the bug as intended behaviour.
+- Added a test suite pinning
+  [`location_code_to_granularity_geo()`](https://niphr.github.io/csdata/reference/location_code_to_granularity_geo.md),
+  [`location_code_to_iso3()`](https://niphr.github.io/csdata/reference/location_code_to_iso3.md),
+  [`add_granularity_geo_to_data_set()`](https://niphr.github.io/csdata/reference/add_granularity_geo_to_data_set.md)
+  and
+  [`add_iso3_to_data_set()`](https://niphr.github.io/csdata/reference/add_iso3_to_data_set.md).
+
 ## Version 2026.7.2
+
+CRAN release: 2026-07-02
 
 - **Breaking:** dropped support for the 2020 border year. All `_b2020`
   datasets are removed and every data-returning function now accepts
