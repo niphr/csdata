@@ -10,7 +10,7 @@ add_iso3_to_data_set(x)
 \item{x}{A data.table containing a column named \code{location_code}.}
 }
 \value{
-\code{x}, invisibly, with a new \code{granularity_geo} column containing the
+\code{x}, invisibly, with a new \code{iso3} column containing the
 ISO 3166-1 alpha-3 country code (always \code{"nor"} for Norwegian locations).
 }
 \description{

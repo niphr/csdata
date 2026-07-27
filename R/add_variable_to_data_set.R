@@ -37,9 +37,9 @@ add_granularity_geo_to_data_set <- function(x, location_reference = NULL){
 
 #' @export
 add_iso3_to_data_set.data.table <- function(x){
-  granularity_geo <- NULL
+  iso3 <- NULL
 
-  x[, granularity_geo := location_code_to_iso3(x)]
+  x[, iso3 := location_code_to_iso3(x)]
   data.table::shouldPrint(x)
   invisible(x)
 }
@@ -51,7 +51,7 @@ add_iso3_to_data_set.data.table <- function(x){
 #' location codes map to `"nor"`.
 #'
 #' @param x A data.table containing a column named `location_code`.
-#' @returns `x`, invisibly, with a new `granularity_geo` column containing the
+#' @returns `x`, invisibly, with a new `iso3` column containing the
 #'   ISO 3166-1 alpha-3 country code (always `"nor"` for Norwegian locations).
 #' @examples
 #' library(data.table)
