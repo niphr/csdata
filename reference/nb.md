@@ -2,13 +2,21 @@
 
 A named list of Norwegian special characters as unicode strings, for use
 where literal non-ASCII characters are inconvenient. Elements: `AA`/`aa`
-(Aa/aa), `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae).
+(Aa/aa), `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae). Each element is a single
+character.
 
 ## Usage
 
 ``` r
 nb
 ```
+
+## See also
+
+No vignette covers this object.
+
+Other unicode character lists:
+[`se`](https://niphr.github.io/csdata/reference/se.md)
 
 ## Examples
 

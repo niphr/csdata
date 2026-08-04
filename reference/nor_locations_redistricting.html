@@ -13,7 +13,7 @@ the current location code, with a proportional weighting."><meta property="og:im
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -86,10 +86,14 @@ the current location code, with a proportional weighting.</p>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
     <p>A data.table with columns:</p><dl><dt>location_code_current</dt>
-<dd><p>Location code under the target border year.</p></dd>
+<dd><p>Location code under the target border year.
+Each of the 421 distinct values also appears in
+<code><a href="nor_locations_names.html">nor_locations_names()</a></code>.</p></dd>
 
 <dt>location_code_original</dt>
-<dd><p>Location code as it existed in <code>calyear</code>.</p></dd>
+<dd><p>Location code as it existed in <code>calyear</code>.
+Of the 941 distinct values, 520 are retired codes that
+<code><a href="nor_locations_names.html">nor_locations_names()</a></code> no longer lists.</p></dd>
 
 <dt>calyear</dt>
 <dd><p>The calendar year to which <code>location_code_original</code>
@@ -97,18 +101,29 @@ applies.</p></dd>
 
 <dt>weighting</dt>
 <dd><p>Proportional weight to apply when aggregating from the
-original location to the current location (values sum to 1 within each
-<code>location_code_original</code> / <code>calyear</code> group).</p></dd>
+original location to the current location. Values sum to 1 within each
+<code>location_code_original</code> / <code>calyear</code> group (all 40,819 of them), so a
+row spread across several current locations is split rather than
+duplicated. They need not sum to 1 within a <code>location_code_current</code> /
+<code>calyear</code> group: 4,334 of those 35,160 groups do not.</p></dd>
 
 <dt>granularity_geo</dt>
 <dd><p>Geographic granularity: one of <code>"nation"</code>,
 <code>"county"</code>, <code>"municip"</code>, <code>"wardbergen"</code>, <code>"wardoslo"</code>,
-<code>"wardstavanger"</code>, <code>"wardtrondheim"</code>, <code>"missingwardbergen"</code>,
-<code>"missingwardoslo"</code>, <code>"missingwardstavanger"</code>, <code>"missingwardtrondheim"</code>,
-<code>"notmainlandcounty"</code>, <code>"notmainlandmunicip"</code>, <code>"missingcounty"</code>.</p></dd>
+<code>"wardstavanger"</code>, <code>"wardtrondheim"</code>, <code>"extrawardoslo"</code>,
+<code>"missingwardbergen"</code>, <code>"missingwardoslo"</code>, <code>"missingwardstavanger"</code>,
+<code>"missingwardtrondheim"</code>, <code>"notmainlandcounty"</code>,
+<code>"notmainlandmunicip"</code>, <code>"missingcounty"</code>, <code>"missingmunicip"</code>.</p></dd>
 
 
 </dl></div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>No vignette covers this function.
+<code><a href="../articles/locations_norway.html">vignette("locations_norway", package = "csdata")</a></code> tabulates the
+<code>location_code</code> values returned by <code><a href="nor_locations_names.html">nor_locations_names()</a></code>, which are the
+values <code>location_code_current</code> is drawn from.</p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

@@ -1,9 +1,15 @@
 # Set package configuration options
 
-Updates one or more variables in the
+Updates `border_nor` in the
 [config](https://niphr.github.io/csdata/reference/config.md)
 environment. Call this at the start of a script to change the default
-border year used by all data-returning functions.
+`border` argument of
+[`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md),
+[`nor_locations_redistricting()`](https://niphr.github.io/csdata/reference/nor_locations_redistricting.md),
+[`nor_locations_hierarchy_from_to()`](https://niphr.github.io/csdata/reference/nor_locations_hierarchy_from_to.md),
+[`nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
+and
+[`nor_population_by_sex_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_sex_age_cats.md).
 
 ## Usage
 
@@ -20,8 +26,13 @@ set_config(border_nor = NULL)
 
 ## Value
 
-`NULL`, invisibly. Called for the side effect of updating
+Invisibly, the value assigned to `config$border_nor`, or `NULL` when
+`border_nor` is `NULL`. Called for the side effect of updating
 [config](https://niphr.github.io/csdata/reference/config.md).
+
+## See also
+
+No vignette covers this function.
 
 ## Examples
 

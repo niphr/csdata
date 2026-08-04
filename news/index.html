@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,32 @@
       <small>Source: <a href="https://github.com/niphr/csdata/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.8.4" id="version-202684">Version 2026.8.4<a class="anchor" aria-label="anchor" href="#version-202684"></a></h2>
+<ul><li>Documentation overhaul. Each of the four documentation homes now owns its own material: <code>README.md</code> is the GitHub landing page (what the package is, install, one quick start, a which-function-do-I-want table), <code>index.md</code> is the pkgdown home body, the vignettes carry the worked detail, and the roxygen reference carries the per-function contract.</li>
+<li>Grew <code>README.md</code> from 49 to 280 words and added the routing table. No passage is shared with a vignette.</li>
+<li>Added <code>@seealso</code> to all 13 exported objects. Two of them are covered by a vignette code chunk (<code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> in all three articles, <code><a href="../reference/nor_population_by_age_cats.html">nor_population_by_age_cats()</a></code> in <code>population_norway</code>); the other 11 say plainly that no vignette covers them.</li>
+<li>Added <code>@family</code> to four groups that share a real call-site contract: location code converters, data set column adders, population data, and unicode character lists. <code>nor_locations_*()</code> was deliberately left ungrouped, because the three functions share only a name prefix and return disjoint columns.</li>
+<li>The <code><a href="../reference/nor_population_by_age_cats.html">nor_population_by_age_cats()</a></code> and <code><a href="../reference/nor_population_by_sex_age_cats.html">nor_population_by_sex_age_cats()</a></code> examples run again. They were wrapped in <code>\dontrun{}</code> in 2026.7.2 after a CRAN pretest NOTE on the CPU-to-elapsed ratio; both now pin <code>data.table::setDTthreads(1)</code> for the duration of the example and restore the previous setting.</li>
+<li>Corrected documentation that did not match the code:
+<ul><li>
+<code><a href="../reference/location_code_to_granularity_geo.html">location_code_to_granularity_geo()</a></code> and <code><a href="../reference/location_code_to_iso3.html">location_code_to_iso3()</a></code> no longer claim to accept a plain <code>data.frame</code>. A <code>data.frame</code> reaches the default method, where the first warns and returns one value for the whole frame and the second returns one value per column rather than per row.</li>
+<li>
+<code><a href="../reference/location_code_to_iso3.html">location_code_to_iso3()</a></code> and <code><a href="../reference/add_iso3_to_data_set.html">add_iso3_to_data_set()</a></code> now state that <code>"nor"</code> is returned without reading the input, so any string yields <code>"nor"</code> and <code><a href="../reference/add_iso3_to_data_set.html">add_iso3_to_data_set()</a></code> succeeds on a table with no <code>location_code</code> column.</li>
+<li>
+<code><a href="../reference/set_config.html">set_config()</a></code> returns the assigned value invisibly, not <code>NULL</code>, whenever <code>border_nor</code> is supplied.</li>
+<li>
+<code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> lists all 20 values of <code>granularity_geo</code>, not 12, and describes <code>location_name_short</code> as it is: set on 38 of 616 rows, three letters for counties, and absent for the Bergen, Stavanger and Trondheim city districts.</li>
+<li>
+<code><a href="../reference/nor_locations_redistricting.html">nor_locations_redistricting()</a></code> lists all 16 values of <code>granularity_geo</code>, not 14.</li>
+<li>
+<code><a href="../reference/nor_population_by_age_cats.html">nor_population_by_age_cats()</a></code> explains that <code>sex</code> is <code>"total"</code> because the function filters to the sex total, not because the dataset lacks the split.</li>
+<li>
+<code><a href="../reference/nor_population_by_sex_age_cats.html">nor_population_by_sex_age_cats()</a></code> separates the two no-breakdown cases: Svalbard and Jan Mayen keep a real <code>total</code>, while the unknown-location codes are <code>NA</code> on all three sex rows.</li>
+</ul></li>
+<li>Documented that <code><a href="../reference/nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to()</a></code> returns zero rows for every <code>from</code>/<code>to</code> combination involving <code>"baregion"</code>, because the bundled hierarchy table carries no BA-region codes. The example that demonstrated this by silently printing an empty table was replaced.</li>
+<li>Build-ignore <code>pkgdown/</code> and <code>Rplots.pdf</code>, which <code><a href="https://pkgdown.r-lib.org/reference/build_site.html" class="external-link">pkgdown::build_site()</a></code> and plotting scripts leave behind.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.7.27" id="version-2026727">Version 2026.7.27<a class="anchor" aria-label="anchor" href="#version-2026727"></a></h2>
 <ul><li>Fixed <code><a href="../reference/add_iso3_to_data_set.html">add_iso3_to_data_set()</a></code>. It assigned the ISO 3166-1 alpha-3 country code to the <code>granularity_geo</code> column instead of <code>iso3</code>. It therefore never created an <code>iso3</code> column, and it silently overwrote any existing <code>granularity_geo</code>. It now assigns to <code>iso3</code> and leaves <code>granularity_geo</code> untouched.</li>

@@ -1,8 +1,9 @@
 # Add an iso3 column to a data set
 
-Derives the ISO 3166-1 alpha-3 country code from the `location_code`
-column and adds it as a new column, modifying `x` in place. Currently
-all Norwegian location codes map to `"nor"`.
+Adds an `iso3` column holding the ISO 3166-1 alpha-3 country code,
+modifying `x` in place. csdata carries Norwegian data only, so the value
+is `"nor"` on every row. The column contents are not read, so `x` gains
+the column even when it has no `location_code`.
 
 ## Usage
 
@@ -14,12 +15,21 @@ add_iso3_to_data_set(x)
 
 - x:
 
-  A data.table containing a column named `location_code`.
+  A data.table. Only a data.table method exists, so any other class
+  raises "no applicable method".
 
 ## Value
 
-`x`, invisibly, with a new `iso3` column containing the ISO 3166-1
-alpha-3 country code (always `"nor"` for Norwegian locations).
+`x`, invisibly, with a new `iso3` column holding `"nor"` on every row.
+
+## See also
+
+No vignette covers this function.
+[`location_code_to_iso3()`](https://niphr.github.io/csdata/reference/location_code_to_iso3.md)
+returns the same values as a vector instead of writing them onto `x`.
+
+Other data set column adders:
+[`add_granularity_geo_to_data_set()`](https://niphr.github.io/csdata/reference/add_granularity_geo_to_data_set.md)
 
 ## Examples
 

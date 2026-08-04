@@ -1,5 +1,77 @@
 # Changelog
 
+## Version 2026.8.4
+
+- Documentation overhaul. Each of the four documentation homes now owns
+  its own material: `README.md` is the GitHub landing page (what the
+  package is, install, one quick start, a which-function-do-I-want
+  table), `index.md` is the pkgdown home body, the vignettes carry the
+  worked detail, and the roxygen reference carries the per-function
+  contract.
+- Grew `README.md` from 49 to 280 words and added the routing table. No
+  passage is shared with a vignette.
+- Added `@seealso` to all 13 exported objects. Two of them are covered
+  by a vignette code chunk
+  ([`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
+  in all three articles,
+  [`nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
+  in `population_norway`); the other 11 say plainly that no vignette
+  covers them.
+- Added `@family` to four groups that share a real call-site contract:
+  location code converters, data set column adders, population data, and
+  unicode character lists. `nor_locations_*()` was deliberately left
+  ungrouped, because the three functions share only a name prefix and
+  return disjoint columns.
+- The
+  [`nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
+  and
+  [`nor_population_by_sex_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_sex_age_cats.md)
+  examples run again. They were wrapped in `\dontrun{}` in 2026.7.2
+  after a CRAN pretest NOTE on the CPU-to-elapsed ratio; both now pin
+  `data.table::setDTthreads(1)` for the duration of the example and
+  restore the previous setting.
+- Corrected documentation that did not match the code:
+  - [`location_code_to_granularity_geo()`](https://niphr.github.io/csdata/reference/location_code_to_granularity_geo.md)
+    and
+    [`location_code_to_iso3()`](https://niphr.github.io/csdata/reference/location_code_to_iso3.md)
+    no longer claim to accept a plain `data.frame`. A `data.frame`
+    reaches the default method, where the first warns and returns one
+    value for the whole frame and the second returns one value per
+    column rather than per row.
+  - [`location_code_to_iso3()`](https://niphr.github.io/csdata/reference/location_code_to_iso3.md)
+    and
+    [`add_iso3_to_data_set()`](https://niphr.github.io/csdata/reference/add_iso3_to_data_set.md)
+    now state that `"nor"` is returned without reading the input, so any
+    string yields `"nor"` and
+    [`add_iso3_to_data_set()`](https://niphr.github.io/csdata/reference/add_iso3_to_data_set.md)
+    succeeds on a table with no `location_code` column.
+  - [`set_config()`](https://niphr.github.io/csdata/reference/set_config.md)
+    returns the assigned value invisibly, not `NULL`, whenever
+    `border_nor` is supplied.
+  - [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
+    lists all 20 values of `granularity_geo`, not 12, and describes
+    `location_name_short` as it is: set on 38 of 616 rows, three letters
+    for counties, and absent for the Bergen, Stavanger and Trondheim
+    city districts.
+  - [`nor_locations_redistricting()`](https://niphr.github.io/csdata/reference/nor_locations_redistricting.md)
+    lists all 16 values of `granularity_geo`, not 14.
+  - [`nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
+    explains that `sex` is `"total"` because the function filters to the
+    sex total, not because the dataset lacks the split.
+  - [`nor_population_by_sex_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_sex_age_cats.md)
+    separates the two no-breakdown cases: Svalbard and Jan Mayen keep a
+    real `total`, while the unknown-location codes are `NA` on all three
+    sex rows.
+- Documented that
+  [`nor_locations_hierarchy_from_to()`](https://niphr.github.io/csdata/reference/nor_locations_hierarchy_from_to.md)
+  returns zero rows for every `from`/`to` combination involving
+  `"baregion"`, because the bundled hierarchy table carries no BA-region
+  codes. The example that demonstrated this by silently printing an
+  empty table was replaced.
+- Build-ignore `pkgdown/` and `Rplots.pdf`, which
+  [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html)
+  and plotting scripts leave behind.
+
 ## Version 2026.7.27
 
 - Fixed

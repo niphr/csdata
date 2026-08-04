@@ -1,9 +1,11 @@
 # Location codes and names for Norwegian geographic units
 
-Returns a data.table of all Norwegian geographic units with their
-location codes, display names, and presentation metadata. Coverage
-includes nation, counties, municipalities, city districts (Oslo, Bergen,
-Stavanger, Trondheim), BA-regions, and lab regions.
+Returns a data.table of Norwegian geographic units with their location
+codes, display names, and presentation metadata. Coverage includes
+nation, counties, municipalities, city districts (Oslo, Bergen,
+Stavanger, Trondheim), BA-regions, and lab regions, plus placeholder
+codes for not-mainland and unknown locations. The returned table has no
+key set.
 
 ## Usage
 
@@ -37,8 +39,12 @@ A data.table with one row per geographic unit and the columns:
 
 - location_name_short:
 
-  Abbreviated name: 1-letter for nation and county, shorter display name
-  for Oslo and Bergen city districts.
+  Abbreviated name, `NA` on most rows. It is set for the nation and the
+  5 georegions (one letter), the 15 counties (three letters), and the 15
+  Oslo city districts plus the 2 extra Oslo wards (a display name of 4
+  to 13 characters, on some rows identical to `location_name`). It is
+  `NA` for municipalities, BA-regions, lab regions, and the Bergen,
+  Stavanger and Trondheim city districts.
 
 - location_name_description_nb:
 
@@ -63,7 +69,19 @@ A data.table with one row per geographic unit and the columns:
   Geographic granularity: one of `"nation"`, `"georegion"`,
   `"mtregion"`, `"county"`, `"municip"`, `"baregion"`, `"wardoslo"`,
   `"wardbergen"`, `"wardstavanger"`, `"wardtrondheim"`,
-  `"extrawardoslo"`, `"lab"`.
+  `"extrawardoslo"`, `"lab"`, `"notmainlandcounty"`,
+  `"notmainlandmunicip"`, `"missingcounty"`, `"missingmunicip"`,
+  `"missingwardoslo"`, `"missingwardbergen"`, `"missingwardstavanger"`,
+  `"missingwardtrondheim"`.
+
+## See also
+
+[`vignette("locations_norway", package = "csdata")`](https://niphr.github.io/csdata/articles/locations_norway.md)
+prints the `location_code` and `location_name_description_nb` columns of
+this table in full.
+[`vignette("csdata", package = "csdata")`](https://niphr.github.io/csdata/articles/csdata.md)
+summarises the table by `granularity_geo` and states which name column
+to use where.
 
 ## Examples
 

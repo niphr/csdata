@@ -9,7 +9,7 @@ Modify via set_config(); read directly (e.g. config$border_nor)."><meta property
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,7 +68,15 @@ Modify via <code><a href="set_config.html">set_config()</a></code>; read directl
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>Available variables:</p><ul><li><p><code>border_nor</code> (default <code>2024</code>): the border year used when selecting
 Norwegian geographic datasets. Valid values: <code>2024</code>.</p></li>
-</ul></div>
+</ul><p><code>border_nor</code> supplies the default <code>border</code> argument of
+<code><a href="nor_locations_names.html">nor_locations_names()</a></code>, <code><a href="nor_locations_redistricting.html">nor_locations_redistricting()</a></code>,
+<code><a href="nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to()</a></code>, <code><a href="nor_population_by_age_cats.html">nor_population_by_age_cats()</a></code> and
+<code><a href="nor_population_by_sex_age_cats.html">nor_population_by_sex_age_cats()</a></code>. No other exported function reads it.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>No vignette covers this object.</p></div>
+    </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

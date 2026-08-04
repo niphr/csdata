@@ -59,6 +59,26 @@ A data.table with columns:
   Name of the `to` location (only present when
   `include_to_name = TRUE`).
 
+The table has no key set, and a combination the bundled hierarchy cannot
+express yields zero rows.
+
+## Details
+
+A combination that the bundled hierarchy table cannot express returns a
+zero-row data.table rather than an error. Requesting `"baregion"` as
+either `from` or `to` always does this, because the bundled table
+carries no BA-region codes; use
+[`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
+to list the BA-regions themselves.
+
+## See also
+
+No vignette covers this function.
+[`vignette("locations_norway", package = "csdata")`](https://niphr.github.io/csdata/articles/locations_norway.md)
+tabulates the `location_code` values returned by
+[`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md),
+which are the values `from_code` and `to_code` are drawn from.
+
 ## Examples
 
 ``` r
@@ -80,24 +100,24 @@ csdata::nor_locations_hierarchy_from_to(from = "wardoslo", to = "county")
 #> 13: wardoslo_nor030113 county_nor03
 #> 14: wardoslo_nor030114 county_nor03
 #> 15: wardoslo_nor030115 county_nor03
-csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion")
-#> Empty data.table (0 rows and 2 cols): from_code,to_code
+
+nrow(csdata::nor_locations_hierarchy_from_to(from = "municip", to = "county"))
+#> [1] 357
+
 csdata::nor_locations_hierarchy_from_to(
   from = c("municip", "county"),
   to   = "georegion",
   include_to_name = TRUE
-)
-#>            from_code        to_code                  to_name
-#>               <char>         <char>                   <char>
-#>   1: municip_nor0301 georegion_nor5     Østlandet-Austlandet
-#>   2: municip_nor1101 georegion_nor3               Vestlandet
-#>   3: municip_nor1103 georegion_nor3               Vestlandet
-#>   4: municip_nor1106 georegion_nor3               Vestlandet
-#>   5: municip_nor1108 georegion_nor3               Vestlandet
-#>  ---                                                        
-#> 368:    county_nor42 georegion_nor4                    Agder
-#> 369:    county_nor46 georegion_nor3               Vestlandet
-#> 370:    county_nor50 georegion_nor2    Trøndelag-Trööndelage
-#> 371:    county_nor55 georegion_nor1 Nord-Norge-Davvi-Norggas
-#> 372:    county_nor56 georegion_nor1 Nord-Norge-Davvi-Norggas
+)[1:5]
+#>          from_code        to_code              to_name
+#>             <char>         <char>               <char>
+#> 1: municip_nor0301 georegion_nor5 Østlandet-Austlandet
+#> 2: municip_nor1101 georegion_nor3           Vestlandet
+#> 3: municip_nor1103 georegion_nor3           Vestlandet
+#> 4: municip_nor1106 georegion_nor3           Vestlandet
+#> 5: municip_nor1108 georegion_nor3           Vestlandet
+
+# baregion is accepted but the bundled hierarchy holds no BA-region codes
+nrow(csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion"))
+#> [1] 0
 ```

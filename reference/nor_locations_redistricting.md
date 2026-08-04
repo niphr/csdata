@@ -28,11 +28,16 @@ A data.table with columns:
 
 - location_code_current:
 
-  Location code under the target border year.
+  Location code under the target border year. Each of the 421 distinct
+  values also appears in
+  [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md).
 
 - location_code_original:
 
-  Location code as it existed in `calyear`.
+  Location code as it existed in `calyear`. Of the 941 distinct values,
+  520 are retired codes that
+  [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
+  no longer lists.
 
 - calyear:
 
@@ -41,16 +46,28 @@ A data.table with columns:
 - weighting:
 
   Proportional weight to apply when aggregating from the original
-  location to the current location (values sum to 1 within each
-  `location_code_original` / `calyear` group).
+  location to the current location. Values sum to 1 within each
+  `location_code_original` / `calyear` group (all 40,819 of them), so a
+  row spread across several current locations is split rather than
+  duplicated. They need not sum to 1 within a `location_code_current` /
+  `calyear` group: 4,334 of those 35,160 groups do not.
 
 - granularity_geo:
 
   Geographic granularity: one of `"nation"`, `"county"`, `"municip"`,
   `"wardbergen"`, `"wardoslo"`, `"wardstavanger"`, `"wardtrondheim"`,
-  `"missingwardbergen"`, `"missingwardoslo"`, `"missingwardstavanger"`,
-  `"missingwardtrondheim"`, `"notmainlandcounty"`,
-  `"notmainlandmunicip"`, `"missingcounty"`.
+  `"extrawardoslo"`, `"missingwardbergen"`, `"missingwardoslo"`,
+  `"missingwardstavanger"`, `"missingwardtrondheim"`,
+  `"notmainlandcounty"`, `"notmainlandmunicip"`, `"missingcounty"`,
+  `"missingmunicip"`.
+
+## See also
+
+No vignette covers this function.
+[`vignette("locations_norway", package = "csdata")`](https://niphr.github.io/csdata/articles/locations_norway.md)
+tabulates the `location_code` values returned by
+[`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md),
+which are the values `location_code_current` is drawn from.
 
 ## Examples
 

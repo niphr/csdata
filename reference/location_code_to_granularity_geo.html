@@ -15,7 +15,7 @@ reference table is supplied, the granularity is looked up directly.'><meta prope
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.7.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,8 +78,10 @@ reference table is supplied, the granularity is looked up directly.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>A character vector of location codes, or a data.table / data.frame
-containing a column named <code>location_code</code>.</p></dd>
+<dd><p>A character vector of location codes, or a data.table containing a
+column named <code>location_code</code>. A plain data.frame is not supported: it
+falls through to the default method, which treats the frame itself as the
+vector of codes.</p></dd>
 
 
 <dt id="arg-location-reference">location_reference<a class="anchor" aria-label="anchor" href="#arg-location-reference"></a></dt>
@@ -90,9 +92,23 @@ is inferred from the location code prefix.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A character vector the same length as <code>x</code> (or with as many elements
-as there are rows in <code>x</code> when <code>x</code> is a data.table), containing the
-corresponding <code>granularity_geo</code> values.</p>
+    <p>A character vector the same length as <code>x</code>, or with as many elements
+as there are rows in <code>x</code> when <code>x</code> is a data.table, containing the
+corresponding <code>granularity_geo</code> values. A code with no leading lowercase
+letters yields <code>NA</code>, and an unmatched code yields <code>NA</code> when
+<code>location_reference</code> is supplied.</p>
+<p>The length guarantee has one exception. <code>location_reference</code> is joined on
+<code>location_code</code>, so a code that appears more than once in the reference
+contributes one element per matching row. <code><a href="nor_locations_names.html">nor_locations_names()</a></code> holds
+one such code today, <code>"lab_nor084467"</code>, which two laboratories share.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
+    <div class="dont-index"><p>No vignette covers this function.
+<code><a href="../articles/locations_norway.html">vignette("locations_norway", package = "csdata")</a></code> tabulates the
+<code>location_code</code> values returned by <code><a href="nor_locations_names.html">nor_locations_names()</a></code>.</p>
+<p>Other location code converters:
+<code><a href="location_code_to_iso3.html">location_code_to_iso3()</a></code></p></div>
     </div>
 
     <div class="section level2">
@@ -100,10 +116,21 @@ corresponding <code>granularity_geo</code> values.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">location_code_to_granularity_geo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nation_nor"</span>, <span class="st">"county_nor03"</span>, <span class="st">"municip_nor0301"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nation"  "county"  "municip"</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># a code with no lowercase prefix gives NA</span></span></span>
+<span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">location_code_to_granularity_geo</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nation_nor"</span>, <span class="st">""</span>, <span class="cn">NA</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nation" NA       NA      </span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-datatable.com" class="external-link">data.table</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">dt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>location_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nation_nor"</span>, <span class="st">"county_nor03"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">location_code_to_granularity_geo</span><span class="op">(</span><span class="va">dt</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nation" "county"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># looked up against a reference table instead of parsed from the prefix</span></span></span>
+<span class="r-in"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu">location_code_to_granularity_geo</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nation_nor"</span>, <span class="st">"county_nor03"</span>, <span class="st">"blah"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>  location_reference <span class="op">=</span> <span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="nor_locations_names.html">nor_locations_names</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "nation" "county" NA      </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
