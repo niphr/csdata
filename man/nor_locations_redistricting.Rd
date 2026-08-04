@@ -16,18 +16,26 @@ nor_locations_redistricting(border = csdata::config$border_nor)
 \value{
 A data.table with columns:
 \describe{
-\item{location_code_current}{Location code under the target border year.}
-\item{location_code_original}{Location code as it existed in \code{calyear}.}
+\item{location_code_current}{Location code under the target border year.
+Each of the 421 distinct values also appears in
+\code{\link[=nor_locations_names]{nor_locations_names()}}.}
+\item{location_code_original}{Location code as it existed in \code{calyear}.
+Of the 941 distinct values, 520 are retired codes that
+\code{\link[=nor_locations_names]{nor_locations_names()}} no longer lists.}
 \item{calyear}{The calendar year to which \code{location_code_original}
 applies.}
 \item{weighting}{Proportional weight to apply when aggregating from the
-original location to the current location (values sum to 1 within each
-\code{location_code_original} / \code{calyear} group).}
+original location to the current location. Values sum to 1 within each
+\code{location_code_original} / \code{calyear} group (all 40,819 of them), so a
+row spread across several current locations is split rather than
+duplicated. They need not sum to 1 within a \code{location_code_current} /
+\code{calyear} group: 4,334 of those 35,160 groups do not.}
 \item{granularity_geo}{Geographic granularity: one of \code{"nation"},
 \code{"county"}, \code{"municip"}, \code{"wardbergen"}, \code{"wardoslo"},
-\code{"wardstavanger"}, \code{"wardtrondheim"}, \code{"missingwardbergen"},
-\code{"missingwardoslo"}, \code{"missingwardstavanger"}, \code{"missingwardtrondheim"},
-\code{"notmainlandcounty"}, \code{"notmainlandmunicip"}, \code{"missingcounty"}.}
+\code{"wardstavanger"}, \code{"wardtrondheim"}, \code{"extrawardoslo"},
+\code{"missingwardbergen"}, \code{"missingwardoslo"}, \code{"missingwardstavanger"},
+\code{"missingwardtrondheim"}, \code{"notmainlandcounty"},
+\code{"notmainlandmunicip"}, \code{"missingcounty"}, \code{"missingmunicip"}.}
 }
 }
 \description{
@@ -40,4 +48,10 @@ the current location code, with a proportional weighting.
 d <- csdata::nor_locations_redistricting()
 head(d)
 d[calyear == 2019 & granularity_geo == "municip"]
+}
+\seealso{
+No vignette covers this function.
+\code{vignette("locations_norway", package = "csdata")} tabulates the
+\code{location_code} values returned by \code{\link[=nor_locations_names]{nor_locations_names()}}, which are the
+values \code{location_code_current} is drawn from.
 }

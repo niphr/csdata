@@ -168,6 +168,12 @@ nor_loc_hierarchy_from_to <- function(
 #' `to` accept character vectors, in which case all requested combinations are
 #' returned combined into a single data.table.
 #'
+#' A combination that the bundled hierarchy table cannot express returns a
+#' zero-row data.table rather than an error. Requesting `"baregion"` as either
+#' `from` or `to` always does this, because the bundled table carries no
+#' BA-region codes; use [nor_locations_names()] to list the BA-regions
+#' themselves.
+#'
 #' @param from Character vector. The source geographic granularity. One or more
 #'   of: `"wardoslo"`, `"extrawardoslo"`, `"wardbergen"`, `"wardtrondheim"`,
 #'   `"wardstavanger"`, `"missingwardoslo"`, `"missingwardbergen"`,
@@ -188,14 +194,25 @@ nor_loc_hierarchy_from_to <- function(
 #'     \item{to_name}{Name of the `to` location (only present when
 #'       `include_to_name = TRUE`).}
 #'   }
+#'   The table has no key set, and a combination the bundled hierarchy cannot
+#'   express yields zero rows.
+#' @seealso No vignette covers this function.
+#'   \code{vignette("locations_norway", package = "csdata")} tabulates the
+#'   `location_code` values returned by [nor_locations_names()], which are the
+#'   values `from_code` and `to_code` are drawn from.
 #' @examples
 #' csdata::nor_locations_hierarchy_from_to(from = "wardoslo", to = "county")
-#' csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion")
+#'
+#' nrow(csdata::nor_locations_hierarchy_from_to(from = "municip", to = "county"))
+#'
 #' csdata::nor_locations_hierarchy_from_to(
 #'   from = c("municip", "county"),
 #'   to   = "georegion",
 #'   include_to_name = TRUE
-#' )
+#' )[1:5]
+#'
+#' # baregion is accepted but the bundled hierarchy holds no BA-region codes
+#' nrow(csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion"))
 #' @export
 nor_locations_hierarchy_from_to <- function(
   from,

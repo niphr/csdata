@@ -9,9 +9,18 @@ se
 \description{
 A named list of Swedish special characters as unicode strings,
 for use where literal non-ASCII characters are inconvenient.
-Elements: \code{OE}/\code{oe} (Oe/oe), \code{AE}/\code{ae} (Ae/ae).
+Elements: \code{OE}/\code{oe} (Oe/oe), \code{AE}/\code{ae} (Ae/ae). Each element is a single
+character. These four names are spelled the same way in \link{nb}, so code that
+indexes \code{se} by name also works against \code{nb}.
 }
 \examples{
 print(csdata::se)
 csdata::se$oe  # lowercase oe
 }
+\seealso{
+No vignette covers this object.
+
+Other unicode character lists:
+\code{\link{nb}}
+}
+\concept{unicode character lists}

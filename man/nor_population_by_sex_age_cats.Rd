@@ -42,16 +42,37 @@ A function that categorizes the Norwegian population into custom age categories,
 split by sex (male/female) and optionally the total of both sexes.
 }
 \details{
-For locations where Statistics Norway provides no sex breakdown (Svalbard,
-Jan Mayen, unknown), \code{male} and \code{female} are returned as \code{NA} while \code{total}
-holds the real count.
+For Svalbard and Jan Mayen (\code{notmainlandcounty_nor21},
+\code{notmainlandcounty_nor22}, \code{notmainlandmunicip_nor2100},
+\code{notmainlandmunicip_nor2200}) Statistics Norway provides no sex breakdown, so
+\code{pop_jan1_n} is \code{NA} on the \code{male} and \code{female} rows while the \code{total} row
+holds the real count. For the unknown-location codes
+(\code{missingcounty_nor99}, \code{missingmunicip_nor9999}) \code{pop_jan1_n} is \code{NA} on all
+three sex rows, \code{total} included.
 
 Note that when \code{include_total_sex = TRUE} the output holds \code{male}, \code{female} and
 \code{total} in long format, so summing \code{pop_jan1_n} across all sex values double-counts.
 Filter to a single sex, or sum only the \code{male}/\code{female} components.
 }
 \examples{
-\dontrun{
-nor_population_by_sex_age_cats(cats = list(c(1:10), c(11:20)))
+# data.table's default multi-threading pushes this example past CRAN's
+# CPU-to-elapsed limit, so pin it to one thread and restore afterwards.
+old_threads <- data.table::getDTthreads()
+data.table::setDTthreads(1)
+
+d <- nor_population_by_sex_age_cats(cats = list(c(1:10), c(11:20)))
+print(d[location_code == "nation_nor" & calyear == 2024])
+
+data.table::setDTthreads(old_threads)
 }
+\seealso{
+No vignette covers this function.
+\code{vignette("population_norway", package = "csdata")} uses
+\code{\link[=nor_population_by_age_cats]{nor_population_by_age_cats()}}, which returns the sex total only.
+\code{vignette("csdata", package = "csdata")} gives the csverse coding
+rules for the \code{age} and \code{sex} columns.
+
+Other population data:
+\code{\link[=nor_population_by_age_cats]{nor_population_by_age_cats()}}
 }
+\concept{population data}

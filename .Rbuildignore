@@ -4,6 +4,8 @@ Makefile
 ^data-raw$
 _pkgdown.yml
 ^index\.md$
+^pkgdown$
+^Rplots\.pdf$
 ^CRAN-SUBMISSION$
 cran-comments.md
 ^doc$

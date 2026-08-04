@@ -3,6 +3,9 @@
 #' A named list of Norwegian special characters as unicode strings,
 #' for use where literal non-ASCII characters are inconvenient.
 #' Elements: `AA`/`aa` (Aa/aa), `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae).
+#' Each element is a single character.
+#' @family unicode character lists
+#' @seealso No vignette covers this object.
 #' @examples
 #' print(csdata::nb)
 #' csdata::nb$AA  # uppercase Aa
@@ -19,7 +22,11 @@ nb$ae <- "\u00E6"
 #'
 #' A named list of Swedish special characters as unicode strings,
 #' for use where literal non-ASCII characters are inconvenient.
-#' Elements: `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae).
+#' Elements: `OE`/`oe` (Oe/oe), `AE`/`ae` (Ae/ae). Each element is a single
+#' character. These four names are spelled the same way in [nb], so code that
+#' indexes `se` by name also works against `nb`.
+#' @family unicode character lists
+#' @seealso No vignette covers this object.
 #' @examples
 #' print(csdata::se)
 #' csdata::se$oe  # lowercase oe
@@ -38,6 +45,12 @@ se$ae <- "\u00E4"
 #' Available variables:
 #' - `border_nor` (default `2024`): the border year used when selecting
 #'   Norwegian geographic datasets. Valid values: `2024`.
+#'
+#' `border_nor` supplies the default `border` argument of
+#' [nor_locations_names()], [nor_locations_redistricting()],
+#' [nor_locations_hierarchy_from_to()], [nor_population_by_age_cats()] and
+#' [nor_population_by_sex_age_cats()]. No other exported function reads it.
+#' @seealso No vignette covers this object.
 #' @examples
 #' print(ls(csdata::config))
 #' for(i in names(csdata::config)){
@@ -49,13 +62,18 @@ config$border_nor <- 2024
 
 #' Set package configuration options
 #'
-#' Updates one or more variables in the [config] environment.
-#' Call this at the start of a script to change the default border year
-#' used by all data-returning functions.
+#' Updates `border_nor` in the [config] environment. Call this at the start of
+#' a script to change the default `border` argument of
+#' [nor_locations_names()], [nor_locations_redistricting()],
+#' [nor_locations_hierarchy_from_to()], [nor_population_by_age_cats()] and
+#' [nor_population_by_sex_age_cats()].
 #'
 #' @param border_nor Integer. The Norwegian geographic border year to use as
 #'   the default. Valid values: `2024`. Pass `NULL` to leave unchanged.
-#' @returns `NULL`, invisibly. Called for the side effect of updating [config].
+#' @returns Invisibly, the value assigned to `config$border_nor`, or `NULL`
+#'   when `border_nor` is `NULL`. Called for the side effect of updating
+#'   [config].
+#' @seealso No vignette covers this function.
 #' @examples
 #' old <- csdata::config$border_nor
 #' csdata::set_config(border_nor = 2024)

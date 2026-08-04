@@ -11,16 +11,23 @@ set_config(border_nor = NULL)
 the default. Valid values: \code{2024}. Pass \code{NULL} to leave unchanged.}
 }
 \value{
-\code{NULL}, invisibly. Called for the side effect of updating \link{config}.
+Invisibly, the value assigned to \code{config$border_nor}, or \code{NULL}
+when \code{border_nor} is \code{NULL}. Called for the side effect of updating
+\link{config}.
 }
 \description{
-Updates one or more variables in the \link{config} environment.
-Call this at the start of a script to change the default border year
-used by all data-returning functions.
+Updates \code{border_nor} in the \link{config} environment. Call this at the start of
+a script to change the default \code{border} argument of
+\code{\link[=nor_locations_names]{nor_locations_names()}}, \code{\link[=nor_locations_redistricting]{nor_locations_redistricting()}},
+\code{\link[=nor_locations_hierarchy_from_to]{nor_locations_hierarchy_from_to()}}, \code{\link[=nor_population_by_age_cats]{nor_population_by_age_cats()}} and
+\code{\link[=nor_population_by_sex_age_cats]{nor_population_by_sex_age_cats()}}.
 }
 \examples{
 old <- csdata::config$border_nor
 csdata::set_config(border_nor = 2024)
 csdata::config$border_nor  # 2024
 csdata::set_config(border_nor = old)  # restore
+}
+\seealso{
+No vignette covers this function.
 }

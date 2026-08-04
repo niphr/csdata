@@ -16,10 +16,18 @@ Available variables:
 \item \code{border_nor} (default \code{2024}): the border year used when selecting
 Norwegian geographic datasets. Valid values: \code{2024}.
 }
+
+\code{border_nor} supplies the default \code{border} argument of
+\code{\link[=nor_locations_names]{nor_locations_names()}}, \code{\link[=nor_locations_redistricting]{nor_locations_redistricting()}},
+\code{\link[=nor_locations_hierarchy_from_to]{nor_locations_hierarchy_from_to()}}, \code{\link[=nor_population_by_age_cats]{nor_population_by_age_cats()}} and
+\code{\link[=nor_population_by_sex_age_cats]{nor_population_by_sex_age_cats()}}. No other exported function reads it.
 }
 \examples{
 print(ls(csdata::config))
 for(i in names(csdata::config)){
   cat(i, ":", csdata::config[[i]], "\n")
 }
+}
+\seealso{
+No vignette covers this object.
 }

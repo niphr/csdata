@@ -19,8 +19,13 @@ A data.table with one row per geographic unit and the columns:
 \describe{
 \item{location_code}{Location code (e.g. \code{"nation_nor"}, \code{"county_nor03"}).}
 \item{location_name}{Full location name.}
-\item{location_name_short}{Abbreviated name: 1-letter for nation and
-county, shorter display name for Oslo and Bergen city districts.}
+\item{location_name_short}{Abbreviated name, \code{NA} on most rows. It is
+set for the nation and the 5 georegions (one letter), the 15 counties
+(three letters), and the 15 Oslo city districts plus the 2 extra Oslo
+wards (a display name of 4 to 13 characters, on some rows identical to
+\code{location_name}). It is \code{NA} for municipalities,
+BA-regions, lab regions, and the Bergen, Stavanger and Trondheim city
+districts.}
 \item{location_name_description_nb}{Location name with a parenthetical
 description of geographic level (Norwegian Bokmal).}
 \item{location_name_file_nb_utf}{Name suitable for use in file names,
@@ -31,17 +36,27 @@ with Norwegian characters replaced by ASCII equivalents.}
 \item{granularity_geo}{Geographic granularity: one of \code{"nation"},
 \code{"georegion"}, \code{"mtregion"}, \code{"county"}, \code{"municip"}, \code{"baregion"},
 \code{"wardoslo"}, \code{"wardbergen"}, \code{"wardstavanger"}, \code{"wardtrondheim"},
-\code{"extrawardoslo"}, \code{"lab"}.}
+\code{"extrawardoslo"}, \code{"lab"}, \code{"notmainlandcounty"},
+\code{"notmainlandmunicip"}, \code{"missingcounty"}, \code{"missingmunicip"},
+\code{"missingwardoslo"}, \code{"missingwardbergen"}, \code{"missingwardstavanger"},
+\code{"missingwardtrondheim"}.}
 }
 }
 \description{
-Returns a data.table of all Norwegian geographic units with their location
+Returns a data.table of Norwegian geographic units with their location
 codes, display names, and presentation metadata. Coverage includes nation,
 counties, municipalities, city districts (Oslo, Bergen, Stavanger,
-Trondheim), BA-regions, and lab regions.
+Trondheim), BA-regions, and lab regions, plus placeholder codes for
+not-mainland and unknown locations. The returned table has no key set.
 }
 \examples{
 d <- nor_locations_names()
 head(d)
 d[granularity_geo == "county"]
+}
+\seealso{
+\code{vignette("locations_norway", package = "csdata")} prints the
+\code{location_code} and \code{location_name_description_nb} columns of this table in
+full. \code{vignette("csdata", package = "csdata")} summarises the table by
+\code{granularity_geo} and states which name column to use where.
 }

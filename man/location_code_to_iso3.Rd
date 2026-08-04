@@ -7,22 +7,37 @@
 location_code_to_iso3(x)
 }
 \arguments{
-\item{x}{A character vector of location codes, or a data.table / data.frame
-containing a column named \code{location_code}.}
+\item{x}{A character vector of location codes, or a data.table containing a
+column named \code{location_code}. A plain data.frame is not supported: it
+falls through to the default method, which returns one value per column
+rather than one per row.}
 }
 \value{
-A character vector the same length as \code{x} (or with as many elements
-as there are rows in \code{x} when \code{x} is a data.table), containing the
-corresponding ISO 3166-1 alpha-3 country code (always \code{"nor"}).
+A character vector of \code{"nor"}, the same length as \code{x}, or with as
+many elements as there are rows in \code{x} when \code{x} is a data.table.
 }
 \description{
-Returns the ISO 3166-1 alpha-3 country code for each location code.
-Currently all Norwegian location codes map to \code{"nor"}.
+Returns the ISO 3166-1 alpha-3 country code for each location code. csdata
+carries Norwegian data only, so the implementation returns \code{"nor"} for every
+element without inspecting its value. A code from another country, or a
+string that is not a location code at all, also returns \code{"nor"}.
 }
 \examples{
 csdata::location_code_to_iso3(c("nation_nor", "county_nor03", "municip_nor0301"))
+
+# the input value is not inspected
+csdata::location_code_to_iso3(c("county_nor03", "xyz"))
 
 library(data.table)
 dt <- data.table(location_code = c("nation_nor", "county_nor03"))
 csdata::location_code_to_iso3(dt)
 }
+\seealso{
+No vignette covers this function.
+\code{vignette("locations_norway", package = "csdata")} tabulates the
+\code{location_code} values returned by \code{\link[=nor_locations_names]{nor_locations_names()}}.
+
+Other location code converters:
+\code{\link[=location_code_to_granularity_geo]{location_code_to_granularity_geo()}}
+}
+\concept{location code converters}

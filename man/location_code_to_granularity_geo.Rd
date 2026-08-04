@@ -7,17 +7,26 @@
 location_code_to_granularity_geo(x, location_reference = NULL)
 }
 \arguments{
-\item{x}{A character vector of location codes, or a data.table / data.frame
-containing a column named \code{location_code}.}
+\item{x}{A character vector of location codes, or a data.table containing a
+column named \code{location_code}. A plain data.frame is not supported: it
+falls through to the default method, which treats the frame itself as the
+vector of codes.}
 
 \item{location_reference}{A data.table with columns \code{location_code} and
 \code{granularity_geo} to use for lookup. When \code{NULL} (default), granularity
 is inferred from the location code prefix.}
 }
 \value{
-A character vector the same length as \code{x} (or with as many elements
-as there are rows in \code{x} when \code{x} is a data.table), containing the
-corresponding \code{granularity_geo} values.
+A character vector the same length as \code{x}, or with as many elements
+as there are rows in \code{x} when \code{x} is a data.table, containing the
+corresponding \code{granularity_geo} values. A code with no leading lowercase
+letters yields \code{NA}, and an unmatched code yields \code{NA} when
+\code{location_reference} is supplied.
+
+The length guarantee has one exception. \code{location_reference} is joined on
+\code{location_code}, so a code that appears more than once in the reference
+contributes one element per matching row. \code{\link[=nor_locations_names]{nor_locations_names()}} holds
+one such code today, \code{"lab_nor084467"}, which two laboratories share.
 }
 \description{
 Extracts the geographic granularity label from one or more location codes.
@@ -29,7 +38,25 @@ reference table is supplied, the granularity is looked up directly.
 \examples{
 csdata::location_code_to_granularity_geo(c("nation_nor", "county_nor03", "municip_nor0301"))
 
+# a code with no lowercase prefix gives NA
+csdata::location_code_to_granularity_geo(c("nation_nor", "", NA))
+
 library(data.table)
 dt <- data.table(location_code = c("nation_nor", "county_nor03"))
 csdata::location_code_to_granularity_geo(dt)
+
+# looked up against a reference table instead of parsed from the prefix
+csdata::location_code_to_granularity_geo(
+  c("nation_nor", "county_nor03", "blah"),
+  location_reference = csdata::nor_locations_names()
+)
 }
+\seealso{
+No vignette covers this function.
+\code{vignette("locations_norway", package = "csdata")} tabulates the
+\code{location_code} values returned by \code{\link[=nor_locations_names]{nor_locations_names()}}.
+
+Other location code converters:
+\code{\link[=location_code_to_iso3]{location_code_to_iso3()}}
+}
+\concept{location code converters}

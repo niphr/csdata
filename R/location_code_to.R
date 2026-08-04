@@ -1,28 +1,40 @@
 #' @export
-location_code_to_granularity_geo.data.table <- function(x, location_reference = NULL){
-
+location_code_to_granularity_geo.data.table <- function(
+  x,
+  location_reference = NULL
+) {
   granularity_geo <- NULL
 
-  if(is.null(location_reference)){
+  if (is.null(location_reference)) {
     retval <- stringr::str_extract(x[["location_code"]], "^[a-z]+")
-    retval[retval=="norge"] <- "nation"
+    retval[retval == "norge"] <- "nation"
     return(retval)
   } else {
-    return(location_reference[x[["location_code"]], on = "location_code", granularity_geo])
+    return(location_reference[
+      x[["location_code"]],
+      on = "location_code",
+      granularity_geo
+    ])
   }
 }
 
 #' @export
-location_code_to_granularity_geo.default <- function(x, location_reference = NULL){
-
+location_code_to_granularity_geo.default <- function(
+  x,
+  location_reference = NULL
+) {
   granularity_geo <- NULL
 
-  if(is.null(location_reference)){
+  if (is.null(location_reference)) {
     retval <- stringr::str_extract(x, "^[a-z]+")
-    retval[retval=="norge"] <- "nation"
+    retval[retval == "norge"] <- "nation"
     return(retval)
   } else {
-    return(location_reference[data.table(location_code=x), on = "location_code", granularity_geo])
+    return(location_reference[
+      data.table(location_code = x),
+      on = "location_code",
+      granularity_geo
+    ])
   }
 }
 
@@ -34,53 +46,84 @@ location_code_to_granularity_geo.default <- function(x, location_reference = NUL
 #' `"county"`); the special prefix `"norge"` is mapped to `"nation"`. When a
 #' reference table is supplied, the granularity is looked up directly.
 #'
-#' @param x A character vector of location codes, or a data.table / data.frame
-#'   containing a column named `location_code`.
+#' @param x A character vector of location codes, or a data.table containing a
+#'   column named `location_code`. A plain data.frame is not supported: it
+#'   falls through to the default method, which treats the frame itself as the
+#'   vector of codes.
 #' @param location_reference A data.table with columns `location_code` and
 #'   `granularity_geo` to use for lookup. When `NULL` (default), granularity
 #'   is inferred from the location code prefix.
-#' @returns A character vector the same length as `x` (or with as many elements
-#'   as there are rows in `x` when `x` is a data.table), containing the
-#'   corresponding `granularity_geo` values.
+#' @returns A character vector the same length as `x`, or with as many elements
+#'   as there are rows in `x` when `x` is a data.table, containing the
+#'   corresponding `granularity_geo` values. A code with no leading lowercase
+#'   letters yields `NA`, and an unmatched code yields `NA` when
+#'   `location_reference` is supplied.
+#'
+#'   The length guarantee has one exception. `location_reference` is joined on
+#'   `location_code`, so a code that appears more than once in the reference
+#'   contributes one element per matching row. [nor_locations_names()] holds
+#'   one such code today, `"lab_nor084467"`, which two laboratories share.
+#' @family location code converters
+#' @seealso No vignette covers this function.
+#'   \code{vignette("locations_norway", package = "csdata")} tabulates the
+#'   `location_code` values returned by [nor_locations_names()].
 #' @examples
 #' csdata::location_code_to_granularity_geo(c("nation_nor", "county_nor03", "municip_nor0301"))
+#'
+#' # a code with no lowercase prefix gives NA
+#' csdata::location_code_to_granularity_geo(c("nation_nor", "", NA))
 #'
 #' library(data.table)
 #' dt <- data.table(location_code = c("nation_nor", "county_nor03"))
 #' csdata::location_code_to_granularity_geo(dt)
+#'
+#' # looked up against a reference table instead of parsed from the prefix
+#' csdata::location_code_to_granularity_geo(
+#'   c("nation_nor", "county_nor03", "blah"),
+#'   location_reference = csdata::nor_locations_names()
+#' )
 #' @export
-location_code_to_granularity_geo <- function(x, location_reference = NULL){
+location_code_to_granularity_geo <- function(x, location_reference = NULL) {
   UseMethod("location_code_to_granularity_geo")
 }
 
 #' @export
-location_code_to_iso3.data.table <- function(x){
+location_code_to_iso3.data.table <- function(x) {
   return(rep("nor", nrow(x)))
 }
 
 #' @export
-location_code_to_iso3.default <- function(x){
+location_code_to_iso3.default <- function(x) {
   return(rep("nor", length(x)))
 }
 
 #' Convert location codes to ISO 3166-1 alpha-3 country codes
 #'
-#' Returns the ISO 3166-1 alpha-3 country code for each location code.
-#' Currently all Norwegian location codes map to `"nor"`.
+#' Returns the ISO 3166-1 alpha-3 country code for each location code. csdata
+#' carries Norwegian data only, so the implementation returns `"nor"` for every
+#' element without inspecting its value. A code from another country, or a
+#' string that is not a location code at all, also returns `"nor"`.
 #'
-#' @param x A character vector of location codes, or a data.table / data.frame
-#'   containing a column named `location_code`.
-#' @returns A character vector the same length as `x` (or with as many elements
-#'   as there are rows in `x` when `x` is a data.table), containing the
-#'   corresponding ISO 3166-1 alpha-3 country code (always `"nor"`).
+#' @param x A character vector of location codes, or a data.table containing a
+#'   column named `location_code`. A plain data.frame is not supported: it
+#'   falls through to the default method, which returns one value per column
+#'   rather than one per row.
+#' @returns A character vector of `"nor"`, the same length as `x`, or with as
+#'   many elements as there are rows in `x` when `x` is a data.table.
+#' @family location code converters
+#' @seealso No vignette covers this function.
+#'   \code{vignette("locations_norway", package = "csdata")} tabulates the
+#'   `location_code` values returned by [nor_locations_names()].
 #' @examples
 #' csdata::location_code_to_iso3(c("nation_nor", "county_nor03", "municip_nor0301"))
+#'
+#' # the input value is not inspected
+#' csdata::location_code_to_iso3(c("county_nor03", "xyz"))
 #'
 #' library(data.table)
 #' dt <- data.table(location_code = c("nation_nor", "county_nor03"))
 #' csdata::location_code_to_iso3(dt)
 #' @export
-location_code_to_iso3 <- function(x){
+location_code_to_iso3 <- function(x) {
   UseMethod("location_code_to_iso3")
 }
-

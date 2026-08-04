@@ -42,7 +42,10 @@ nor_population_by_age_internal <- function(
 #'
 #' Aggregates the bundled Norwegian population dataset (from Statistics Norway)
 #' into caller-defined age bands. The underlying data covers every integer age
-#' from 0 to 105 at national, county, municipality, and city-district level.
+#' from 0 to 105 at national, georegion, county, municipality, and
+#' city-district level. Not-mainland and unknown locations carry the single
+#' placeholder age `-99` instead, which `include_total` counts but a band such
+#' as `0:105` does not.
 #'
 #' @param cats A named or unnamed list of integer vectors specifying the age
 #'   values to include in each category. Each vector element defines one age
@@ -63,27 +66,37 @@ nor_population_by_age_internal <- function(
 #'     \item{location_code}{Location code.}
 #'     \item{age}{Age category label, as derived from `cats` names or
 #'       auto-generated, plus `"total"` if `include_total = TRUE`.}
-#'     \item{sex}{Sex. Always `"total"` in the current dataset.}
+#'     \item{sex}{Sex. Always `"total"`, because this function filters the
+#'       bundled dataset to the sex total. The dataset itself also holds
+#'       `"male"` and `"female"`; reach those with
+#'       [nor_population_by_sex_age_cats()].}
 #'     \item{calyear}{Calendar year.}
 #'     \item{pop_jan1_n}{Population count as of 1 January of `calyear`.}
 #'     \item{imputed}{Logical. `TRUE` if the value was imputed.}
 #'   }
+#' @family population data
+#' @seealso \code{vignette("population_norway", package = "csdata")} plots the
+#'   national series and tabulates `pop_jan1_n` by location and calendar year
+#'   from this function. \code{vignette("csdata", package = "csdata")} gives the
+#'   csverse coding rules for the `age` and `sex` columns.
 #' @examples
-#' \dontrun{
-#' # Not run: aggregates the full population dataset, which exceeds CRAN's
-#' # example time limit.
+#' # data.table's default multi-threading pushes this example past CRAN's
+#' # CPU-to-elapsed limit, so pin it to one thread and restore afterwards.
+#' old_threads <- data.table::getDTthreads()
+#' data.table::setDTthreads(1)
 #'
 #' # Default: return total population only
 #' d <- nor_population_by_age_cats()
-#' head(d[granularity_geo == "nation"])
+#' print(head(d[granularity_geo == "nation"]))
 #'
 #' # Named age bands
 #' d2 <- nor_population_by_age_cats(
 #'   cats = list("children" = 0:17, "working_age" = 18:66, "elderly" = 67:105),
 #'   include_total = TRUE
 #' )
-#' d2[granularity_geo == "nation" & calyear == 2024]
-#' }
+#' print(d2[granularity_geo == "nation" & calyear == 2024])
+#'
+#' data.table::setDTthreads(old_threads)
 #' @export
 nor_population_by_age_cats <- function(
   cats = NULL,

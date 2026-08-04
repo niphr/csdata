@@ -1,9 +1,10 @@
 #' Location codes and names for Norwegian geographic units
 #'
-#' Returns a data.table of all Norwegian geographic units with their location
+#' Returns a data.table of Norwegian geographic units with their location
 #' codes, display names, and presentation metadata. Coverage includes nation,
 #' counties, municipalities, city districts (Oslo, Bergen, Stavanger,
-#' Trondheim), BA-regions, and lab regions.
+#' Trondheim), BA-regions, and lab regions, plus placeholder codes for
+#' not-mainland and unknown locations. The returned table has no key set.
 #'
 #' @param border Integer. The geographic border year determining which
 #'   administrative boundaries are used. Valid values: `2024`.
@@ -12,8 +13,13 @@
 #'   \describe{
 #'     \item{location_code}{Location code (e.g. `"nation_nor"`, `"county_nor03"`).}
 #'     \item{location_name}{Full location name.}
-#'     \item{location_name_short}{Abbreviated name: 1-letter for nation and
-#'       county, shorter display name for Oslo and Bergen city districts.}
+#'     \item{location_name_short}{Abbreviated name, `NA` on most rows. It is
+#'       set for the nation and the 5 georegions (one letter), the 15 counties
+#'       (three letters), and the 15 Oslo city districts plus the 2 extra Oslo
+#'       wards (a display name of 4 to 13 characters, on some rows identical to
+#'       `location_name`). It is `NA` for municipalities,
+#'       BA-regions, lab regions, and the Bergen, Stavanger and Trondheim city
+#'       districts.}
 #'     \item{location_name_description_nb}{Location name with a parenthetical
 #'       description of geographic level (Norwegian Bokmal).}
 #'     \item{location_name_file_nb_utf}{Name suitable for use in file names,
@@ -24,9 +30,16 @@
 #'     \item{granularity_geo}{Geographic granularity: one of `"nation"`,
 #'       `"georegion"`, `"mtregion"`, `"county"`, `"municip"`, `"baregion"`,
 #'       `"wardoslo"`, `"wardbergen"`, `"wardstavanger"`, `"wardtrondheim"`,
-#'       `"extrawardoslo"`, `"lab"`.}
+#'       `"extrawardoslo"`, `"lab"`, `"notmainlandcounty"`,
+#'       `"notmainlandmunicip"`, `"missingcounty"`, `"missingmunicip"`,
+#'       `"missingwardoslo"`, `"missingwardbergen"`, `"missingwardstavanger"`,
+#'       `"missingwardtrondheim"`.}
 #'   }
 #' @source \url{https://no.wikipedia.org/wiki/Liste_over_norske_kommunenummer}
+#' @seealso \code{vignette("locations_norway", package = "csdata")} prints the
+#'   `location_code` and `location_name_description_nb` columns of this table in
+#'   full. \code{vignette("csdata", package = "csdata")} summarises the table by
+#'   `granularity_geo` and states which name column to use where.
 #' @examples
 #' d <- nor_locations_names()
 #' head(d)

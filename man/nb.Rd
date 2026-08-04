@@ -10,8 +10,16 @@ nb
 A named list of Norwegian special characters as unicode strings,
 for use where literal non-ASCII characters are inconvenient.
 Elements: \code{AA}/\code{aa} (Aa/aa), \code{OE}/\code{oe} (Oe/oe), \code{AE}/\code{ae} (Ae/ae).
+Each element is a single character.
 }
 \examples{
 print(csdata::nb)
 csdata::nb$AA  # uppercase Aa
 }
+\seealso{
+No vignette covers this object.
+
+Other unicode character lists:
+\code{\link{se}}
+}
+\concept{unicode character lists}

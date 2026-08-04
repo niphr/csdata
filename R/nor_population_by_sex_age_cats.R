@@ -3,9 +3,13 @@
 #' A function that categorizes the Norwegian population into custom age categories,
 #' split by sex (male/female) and optionally the total of both sexes.
 #'
-#' For locations where Statistics Norway provides no sex breakdown (Svalbard,
-#' Jan Mayen, unknown), `male` and `female` are returned as `NA` while `total`
-#' holds the real count.
+#' For Svalbard and Jan Mayen (`notmainlandcounty_nor21`,
+#' `notmainlandcounty_nor22`, `notmainlandmunicip_nor2100`,
+#' `notmainlandmunicip_nor2200`) Statistics Norway provides no sex breakdown, so
+#' `pop_jan1_n` is `NA` on the `male` and `female` rows while the `total` row
+#' holds the real count. For the unknown-location codes
+#' (`missingcounty_nor99`, `missingmunicip_nor9999`) `pop_jan1_n` is `NA` on all
+#' three sex rows, `total` included.
 #'
 #' Note that when `include_total_sex = TRUE` the output holds `male`, `female` and
 #' `total` in long format, so summing `pop_jan1_n` across all sex values double-counts.
@@ -18,10 +22,22 @@
 #' @param include_9999 Boolean. Should the current year is duplicated and added as "calyear==9999".
 #' This is in accordance with the cstidy principles regarding granularity_time=="event_*".
 #' @param border The year in which Norwegian geographical boundaries were designated (2024).
+#' @family population data
+#' @seealso No vignette covers this function.
+#'   \code{vignette("population_norway", package = "csdata")} uses
+#'   [nor_population_by_age_cats()], which returns the sex total only.
+#'   \code{vignette("csdata", package = "csdata")} gives the csverse coding
+#'   rules for the `age` and `sex` columns.
 #' @examples
-#' \dontrun{
-#' nor_population_by_sex_age_cats(cats = list(c(1:10), c(11:20)))
-#' }
+#' # data.table's default multi-threading pushes this example past CRAN's
+#' # CPU-to-elapsed limit, so pin it to one thread and restore afterwards.
+#' old_threads <- data.table::getDTthreads()
+#' data.table::setDTthreads(1)
+#'
+#' d <- nor_population_by_sex_age_cats(cats = list(c(1:10), c(11:20)))
+#' print(d[location_code == "nation_nor" & calyear == 2024])
+#'
+#' data.table::setDTthreads(old_threads)
 #' @return A data.table containing the following columns:
 #' - granularity_geo
 #' - location_code

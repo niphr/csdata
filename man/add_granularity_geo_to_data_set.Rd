@@ -7,11 +7,18 @@
 add_granularity_geo_to_data_set(x, location_reference = NULL)
 }
 \arguments{
-\item{x}{A data.table containing a column named \code{location_code}.}
+\item{x}{A data.table containing a column named \code{location_code}. Only a
+data.table method exists, so any other class raises "no applicable
+method".}
 
 \item{location_reference}{A data.table with columns \code{location_code} and
 \code{granularity_geo} to use for lookup. When \code{NULL} (default), granularity
-is derived from the location code prefix (e.g. \code{"county_nor03"} -> \code{"county"}).}
+is derived from the location code prefix (e.g. \code{"county_nor03"} -> \code{"county"}).
+Its \code{location_code} values should be unique. A code that appears twice in
+the reference produces more labels than \code{x} has rows, and the assignment
+then fails with "Supplied N items to be assigned to M items of column
+'granularity_geo'". \code{\link[=nor_locations_names]{nor_locations_names()}} holds one such code today,
+\code{"lab_nor084467"}, which two laboratories share.}
 }
 \value{
 \code{x}, invisibly, with the \code{granularity_geo} column added or updated.
@@ -34,3 +41,11 @@ data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_granularity_geo_to_data_set(data, location_reference = csdata::nor_locations_names())
 print(data)
 }
+\seealso{
+No vignette covers this function. \code{\link[=location_code_to_granularity_geo]{location_code_to_granularity_geo()}}
+returns the same labels as a vector instead of writing them onto \code{x}.
+
+Other data set column adders:
+\code{\link[=add_iso3_to_data_set]{add_iso3_to_data_set()}}
+}
+\concept{data set column adders}

@@ -7,16 +7,18 @@
 add_iso3_to_data_set(x)
 }
 \arguments{
-\item{x}{A data.table containing a column named \code{location_code}.}
+\item{x}{A data.table. Only a data.table method exists, so any other class
+raises "no applicable method".}
 }
 \value{
-\code{x}, invisibly, with a new \code{iso3} column containing the
-ISO 3166-1 alpha-3 country code (always \code{"nor"} for Norwegian locations).
+\code{x}, invisibly, with a new \code{iso3} column holding \code{"nor"} on every
+row.
 }
 \description{
-Derives the ISO 3166-1 alpha-3 country code from the \code{location_code} column
-and adds it as a new column, modifying \code{x} in place. Currently all Norwegian
-location codes map to \code{"nor"}.
+Adds an \code{iso3} column holding the ISO 3166-1 alpha-3 country code,
+modifying \code{x} in place. csdata carries Norwegian data only, so the value is
+\code{"nor"} on every row. The column contents are not read, so \code{x} gains the
+column even when it has no \code{location_code}.
 }
 \examples{
 library(data.table)
@@ -24,3 +26,11 @@ data <- data.table(location_code = c("nation_nor", "county_nor03", "blah"))
 csdata::add_iso3_to_data_set(data)
 print(data)
 }
+\seealso{
+No vignette covers this function. \code{\link[=location_code_to_iso3]{location_code_to_iso3()}} returns
+the same values as a vector instead of writing them onto \code{x}.
+
+Other data set column adders:
+\code{\link[=add_granularity_geo_to_data_set]{add_granularity_geo_to_data_set()}}
+}
+\concept{data set column adders}
