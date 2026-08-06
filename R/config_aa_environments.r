@@ -40,11 +40,12 @@ se$ae <- "\u00E4"
 #' Package configuration environment
 #'
 #' An environment that stores package-level configuration variables.
-#' Modify via [set_config()]; read directly (e.g. `config$border_nor`).
+#' Change it with [set_config()]. Read it directly, for example
+#' `config$border_nor`.
 #'
 #' Available variables:
-#' - `border_nor` (default `2024`): the border year used when selecting
-#'   Norwegian geographic datasets. Valid values: `2024`.
+#' - `border_nor` (default `2024`): the border year that selects which
+#'   Norwegian geographic datasets a function reads. Valid values: `2024`.
 #'
 #' `border_nor` supplies the default `border` argument of
 #' [nor_locations_names()], [nor_locations_redistricting()],
@@ -71,7 +72,7 @@ config$border_nor <- 2024
 #' @param border_nor Integer. The Norwegian geographic border year to use as
 #'   the default. Valid values: `2024`. Pass `NULL` to leave unchanged.
 #' @returns Invisibly, the value assigned to `config$border_nor`, or `NULL`
-#'   when `border_nor` is `NULL`. Called for the side effect of updating
+#'   when `border_nor` is `NULL`. The function exists for its side effect on
 #'   [config].
 #' @seealso No vignette covers this function.
 #' @examples

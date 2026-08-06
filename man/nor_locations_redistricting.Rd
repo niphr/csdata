@@ -24,12 +24,13 @@ Of the 941 distinct values, 520 are retired codes that
 \code{\link[=nor_locations_names]{nor_locations_names()}} no longer lists.}
 \item{calyear}{The calendar year to which \code{location_code_original}
 applies.}
-\item{weighting}{Proportional weight to apply when aggregating from the
-original location to the current location. Values sum to 1 within each
-\code{location_code_original} / \code{calyear} group (all 40,819 of them), so a
-row spread across several current locations is split rather than
-duplicated. They need not sum to 1 within a \code{location_code_current} /
-\code{calyear} group: 4,334 of those 35,160 groups do not.}
+\item{weighting}{Proportional weight to apply when you aggregate from
+the original location to the current location. Values sum to 1 within
+each \code{location_code_original} / \code{calyear} group, on all 40,819 of
+those groups. A row spread across several current locations is
+therefore split, not duplicated. Values need not sum to 1 within a
+\code{location_code_current} / \code{calyear} group: 4,334 of those 35,160
+groups do not.}
 \item{granularity_geo}{Geographic granularity: one of \code{"nation"},
 \code{"county"}, \code{"municip"}, \code{"wardbergen"}, \code{"wardoslo"},
 \code{"wardstavanger"}, \code{"wardtrondheim"}, \code{"extrawardoslo"},

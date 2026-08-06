@@ -12,7 +12,7 @@ the default. Valid values: \code{2024}. Pass \code{NULL} to leave unchanged.}
 }
 \value{
 Invisibly, the value assigned to \code{config$border_nor}, or \code{NULL}
-when \code{border_nor} is \code{NULL}. Called for the side effect of updating
+when \code{border_nor} is \code{NULL}. The function exists for its side effect on
 \link{config}.
 }
 \description{

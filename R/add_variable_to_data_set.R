@@ -17,26 +17,27 @@ add_granularity_geo_to_data_set.data.table <- function(
 
 #' Add a granularity_geo column to a data set
 #'
-#' Derives the geographic granularity label from the `location_code` column
-#' and adds it as a new `granularity_geo` column, modifying `x` in place.
-#' When `location_reference` is `NULL` the granularity is inferred from the
-#' location code prefix; when a reference table is supplied, it is looked up
-#' directly.
+#' Derives the geographic granularity label from the `location_code` column.
+#' Adds the label as a new `granularity_geo` column, and changes `x` in place.
+#' When `location_reference` is `NULL`, the granularity comes from the location
+#' code prefix. When you supply a reference table, the granularity comes from
+#' that table.
 #'
-#' @param x A data.table containing a column named `location_code`. Only a
+#' @param x A data.table with a column named `location_code`. Only a
 #'   data.table method exists, so any other class raises "no applicable
 #'   method".
 #' @param location_reference A data.table with columns `location_code` and
 #'   `granularity_geo` to use for lookup. When `NULL` (default), granularity
-#'   is derived from the location code prefix (e.g. `"county_nor03"` -> `"county"`).
-#'   Its `location_code` values should be unique. A code that appears twice in
-#'   the reference produces more labels than `x` has rows, and the assignment
-#'   then fails with "Supplied N items to be assigned to M items of column
+#'   comes from the location code prefix (e.g. `"county_nor03"` -> `"county"`).
+#'   Its `location_code` values SHOULD be unique. A code that appears twice in
+#'   the reference produces more labels than `x` has rows. The assignment then
+#'   fails with "Supplied N items to be assigned to M items of column
 #'   'granularity_geo'". [nor_locations_names()] holds one such code today,
 #'   `"lab_nor084467"`, which two laboratories share.
 #' @returns `x`, invisibly, with the `granularity_geo` column added or updated.
 #' @family data set column adders
-#' @seealso No vignette covers this function. [location_code_to_granularity_geo()]
+#' @seealso \code{vignette("csdata", package = "csdata")}, which calls this
+#'   function on a worked example. [location_code_to_granularity_geo()]
 #'   returns the same labels as a vector instead of writing them onto `x`.
 #' @examples
 #' library(data.table)
@@ -64,10 +65,10 @@ add_iso3_to_data_set.data.table <- function(x) {
 
 #' Add an iso3 column to a data set
 #'
-#' Adds an `iso3` column holding the ISO 3166-1 alpha-3 country code,
-#' modifying `x` in place. csdata carries Norwegian data only, so the value is
-#' `"nor"` on every row. The column contents are not read, so `x` gains the
-#' column even when it has no `location_code`.
+#' Adds an `iso3` column that holds the ISO 3166-1 alpha-3 country code, and
+#' changes `x` in place. csdata carries Norwegian data only, so the value is
+#' `"nor"` on every row. The function does not read the contents of `x`, so `x`
+#' gains the column even when it has no `location_code` column.
 #'
 #' @param x A data.table. Only a data.table method exists, so any other class
 #'   raises "no applicable method".

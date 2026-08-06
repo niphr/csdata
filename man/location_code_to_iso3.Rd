@@ -7,14 +7,14 @@
 location_code_to_iso3(x)
 }
 \arguments{
-\item{x}{A character vector of location codes, or a data.table containing a
+\item{x}{A character vector of location codes, or a data.table with a
 column named \code{location_code}. A plain data.frame is not supported: it
 falls through to the default method, which returns one value per column
 rather than one per row.}
 }
 \value{
-A character vector of \code{"nor"}, the same length as \code{x}, or with as
-many elements as there are rows in \code{x} when \code{x} is a data.table.
+A character vector of \code{"nor"}. It has the same length as \code{x}, or
+as many elements as \code{x} has rows when \code{x} is a data.table.
 }
 \description{
 Returns the ISO 3166-1 alpha-3 country code for each location code. csdata

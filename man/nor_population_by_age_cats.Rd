@@ -12,19 +12,19 @@ nor_population_by_age_cats(
 )
 }
 \arguments{
-\item{cats}{A named or unnamed list of integer vectors specifying the age
+\item{cats}{A named or unnamed list of integer vectors that give the age
 values to include in each category. Each vector element defines one age
-band. If a list element is named, that name is used as the \code{age} label;
-otherwise the label is auto-generated as \code{"LLL_HHH"} (zero-padded lower
-and upper bounds). Defaults to \code{NULL} (no custom bands; only \code{"total"} is
+band. If a list element is named, that name becomes the \code{age} label. If it
+is not named, the label is \code{"LLL_HHH"}: the zero-padded lower and upper
+bounds. Defaults to \code{NULL} (no custom bands; only \code{"total"} is
 returned when \code{include_total = TRUE}).}
 
-\item{include_total}{Logical. If \code{TRUE} (default), an additional row group
-with \code{age = "total"} covering all ages is appended.}
+\item{include_total}{Logical. If \code{TRUE} (default), the function appends an
+extra row group with \code{age = "total"} that covers all ages.}
 
-\item{include_9999}{Logical. If \code{TRUE}, the most recent calendar year is
-duplicated and added with \code{calyear = 9999}, following the cstidy
-convention for \code{granularity_time == "event_*"}. Default \code{FALSE}.}
+\item{include_9999}{Logical. If \code{TRUE}, the function duplicates the most
+recent calendar year and adds it with \code{calyear = 9999}. This follows the
+cstidy convention for \code{granularity_time == "event_*"}. Default \code{FALSE}.}
 
 \item{border}{Integer. The geographic border year. Valid values: \code{2024}.
 Defaults to \code{csdata::config$border_nor}.}
@@ -50,8 +50,8 @@ Aggregates the bundled Norwegian population dataset (from Statistics Norway)
 into caller-defined age bands. The underlying data covers every integer age
 from 0 to 105 at national, georegion, county, municipality, and
 city-district level. Not-mainland and unknown locations carry the single
-placeholder age \code{-99} instead, which \code{include_total} counts but a band such
-as \code{0:105} does not.
+placeholder age \code{-99} instead. \code{include_total} counts that age, and a band
+such as \code{0:105} does not.
 }
 \examples{
 # data.table's default multi-threading pushes this example past CRAN's

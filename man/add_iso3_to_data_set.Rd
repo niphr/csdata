@@ -15,10 +15,10 @@ raises "no applicable method".}
 row.
 }
 \description{
-Adds an \code{iso3} column holding the ISO 3166-1 alpha-3 country code,
-modifying \code{x} in place. csdata carries Norwegian data only, so the value is
-\code{"nor"} on every row. The column contents are not read, so \code{x} gains the
-column even when it has no \code{location_code}.
+Adds an \code{iso3} column that holds the ISO 3166-1 alpha-3 country code, and
+changes \code{x} in place. csdata carries Norwegian data only, so the value is
+\code{"nor"} on every row. The function does not read the contents of \code{x}, so \code{x}
+gains the column even when it has no \code{location_code} column.
 }
 \examples{
 library(data.table)

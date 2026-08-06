@@ -10,8 +10,8 @@
 nor_locations_names(border = csdata::config$border_nor)
 }
 \arguments{
-\item{border}{Integer. The geographic border year determining which
-administrative boundaries are used. Valid values: \code{2024}.
+\item{border}{Integer. The geographic border year that selects which
+administrative boundaries the function uses. Valid values: \code{2024}.
 Defaults to \code{csdata::config$border_nor}.}
 }
 \value{
@@ -19,11 +19,11 @@ A data.table with one row per geographic unit and the columns:
 \describe{
 \item{location_code}{Location code (e.g. \code{"nation_nor"}, \code{"county_nor03"}).}
 \item{location_name}{Full location name.}
-\item{location_name_short}{Abbreviated name, \code{NA} on most rows. It is
-set for the nation and the 5 georegions (one letter), the 15 counties
-(three letters), and the 15 Oslo city districts plus the 2 extra Oslo
-wards (a display name of 4 to 13 characters, on some rows identical to
-\code{location_name}). It is \code{NA} for municipalities,
+\item{location_name_short}{Abbreviated name, \code{NA} on most rows. The
+nation and the 5 georegions carry one letter. The 15 counties carry
+three letters. The 15 Oslo city districts and the 2 extra Oslo wards
+carry a display name of 4 to 13 characters. On some rows that display
+name is identical to \code{location_name}. It is \code{NA} for municipalities,
 BA-regions, lab regions, and the Bergen, Stavanger and Trondheim city
 districts.}
 \item{location_name_description_nb}{Location name with a parenthetical

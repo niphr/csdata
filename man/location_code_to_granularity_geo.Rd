@@ -7,21 +7,20 @@
 location_code_to_granularity_geo(x, location_reference = NULL)
 }
 \arguments{
-\item{x}{A character vector of location codes, or a data.table containing a
+\item{x}{A character vector of location codes, or a data.table with a
 column named \code{location_code}. A plain data.frame is not supported: it
 falls through to the default method, which treats the frame itself as the
 vector of codes.}
 
 \item{location_reference}{A data.table with columns \code{location_code} and
 \code{granularity_geo} to use for lookup. When \code{NULL} (default), granularity
-is inferred from the location code prefix.}
+comes from the location code prefix.}
 }
 \value{
-A character vector the same length as \code{x}, or with as many elements
-as there are rows in \code{x} when \code{x} is a data.table, containing the
-corresponding \code{granularity_geo} values. A code with no leading lowercase
-letters yields \code{NA}, and an unmatched code yields \code{NA} when
-\code{location_reference} is supplied.
+A character vector of the corresponding \code{granularity_geo} values.
+It has the same length as \code{x}, or as many elements as \code{x} has rows when
+\code{x} is a data.table. A code with no leading lowercase letters yields \code{NA}.
+An unmatched code also yields \code{NA} when you supply \code{location_reference}.
 
 The length guarantee has one exception. \code{location_reference} is joined on
 \code{location_code}, so a code that appears more than once in the reference
@@ -30,10 +29,11 @@ one such code today, \code{"lab_nor084467"}, which two laboratories share.
 }
 \description{
 Extracts the geographic granularity label from one or more location codes.
-When \code{location_reference} is \code{NULL}, the granularity is derived from the
+When \code{location_reference} is \code{NULL}, the granularity comes from the
 lowercase alphabetic prefix of the location code (e.g. \code{"county_nor03"} ->
-\code{"county"}); the special prefix \code{"norge"} is mapped to \code{"nation"}. When a
-reference table is supplied, the granularity is looked up directly.
+\code{"county"}). The prefix \code{"norge"} is the one special case, and it gives
+\code{"nation"}. When you supply a reference table, the granularity comes from
+that table.
 }
 \examples{
 csdata::location_code_to_granularity_geo(c("nation_nor", "county_nor03", "municip_nor0301"))
@@ -52,7 +52,8 @@ csdata::location_code_to_granularity_geo(
 )
 }
 \seealso{
-No vignette covers this function.
+\code{vignette("csdata", package = "csdata")}, which calls this
+function on a worked example.
 \code{vignette("locations_norway", package = "csdata")} tabulates the
 \code{location_code} values returned by \code{\link[=nor_locations_names]{nor_locations_names()}}.
 

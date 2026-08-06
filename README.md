@@ -5,15 +5,18 @@
 
 ## Overview
 
-csdata ships preformatted structural data for Norway: geographic codes and
-display names, the hierarchy that links city districts to municipalities,
-counties and regions, yearly population counts by age and sex, and the
-proportional weights that move historical figures onto current municipal
-borders.
+csdata ships preformatted structural data for Norway:
 
-Each dataset is bundled inside the package and returned as a `data.table`, so
-no call reaches the network. Boundaries follow the 2024 administrative
-borders; `border = 2024` is the only accepted value.
+- geographic codes and display names;
+- the hierarchy that links city districts to municipalities, counties and
+  regions;
+- yearly population counts by age and sex;
+- the proportional weights that move historical figures onto current municipal
+  borders.
+
+The package bundles each dataset and returns it as a `data.table`. No call
+reaches the network. Boundaries follow the 2024 administrative borders.
+`border = 2024` is the only accepted value.
 
 ## Installation
 
@@ -52,6 +55,6 @@ pop[location_code == "nation_nor" & calyear == 2024]
 
 The reference index and the three articles live at
 <https://niphr.github.io/csdata/>. Start with the `csdata` article for the
-coding conventions, then `locations_norway` for the geographic reference table
-and `population_norway` for the population series. Offline, run
+coding conventions. Then read `locations_norway` for the geographic reference
+table, and `population_norway` for the population series. Offline, run
 `help(package = "csdata")`.

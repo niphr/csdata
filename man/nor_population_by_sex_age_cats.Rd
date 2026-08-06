@@ -13,17 +13,21 @@ nor_population_by_sex_age_cats(
 )
 }
 \arguments{
-\item{cats}{A list containing vectors that you want to categorize.}
+\item{cats}{A list of vectors that give the age values to include in each
+category.}
 
-\item{include_total_age}{Boolean. Should 'total' be included as an age cat?}
+\item{include_total_age}{Logical. If \code{TRUE}, the function includes \code{"total"}
+as an age category.}
 
-\item{include_total_sex}{Boolean. Should 'total' (both sexes combined) be included
-as a sex, alongside 'male' and 'female'?}
+\item{include_total_sex}{Logical. If \code{TRUE}, the function includes \code{"total"}
+(both sexes combined) as a sex, alongside \code{"male"} and \code{"female"}.}
 
-\item{include_9999}{Boolean. Should the current year is duplicated and added as "calyear==9999".
-This is in accordance with the cstidy principles regarding granularity_time=="event_*".}
+\item{include_9999}{Logical. If \code{TRUE}, the function duplicates the current
+calendar year and adds it with \code{calyear = 9999}. This follows the cstidy
+convention for \code{granularity_time == "event_*"}.}
 
-\item{border}{The year in which Norwegian geographical boundaries were designated (2024).}
+\item{border}{Integer. The Norwegian geographic border year. Valid values:
+\code{2024}.}
 }
 \value{
 A data.table containing the following columns:
@@ -38,21 +42,22 @@ A data.table containing the following columns:
 }
 }
 \description{
-A function that categorizes the Norwegian population into custom age categories,
-split by sex (male/female) and optionally the total of both sexes.
+Aggregates the Norwegian population into custom age categories, split by
+sex (male/female) and optionally the total of both sexes.
 }
 \details{
-For Svalbard and Jan Mayen (\code{notmainlandcounty_nor21},
-\code{notmainlandcounty_nor22}, \code{notmainlandmunicip_nor2100},
-\code{notmainlandmunicip_nor2200}) Statistics Norway provides no sex breakdown, so
-\code{pop_jan1_n} is \code{NA} on the \code{male} and \code{female} rows while the \code{total} row
-holds the real count. For the unknown-location codes
+Statistics Norway provides no sex breakdown for Svalbard and Jan Mayen
+(\code{notmainlandcounty_nor21}, \code{notmainlandcounty_nor22},
+\code{notmainlandmunicip_nor2100}, \code{notmainlandmunicip_nor2200}). On those four
+codes \code{pop_jan1_n} is \code{NA} on the \code{male} and \code{female} rows, and the \code{total}
+row holds the real count. For the unknown-location codes
 (\code{missingcounty_nor99}, \code{missingmunicip_nor9999}) \code{pop_jan1_n} is \code{NA} on all
 three sex rows, \code{total} included.
 
-Note that when \code{include_total_sex = TRUE} the output holds \code{male}, \code{female} and
-\code{total} in long format, so summing \code{pop_jan1_n} across all sex values double-counts.
-Filter to a single sex, or sum only the \code{male}/\code{female} components.
+When \code{include_total_sex = TRUE}, the output holds \code{male}, \code{female} and
+\code{total} in long format. A sum of \code{pop_jan1_n} across all sex values
+therefore double-counts. Filter to a single sex, or sum only the
+\code{male}/\code{female} components.
 }
 \examples{
 # data.table's default multi-threading pushes this example past CRAN's

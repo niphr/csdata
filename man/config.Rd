@@ -8,13 +8,14 @@ config
 }
 \description{
 An environment that stores package-level configuration variables.
-Modify via \code{\link[=set_config]{set_config()}}; read directly (e.g. \code{config$border_nor}).
+Change it with \code{\link[=set_config]{set_config()}}. Read it directly, for example
+\code{config$border_nor}.
 }
 \details{
 Available variables:
 \itemize{
-\item \code{border_nor} (default \code{2024}): the border year used when selecting
-Norwegian geographic datasets. Valid values: \code{2024}.
+\item \code{border_nor} (default \code{2024}): the border year that selects which
+Norwegian geographic datasets a function reads. Valid values: \code{2024}.
 }
 
 \code{border_nor} supplies the default \code{border} argument of

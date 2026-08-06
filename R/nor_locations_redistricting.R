@@ -17,12 +17,13 @@
 #'       [nor_locations_names()] no longer lists.}
 #'     \item{calyear}{The calendar year to which `location_code_original`
 #'       applies.}
-#'     \item{weighting}{Proportional weight to apply when aggregating from the
-#'       original location to the current location. Values sum to 1 within each
-#'       `location_code_original` / `calyear` group (all 40,819 of them), so a
-#'       row spread across several current locations is split rather than
-#'       duplicated. They need not sum to 1 within a `location_code_current` /
-#'       `calyear` group: 4,334 of those 35,160 groups do not.}
+#'     \item{weighting}{Proportional weight to apply when you aggregate from
+#'       the original location to the current location. Values sum to 1 within
+#'       each `location_code_original` / `calyear` group, on all 40,819 of
+#'       those groups. A row spread across several current locations is
+#'       therefore split, not duplicated. Values need not sum to 1 within a
+#'       `location_code_current` / `calyear` group: 4,334 of those 35,160
+#'       groups do not.}
 #'     \item{granularity_geo}{Geographic granularity: one of `"nation"`,
 #'       `"county"`, `"municip"`, `"wardbergen"`, `"wardoslo"`,
 #'       `"wardstavanger"`, `"wardtrondheim"`, `"extrawardoslo"`,

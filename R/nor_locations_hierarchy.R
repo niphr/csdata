@@ -165,13 +165,13 @@ nor_loc_hierarchy_from_to <- function(
 #' Location hierarchies in Norway
 #'
 #' Returns a mapping between two geographic levels in Norway. Both `from` and
-#' `to` accept character vectors, in which case all requested combinations are
-#' returned combined into a single data.table.
+#' `to` accept character vectors. The function then returns every requested
+#' combination, joined into a single data.table.
 #'
 #' A combination that the bundled hierarchy table cannot express returns a
-#' zero-row data.table rather than an error. Requesting `"baregion"` as either
-#' `from` or `to` always does this, because the bundled table carries no
-#' BA-region codes; use [nor_locations_names()] to list the BA-regions
+#' zero-row data.table rather than an error. A `from` or `to` value of
+#' `"baregion"` always does this, because the bundled table carries no
+#' BA-region codes. Use [nor_locations_names()] to list the BA-regions
 #' themselves.
 #'
 #' @param from Character vector. The source geographic granularity. One or more
@@ -196,7 +196,8 @@ nor_loc_hierarchy_from_to <- function(
 #'   }
 #'   The table has no key set, and a combination the bundled hierarchy cannot
 #'   express yields zero rows.
-#' @seealso No vignette covers this function.
+#' @seealso \code{vignette("csdata", package = "csdata")}, which calls
+#'   \code{nor_locations_hierarchy_from_to()} on a worked example.
 #'   \code{vignette("locations_norway", package = "csdata")} tabulates the
 #'   `location_code` values returned by [nor_locations_names()], which are the
 #'   values `from_code` and `to_code` are drawn from.

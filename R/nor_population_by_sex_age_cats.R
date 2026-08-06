@@ -1,27 +1,32 @@
 #' Population in Norway by sex and age categories
 #'
-#' A function that categorizes the Norwegian population into custom age categories,
-#' split by sex (male/female) and optionally the total of both sexes.
+#' Aggregates the Norwegian population into custom age categories, split by
+#' sex (male/female) and optionally the total of both sexes.
 #'
-#' For Svalbard and Jan Mayen (`notmainlandcounty_nor21`,
-#' `notmainlandcounty_nor22`, `notmainlandmunicip_nor2100`,
-#' `notmainlandmunicip_nor2200`) Statistics Norway provides no sex breakdown, so
-#' `pop_jan1_n` is `NA` on the `male` and `female` rows while the `total` row
-#' holds the real count. For the unknown-location codes
+#' Statistics Norway provides no sex breakdown for Svalbard and Jan Mayen
+#' (`notmainlandcounty_nor21`, `notmainlandcounty_nor22`,
+#' `notmainlandmunicip_nor2100`, `notmainlandmunicip_nor2200`). On those four
+#' codes `pop_jan1_n` is `NA` on the `male` and `female` rows, and the `total`
+#' row holds the real count. For the unknown-location codes
 #' (`missingcounty_nor99`, `missingmunicip_nor9999`) `pop_jan1_n` is `NA` on all
 #' three sex rows, `total` included.
 #'
-#' Note that when `include_total_sex = TRUE` the output holds `male`, `female` and
-#' `total` in long format, so summing `pop_jan1_n` across all sex values double-counts.
-#' Filter to a single sex, or sum only the `male`/`female` components.
+#' When `include_total_sex = TRUE`, the output holds `male`, `female` and
+#' `total` in long format. A sum of `pop_jan1_n` across all sex values
+#' therefore double-counts. Filter to a single sex, or sum only the
+#' `male`/`female` components.
 #'
-#' @param cats A list containing vectors that you want to categorize.
-#' @param include_total_age Boolean. Should 'total' be included as an age cat?
-#' @param include_total_sex Boolean. Should 'total' (both sexes combined) be included
-#' as a sex, alongside 'male' and 'female'?
-#' @param include_9999 Boolean. Should the current year is duplicated and added as "calyear==9999".
-#' This is in accordance with the cstidy principles regarding granularity_time=="event_*".
-#' @param border The year in which Norwegian geographical boundaries were designated (2024).
+#' @param cats A list of vectors that give the age values to include in each
+#'   category.
+#' @param include_total_age Logical. If `TRUE`, the function includes `"total"`
+#'   as an age category.
+#' @param include_total_sex Logical. If `TRUE`, the function includes `"total"`
+#'   (both sexes combined) as a sex, alongside `"male"` and `"female"`.
+#' @param include_9999 Logical. If `TRUE`, the function duplicates the current
+#'   calendar year and adds it with `calyear = 9999`. This follows the cstidy
+#'   convention for `granularity_time == "event_*"`.
+#' @param border Integer. The Norwegian geographic border year. Valid values:
+#'   `2024`.
 #' @family population data
 #' @seealso No vignette covers this function.
 #'   \code{vignette("population_norway", package = "csdata")} uses

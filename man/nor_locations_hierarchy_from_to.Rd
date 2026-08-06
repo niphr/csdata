@@ -42,14 +42,14 @@ express yields zero rows.
 }
 \description{
 Returns a mapping between two geographic levels in Norway. Both \code{from} and
-\code{to} accept character vectors, in which case all requested combinations are
-returned combined into a single data.table.
+\code{to} accept character vectors. The function then returns every requested
+combination, joined into a single data.table.
 }
 \details{
 A combination that the bundled hierarchy table cannot express returns a
-zero-row data.table rather than an error. Requesting \code{"baregion"} as either
-\code{from} or \code{to} always does this, because the bundled table carries no
-BA-region codes; use \code{\link[=nor_locations_names]{nor_locations_names()}} to list the BA-regions
+zero-row data.table rather than an error. A \code{from} or \code{to} value of
+\code{"baregion"} always does this, because the bundled table carries no
+BA-region codes. Use \code{\link[=nor_locations_names]{nor_locations_names()}} to list the BA-regions
 themselves.
 }
 \examples{
@@ -67,7 +67,8 @@ csdata::nor_locations_hierarchy_from_to(
 nrow(csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion"))
 }
 \seealso{
-No vignette covers this function.
+\code{vignette("csdata", package = "csdata")}, which calls
+\code{nor_locations_hierarchy_from_to()} on a worked example.
 \code{vignette("locations_norway", package = "csdata")} tabulates the
 \code{location_code} values returned by \code{\link[=nor_locations_names]{nor_locations_names()}}, which are the
 values \code{from_code} and \code{to_code} are drawn from.
