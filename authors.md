@@ -9,6 +9,8 @@ This package is proudly brought to you by:
 
 - **Chi Zhang**. Author. [](https://orcid.org/0000-0003-0501-5909)
 
+- **Folkehelseinstituttet**. Copyright holder.
+
 See the [changelog](https://niphr.github.io/csdata/news/index.md) for
 other contributors. 🙏
 

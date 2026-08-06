@@ -2,6 +2,22 @@
 
 ## Version 2026.8.6
 
+### Licensing
+
+- The copyright holder is now **Folkehelseinstituttet**. It read “Core
+  Surveillance”, which names the package family rather than a legal
+  entity.
+
+- `DESCRIPTION` `Authors@R` now declares that holder with
+  `role = "cph"`. It declared no copyright holder at all, and neither
+  did any other package in the fleet. Nothing in `R CMD check` reports
+  that.
+
+- The copyright year is now 2026. It read 2023.
+
+- `CLAUDE.md` now carries a Licensing section, so the year gets checked
+  rather than silently ageing.
+
 - Added a get-started overview to the front of
   [`vignette("csdata")`](https://niphr.github.io/csdata/articles/csdata.md),
   which pkgdown promotes to “Get started”. The page opened on
@@ -9,8 +25,10 @@
   for. The new front matter states the purpose and names the five
   functions that do most of the work. It also points on to the
   `locations_norway` and `population_norway` vignettes.
+
 - The overview also states two limitations a user meets early, each with
   the output that demonstrates it:
+
   - [`nor_locations_hierarchy_from_to()`](https://niphr.github.io/csdata/reference/nor_locations_hierarchy_from_to.md)
     returns zero rows for every `from`/`to` pair that names
     `"baregion"`. `baregion_code` and `baregion_name` are `NA` on all
@@ -26,12 +44,14 @@
     [`add_granularity_geo_to_data_set()`](https://niphr.github.io/csdata/reference/add_granularity_geo_to_data_set.md)
     then stops with “Supplied 4 items to be assigned to 3 items of
     column ‘granularity_geo’”.
+
 - Brought the prose in `R/`, `vignettes/`, `README.md`, `index.md` and
   `NEWS.md` to the house standard: ASD-STE100 (Simplified Technical
   English), adapted. Split the long sentences, removed the em dashes
   from `index.md`, and capitalised the RFC-2119 keywords in the coding
   rules of
   [`vignette("csdata")`](https://niphr.github.io/csdata/articles/csdata.md).
+
   - Sentences over 25 words, measured per authored unit, before and
     after:
     - `R/`: 8 to 0.
@@ -42,6 +62,7 @@
       `vignettes/population_norway.Rmd`: 0 before and after.
   - Regenerated `man/` from the edited roxygen. `NAMESPACE` is
     unchanged, and all 13 help pages remain.
+
 - No code, data, documented function behaviour or documented number
   changed in this version.
 
