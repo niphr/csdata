@@ -1,3 +1,11 @@
+# Version 2026.8.6
+
+- Added a get-started overview to the front of `vignette("csdata")`, which pkgdown promotes to "Get started". The page opened on `## Location` and a function call, and never said what the package is for. The new front matter states the purpose, names the five functions that do most of the work, and points on to the `locations_norway` and `population_norway` vignettes.
+- The overview also states two limitations a user meets early, each with the output that demonstrates it:
+  - `nor_locations_hierarchy_from_to()` returns zero rows for every `from`/`to` pair naming `"baregion"`. `baregion_code` and `baregion_name` are `NA` on all 751 rows of the bundled hierarchy table, although `nor_locations_names()` lists 159 BA-regions.
+  - Two laboratories share the code `"lab_nor084467"`, the only `location_code` that `nor_locations_names()` repeats. Passing that table as `location_reference` makes `location_code_to_granularity_geo()` return 4 elements for a 3-element input, and `add_granularity_geo_to_data_set()` then stops with "Supplied 4 items to be assigned to 3 items of column 'granularity_geo'".
+- No code, data or documented function behaviour changed in this version.
+
 # Version 2026.8.4
 
 - Documentation overhaul. Each of the four documentation homes now owns its own material: `README.md` is the GitHub landing page (what the package is, install, one quick start, a which-function-do-I-want table), `index.md` is the pkgdown home body, the vignettes carry the worked detail, and the roxygen reference carries the per-function contract.
