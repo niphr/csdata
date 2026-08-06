@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,6 +51,16 @@
       <small>Source: <a href="https://github.com/niphr/csdata/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2026.8.6" id="version-202686">Version 2026.8.6<a class="anchor" aria-label="anchor" href="#version-202686"></a></h2>
+<ul><li>Added a get-started overview to the front of <code><a href="../articles/csdata.html">vignette("csdata")</a></code>, which pkgdown promotes to “Get started”. The page opened on <code>## Location</code> and a function call, and never said what the package is for. The new front matter states the purpose, names the five functions that do most of the work, and points on to the <code>locations_norway</code> and <code>population_norway</code> vignettes.</li>
+<li>The overview also states two limitations a user meets early, each with the output that demonstrates it:
+<ul><li>
+<code><a href="../reference/nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to()</a></code> returns zero rows for every <code>from</code>/<code>to</code> pair naming <code>"baregion"</code>. <code>baregion_code</code> and <code>baregion_name</code> are <code>NA</code> on all 751 rows of the bundled hierarchy table, although <code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> lists 159 BA-regions.</li>
+<li>Two laboratories share the code <code>"lab_nor084467"</code>, the only <code>location_code</code> that <code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> repeats. Passing that table as <code>location_reference</code> makes <code><a href="../reference/location_code_to_granularity_geo.html">location_code_to_granularity_geo()</a></code> return 4 elements for a 3-element input, and <code><a href="../reference/add_granularity_geo_to_data_set.html">add_granularity_geo_to_data_set()</a></code> then stops with “Supplied 4 items to be assigned to 3 items of column ‘granularity_geo’”.</li>
+</ul></li>
+<li>No code, data or documented function behaviour changed in this version.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2026.8.4" id="version-202684">Version 2026.8.4<a class="anchor" aria-label="anchor" href="#version-202684"></a></h2>
 <ul><li>Documentation overhaul. Each of the four documentation homes now owns its own material: <code>README.md</code> is the GitHub landing page (what the package is, install, one quick start, a which-function-do-I-want table), <code>index.md</code> is the pkgdown home body, the vignettes carry the worked detail, and the roxygen reference carries the per-function contract.</li>

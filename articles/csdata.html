@@ -23,7 +23,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">csdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.4</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2026.8.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,6 +90,119 @@ location hierarchies, population counts, and the conventions used across
 the csverse format.</p>
 <p>See <a href="https://niphr.github.io/csdata/reference/index.html" class="uri">https://niphr.github.io/csdata/reference/index.html</a> for
 an overview of all available datasets and functions.</p>
+<div class="section level2">
+<h2 id="what-csdata-is-for">What csdata is for<a class="anchor" aria-label="anchor" href="#what-csdata-is-for"></a>
+</h2>
+<p><code>csdata</code> holds the reference tables that Norwegian
+surveillance work needs again and again: which places exist and how they
+nest inside each other, how place boundaries were redistricted from 2006
+to 2024, and how many people live in each place by age and sex. Every
+table ships inside the package, so nothing is downloaded when you run
+it. The point is that each analysis stops carrying its own copy of the
+same lookups.</p>
+<p>Thirteen objects are exported. These five do most of the work.</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Function</th>
+<th>Use it when you need</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code></td>
+<td>The list of places, and which level each place sits at.</td>
+</tr>
+<tr class="even">
+<td><code>nor_locations_hierarchy_from_to(from, to)</code></td>
+<td>To map one level onto another, such as every municipality to its
+county.</td>
+</tr>
+<tr class="odd">
+<td><code><a href="../reference/nor_locations_redistricting.html">nor_locations_redistricting()</a></code></td>
+<td>Weights to move data recorded under older borders onto the 2024
+borders.</td>
+</tr>
+<tr class="even">
+<td><code>nor_population_by_age_cats(cats)</code></td>
+<td>Denominators: population in the age bands you choose.</td>
+</tr>
+<tr class="odd">
+<td><code>nor_population_by_sex_age_cats(cats)</code></td>
+<td>The same denominators, split by sex.</td>
+</tr>
+</tbody>
+</table>
+<p>All five take a <code>border</code> argument. <code>2024</code> is
+the only value they accept; any other value stops with an error.</p>
+</div>
+<div class="section level2">
+<h2 id="two-current-limitations">Two current limitations<a class="anchor" aria-label="anchor" href="#two-current-limitations"></a>
+</h2>
+<p><strong>BA-regions are missing from the hierarchy table.</strong>
+<code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> lists 159 BA-regions, and
+<code><a href="../reference/nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to()</a></code> accepts
+<code>"baregion"</code>. But the bundled hierarchy table carries no
+BA-region codes at all, so every <code>from</code>/<code>to</code> pair
+naming <code>"baregion"</code> returns an empty table instead of an
+error.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="../reference/nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"municip"</span>, to <span class="op">=</span> <span class="st">"baregion"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="../reference/nor_locations_names.html">nor_locations_names</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="va">granularity_geo</span> <span class="op">==</span> <span class="st">"baregion"</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 159</span></span></code></pre></div>
+<p><strong>One location code is used twice.</strong> Two different
+laboratories share the code <code>lab_nor084467</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="../reference/nor_locations_names.html">nor_locations_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">loc</span><span class="op">[</span><span class="va">location_code</span> <span class="op">==</span> <span class="st">"lab_nor084467"</span>, <span class="fu">.</span><span class="op">(</span><span class="va">location_code</span>, <span class="va">location_name</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="co">#&gt;    location_code              location_name</span></span>
+<span><span class="co">#&gt;           &lt;char&gt;                     &lt;char&gt;</span></span>
+<span><span class="co">#&gt; 1: lab_nor084467      VV-HF Drammen Sykehus</span></span>
+<span><span class="co">#&gt; 2: lab_nor084467 Laboratoriet Bærum sykehus</span></span></code></pre></div>
+<p>This matters when you pass <code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> as
+<code>location_reference</code>, because the lookup is a join on
+<code>location_code</code>. The duplicated code matches twice, so you
+get more values back than you put in.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="../reference/location_code_to_granularity_geo.html">location_code_to_granularity_geo</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nation_nor"</span>, <span class="st">"county_nor03"</span>, <span class="st">"lab_nor084467"</span><span class="op">)</span>,</span>
+<span>  location_reference <span class="op">=</span> <span class="va">loc</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "nation" "county" "lab"    "lab"</span></span></code></pre></div>
+<p><code><a href="../reference/add_granularity_geo_to_data_set.html">add_granularity_geo_to_data_set()</a></code> then fails, because it
+tries to write those four values into a three-row table.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/data.table/man/data.table.html" class="external-link">data.table</a></span><span class="op">(</span>location_code <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"nation_nor"</span>, <span class="st">"county_nor03"</span>, <span class="st">"lab_nor084467"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="../reference/add_granularity_geo_to_data_set.html">add_granularity_geo_to_data_set</a></span><span class="op">(</span><span class="va">x</span>, location_reference <span class="op">=</span> <span class="va">loc</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `[.data.table`:</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Supplied 4 items to be assigned to 3 items of column 'granularity_geo'. If you wish to 'recycle' the RHS please use rep() to make this intent clear to readers of your code.</span></span></code></pre></div>
+<p>Leave <code>location_reference</code> unset to avoid both problems.
+The granularity is then read from the code prefix, one value per
+input.</p>
+</div>
+<div class="section level2">
+<h2 id="where-csdata-sits-and-what-to-read-next">Where csdata sits, and what to read next<a class="anchor" aria-label="anchor" href="#where-csdata-sits-and-what-to-read-next"></a>
+</h2>
+<p><code>csdata</code> depends on no other cs package, so you can
+install it on its own. <code>cstidy</code> imports it.
+<code>csmaps</code> uses the same <code>location_code</code> values for
+the 2024 borders, so its map polygons join straight onto csdata
+tables.</p>
+<p>Two vignettes go deeper:</p>
+<ul>
+<li>
+<code><a href="../articles/locations_norway.html">vignette("locations_norway", package = "csdata")</a></code> lists
+every location code with its name.</li>
+<li>
+<code><a href="../articles/population_norway.html">vignette("population_norway", package = "csdata")</a></code> shows
+population counts by location and calendar year.</li>
+</ul>
+<p>The rest of this page gives the csverse coding rules for locations,
+ages and sex.</p>
+</div>
 <div class="section level2">
 <h2 id="location">Location<a class="anchor" aria-label="anchor" href="#location"></a>
 </h2>

@@ -18,12 +18,12 @@ Source:
 [`DESCRIPTION`](https://github.com/niphr/csdata/blob/main/DESCRIPTION)
 
 White RA, Zhang C (2021). *csdata: Structural Data for Norway*. R
-package version 2026.8.4, <https://niphr.github.io/csdata/>.
+package version 2026.8.6, <https://niphr.github.io/csdata/>.
 
     @Manual{,
       title = {csdata: Structural Data for Norway},
       author = {Richard Aubrey White and Chi Zhang},
       year = {2021},
-      note = {R package version 2026.8.4},
+      note = {R package version 2026.8.6},
       url = {https://niphr.github.io/csdata/},
     }
