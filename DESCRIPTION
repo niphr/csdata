@@ -1,14 +1,27 @@
 Package: csdata
 Title: Structural Data for Norway
 Version: 2026.8.6
-Authors@R: c(
-  person(c("Richard","Aubrey"), "White", email = "hello@rwhite.no", role = c("aut", "cre"),
-    comment = c(ORCID = "0000-0002-6747-1726")
-  ),
-  person("Chi", "Zhang", email = "andreachizhang@yahoo.com", role = c("aut"), 
-    comment = c(ORCID = "0000-0003-0501-5909")
-  )
-  )
+Authors@R:
+    c(
+      person(
+        given = c("Richard", "Aubrey"),
+        family = "White",
+        email = "hello@rwhite.no",
+        role = c("aut", "cre"),
+        comment = c(ORCID = "0000-0002-6747-1726")
+      ),
+      person(
+        given = "Chi",
+        family = "Zhang",
+        email = "andreachizhang@yahoo.com",
+        role = "aut",
+        comment = c(ORCID = "0000-0003-0501-5909")
+      ),
+      person(
+        given = "Folkehelseinstituttet",
+        role = "cph"
+      )
+    )
 Description: Datasets relating to population in municipalities, municipality/county matching, and how different municipalities have merged/redistricted over time from 2006 to 2024.
 URL: https://niphr.github.io/csdata/, https://github.com/niphr/csdata
 BugReports: https://github.com/niphr/csdata/issues

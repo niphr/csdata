@@ -1,5 +1,16 @@
 # Version 2026.8.6
 
+## Licensing
+
+- The copyright holder is now **Folkehelseinstituttet**. It read "Core Surveillance", which
+  names the package family rather than a legal entity.
+- `DESCRIPTION` `Authors@R` now declares that holder with `role = "cph"`.
+  It declared no copyright holder at all, and neither did any other package
+  in the fleet. Nothing in `R CMD check` reports that.
+- The copyright year is now 2026. It read 2023.
+- `CLAUDE.md` now carries a Licensing section, so the year gets checked
+  rather than silently ageing.
+
 - Added a get-started overview to the front of `vignette("csdata")`, which pkgdown promotes to "Get started". The page opened on `## Location` and a function call, and never said what the package is for. The new front matter states the purpose and names the five functions that do most of the work. It also points on to the `locations_norway` and `population_norway` vignettes.
 - The overview also states two limitations a user meets early, each with the output that demonstrates it:
   - `nor_locations_hierarchy_from_to()` returns zero rows for every `from`/`to` pair that names `"baregion"`. `baregion_code` and `baregion_name` are `NA` on all 751 rows of the bundled hierarchy table, although `nor_locations_names()` lists 159 BA-regions.
