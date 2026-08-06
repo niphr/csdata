@@ -1,9 +1,8 @@
 # Population (Norway)
 
-Population counts for Norway are available in
-[`csdata::nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md).
-The dataset covers population as of 1 January each year, broken down by
-location and age category.
+[`csdata::nor_population_by_age_cats()`](https://niphr.github.io/csdata/reference/nor_population_by_age_cats.md)
+returns population counts for Norway. The dataset covers population as
+of 1 January each year, by location and age category.
 
 ## National trend
 

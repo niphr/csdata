@@ -27,7 +27,7 @@ set_config(border_nor = NULL)
 ## Value
 
 Invisibly, the value assigned to `config$border_nor`, or `NULL` when
-`border_nor` is `NULL`. Called for the side effect of updating
+`border_nor` is `NULL`. The function exists for its side effect on
 [config](https://niphr.github.io/csdata/reference/config.md).
 
 ## See also

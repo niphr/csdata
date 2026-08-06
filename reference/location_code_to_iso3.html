@@ -75,7 +75,7 @@ string that is not a location code at all, also returns <code>"nor"</code>.</p>
 
 
 <dl><dt id="arg-x">x<a class="anchor" aria-label="anchor" href="#arg-x"></a></dt>
-<dd><p>A character vector of location codes, or a data.table containing a
+<dd><p>A character vector of location codes, or a data.table with a
 column named <code>location_code</code>. A plain data.frame is not supported: it
 falls through to the default method, which returns one value per column
 rather than one per row.</p></dd>
@@ -83,8 +83,8 @@ rather than one per row.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A character vector of <code>"nor"</code>, the same length as <code>x</code>, or with as
-many elements as there are rows in <code>x</code> when <code>x</code> is a data.table.</p>
+    <p>A character vector of <code>"nor"</code>. It has the same length as <code>x</code>, or
+as many elements as <code>x</code> has rows when <code>x</code> is a data.table.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>

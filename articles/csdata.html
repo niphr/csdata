@@ -94,13 +94,16 @@ an overview of all available datasets and functions.</p>
 <h2 id="what-csdata-is-for">What csdata is for<a class="anchor" aria-label="anchor" href="#what-csdata-is-for"></a>
 </h2>
 <p><code>csdata</code> holds the reference tables that Norwegian
-surveillance work needs again and again: which places exist and how they
-nest inside each other, how place boundaries were redistricted from 2006
-to 2024, and how many people live in each place by age and sex. Every
-table ships inside the package, so nothing is downloaded when you run
-it. The point is that each analysis stops carrying its own copy of the
-same lookups.</p>
-<p>Thirteen objects are exported. These five do most of the work.</p>
+surveillance work needs again and again:</p>
+<ul>
+<li>which places exist, and how they nest inside each other;</li>
+<li>how place boundaries were redistricted from 2006 to 2024;</li>
+<li>how many people live in each place, by age and sex.</li>
+</ul>
+<p>Every table ships inside the package, so no function call downloads
+data. Each analysis then stops carrying its own copy of the same
+lookups.</p>
+<p>csdata exports thirteen objects. These five do most of the work.</p>
 <table class="table">
 <colgroup>
 <col width="50%">
@@ -136,7 +139,7 @@ borders.</td>
 </tbody>
 </table>
 <p>All five take a <code>border</code> argument. <code>2024</code> is
-the only value they accept; any other value stops with an error.</p>
+the only value they accept. Any other value stops with an error.</p>
 </div>
 <div class="section level2">
 <h2 id="two-current-limitations">Two current limitations<a class="anchor" aria-label="anchor" href="#two-current-limitations"></a>
@@ -145,9 +148,9 @@ the only value they accept; any other value stops with an error.</p>
 <code><a href="../reference/nor_locations_names.html">nor_locations_names()</a></code> lists 159 BA-regions, and
 <code><a href="../reference/nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to()</a></code> accepts
 <code>"baregion"</code>. But the bundled hierarchy table carries no
-BA-region codes at all, so every <code>from</code>/<code>to</code> pair
-naming <code>"baregion"</code> returns an empty table instead of an
-error.</p>
+BA-region codes at all. Every <code>from</code>/<code>to</code> pair
+that names <code>"baregion"</code> therefore returns an empty table
+instead of an error.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">nrow</a></span><span class="op">(</span><span class="fu">csdata</span><span class="fu">::</span><span class="fu"><a href="../reference/nor_locations_hierarchy_from_to.html">nor_locations_hierarchy_from_to</a></span><span class="op">(</span>from <span class="op">=</span> <span class="st">"municip"</span>, to <span class="op">=</span> <span class="st">"baregion"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 0</span></span>
@@ -180,7 +183,7 @@ tries to write those four values into a three-row table.</p>
 <span><span class="co">#&gt; <span style="color: #BBBB00; font-weight: bold;">Error</span><span style="font-weight: bold;"> in `[.data.table`:</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BBBB00;">!</span> Supplied 4 items to be assigned to 3 items of column 'granularity_geo'. If you wish to 'recycle' the RHS please use rep() to make this intent clear to readers of your code.</span></span></code></pre></div>
 <p>Leave <code>location_reference</code> unset to avoid both problems.
-The granularity is then read from the code prefix, one value per
+The granularity then comes from the code prefix, one value per
 input.</p>
 </div>
 <div class="section level2">
@@ -206,9 +209,9 @@ ages and sex.</p>
 <div class="section level2">
 <h2 id="location">Location<a class="anchor" aria-label="anchor" href="#location"></a>
 </h2>
-<p>Valid locations and location types are available in
-<code><a href="../reference/nor_locations_names.html">csdata::nor_locations_names()</a></code>. Entries with uncommon or
-internal use are shown with a strikethrough.</p>
+<p><code><a href="../reference/nor_locations_names.html">csdata::nor_locations_names()</a></code> lists the valid locations
+and location types. The table below strikes through entries with
+uncommon or internal use.</p>
 <div id="mwlefoodfi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#mwlefoodfi table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -913,11 +916,11 @@ internal use are shown with a strikethrough.</p>
 <div class="section level2">
 <h2 id="ages">Ages<a class="anchor" aria-label="anchor" href="#ages"></a>
 </h2>
-<p>Ages must be coded as characters and must always contain three
-digits. For age ranges, join the two ages with an underscore
+<p>An age MUST be coded as a character. An age MUST contain three
+digits. For an age range, join the two ages with an underscore
 (e.g. <code>005_010</code>).</p>
 <p>Use <code>085p</code> rather than <code>&gt;=085</code> or
-<code>85+</code>; this keeps conversion from long to wide format
+<code>85+</code>. This keeps the conversion from long to wide format
 straightforward.</p>
 <div id="ubqtxvafbs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#ubqtxvafbs table {
@@ -1413,14 +1416,14 @@ straightforward.</p>
 </tbody>
 </table>
 </div>
-<p>This format keeps data sorted correctly and produces valid variable
-names when pivoted to wide format.</p>
-<p>Missing ages should be coded as <code>"missing"</code>.</p>
+<p>This format keeps data sorted correctly. It also produces valid
+variable names in wide format.</p>
+<p>A missing age SHOULD be coded as <code>"missing"</code>.</p>
 </div>
 <div class="section level2">
 <h2 id="sex">Sex<a class="anchor" aria-label="anchor" href="#sex"></a>
 </h2>
-<p>Sex must be coded as a character.</p>
+<p>Sex MUST be coded as a character.</p>
 <div id="nayorehals" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>#nayorehals table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
@@ -1905,7 +1908,7 @@ names when pivoted to wide format.</p>
 </tbody>
 </table>
 </div>
-<p>Missing sex should be coded as <code>"missing"</code>.</p>
+<p>A missing sex SHOULD be coded as <code>"missing"</code>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

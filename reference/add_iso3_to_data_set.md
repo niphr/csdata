@@ -1,9 +1,10 @@
 # Add an iso3 column to a data set
 
-Adds an `iso3` column holding the ISO 3166-1 alpha-3 country code,
-modifying `x` in place. csdata carries Norwegian data only, so the value
-is `"nor"` on every row. The column contents are not read, so `x` gains
-the column even when it has no `location_code`.
+Adds an `iso3` column that holds the ISO 3166-1 alpha-3 country code,
+and changes `x` in place. csdata carries Norwegian data only, so the
+value is `"nor"` on every row. The function does not read the contents
+of `x`, so `x` gains the column even when it has no `location_code`
+column.
 
 ## Usage
 

@@ -82,8 +82,8 @@ not-mainland and unknown locations. The returned table has no key set.</p>
 
 
 <dl><dt id="arg-border">border<a class="anchor" aria-label="anchor" href="#arg-border"></a></dt>
-<dd><p>Integer. The geographic border year determining which
-administrative boundaries are used. Valid values: <code>2024</code>.
+<dd><p>Integer. The geographic border year that selects which
+administrative boundaries the function uses. Valid values: <code>2024</code>.
 Defaults to <code>csdata::config$border_nor</code>.</p></dd>
 
 </dl></div>
@@ -96,11 +96,11 @@ Defaults to <code>csdata::config$border_nor</code>.</p></dd>
 <dd><p>Full location name.</p></dd>
 
 <dt>location_name_short</dt>
-<dd><p>Abbreviated name, <code>NA</code> on most rows. It is
-set for the nation and the 5 georegions (one letter), the 15 counties
-(three letters), and the 15 Oslo city districts plus the 2 extra Oslo
-wards (a display name of 4 to 13 characters, on some rows identical to
-<code>location_name</code>). It is <code>NA</code> for municipalities,
+<dd><p>Abbreviated name, <code>NA</code> on most rows. The
+nation and the 5 georegions carry one letter. The 15 counties carry
+three letters. The 15 Oslo city districts and the 2 extra Oslo wards
+carry a display name of 4 to 13 characters. On some rows that display
+name is identical to <code>location_name</code>. It is <code>NA</code> for municipalities,
 BA-regions, lab regions, and the Bergen, Stavanger and Trondheim city
 districts.</p></dd>
 

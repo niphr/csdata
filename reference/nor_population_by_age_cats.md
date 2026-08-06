@@ -4,8 +4,8 @@ Aggregates the bundled Norwegian population dataset (from Statistics
 Norway) into caller-defined age bands. The underlying data covers every
 integer age from 0 to 105 at national, georegion, county, municipality,
 and city-district level. Not-mainland and unknown locations carry the
-single placeholder age `-99` instead, which `include_total` counts but a
-band such as `0:105` does not.
+single placeholder age `-99` instead. `include_total` counts that age,
+and a band such as `0:105` does not.
 
 ## Usage
 
@@ -22,23 +22,23 @@ nor_population_by_age_cats(
 
 - cats:
 
-  A named or unnamed list of integer vectors specifying the age values
-  to include in each category. Each vector element defines one age band.
-  If a list element is named, that name is used as the `age` label;
-  otherwise the label is auto-generated as `"LLL_HHH"` (zero-padded
-  lower and upper bounds). Defaults to `NULL` (no custom bands; only
-  `"total"` is returned when `include_total = TRUE`).
+  A named or unnamed list of integer vectors that give the age values to
+  include in each category. Each vector element defines one age band. If
+  a list element is named, that name becomes the `age` label. If it is
+  not named, the label is `"LLL_HHH"`: the zero-padded lower and upper
+  bounds. Defaults to `NULL` (no custom bands; only `"total"` is
+  returned when `include_total = TRUE`).
 
 - include_total:
 
-  Logical. If `TRUE` (default), an additional row group with
-  `age = "total"` covering all ages is appended.
+  Logical. If `TRUE` (default), the function appends an extra row group
+  with `age = "total"` that covers all ages.
 
 - include_9999:
 
-  Logical. If `TRUE`, the most recent calendar year is duplicated and
-  added with `calyear = 9999`, following the cstidy convention for
-  `granularity_time == "event_*"`. Default `FALSE`.
+  Logical. If `TRUE`, the function duplicates the most recent calendar
+  year and adds it with `calyear = 9999`. This follows the cstidy
+  convention for `granularity_time == "event_*"`. Default `FALSE`.
 
 - border:
 

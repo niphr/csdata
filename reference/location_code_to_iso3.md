@@ -16,15 +16,15 @@ location_code_to_iso3(x)
 
 - x:
 
-  A character vector of location codes, or a data.table containing a
-  column named `location_code`. A plain data.frame is not supported: it
-  falls through to the default method, which returns one value per
-  column rather than one per row.
+  A character vector of location codes, or a data.table with a column
+  named `location_code`. A plain data.frame is not supported: it falls
+  through to the default method, which returns one value per column
+  rather than one per row.
 
 ## Value
 
-A character vector of `"nor"`, the same length as `x`, or with as many
-elements as there are rows in `x` when `x` is a data.table.
+A character vector of `"nor"`. It has the same length as `x`, or as many
+elements as `x` has rows when `x` is a data.table.
 
 ## See also
 

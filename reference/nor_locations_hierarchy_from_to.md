@@ -1,8 +1,8 @@
 # Location hierarchies in Norway
 
 Returns a mapping between two geographic levels in Norway. Both `from`
-and `to` accept character vectors, in which case all requested
-combinations are returned combined into a single data.table.
+and `to` accept character vectors. The function then returns every
+requested combination, joined into a single data.table.
 
 ## Usage
 
@@ -65,15 +65,16 @@ express yields zero rows.
 ## Details
 
 A combination that the bundled hierarchy table cannot express returns a
-zero-row data.table rather than an error. Requesting `"baregion"` as
-either `from` or `to` always does this, because the bundled table
-carries no BA-region codes; use
+zero-row data.table rather than an error. A `from` or `to` value of
+`"baregion"` always does this, because the bundled table carries no
+BA-region codes. Use
 [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
 to list the BA-regions themselves.
 
 ## See also
 
-No vignette covers this function.
+[`vignette("csdata", package = "csdata")`](https://niphr.github.io/csdata/articles/csdata.md),
+which calls `nor_locations_hierarchy_from_to()` on a worked example.
 [`vignette("locations_norway", package = "csdata")`](https://niphr.github.io/csdata/articles/locations_norway.md)
 tabulates the `location_code` values returned by
 [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md),

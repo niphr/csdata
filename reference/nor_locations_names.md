@@ -21,8 +21,8 @@ nor_locations_names(border = csdata::config$border_nor)
 
 - border:
 
-  Integer. The geographic border year determining which administrative
-  boundaries are used. Valid values: `2024`. Defaults to
+  Integer. The geographic border year that selects which administrative
+  boundaries the function uses. Valid values: `2024`. Defaults to
   `csdata::config$border_nor`.
 
 ## Value
@@ -39,12 +39,12 @@ A data.table with one row per geographic unit and the columns:
 
 - location_name_short:
 
-  Abbreviated name, `NA` on most rows. It is set for the nation and the
-  5 georegions (one letter), the 15 counties (three letters), and the 15
-  Oslo city districts plus the 2 extra Oslo wards (a display name of 4
-  to 13 characters, on some rows identical to `location_name`). It is
-  `NA` for municipalities, BA-regions, lab regions, and the Bergen,
-  Stavanger and Trondheim city districts.
+  Abbreviated name, `NA` on most rows. The nation and the 5 georegions
+  carry one letter. The 15 counties carry three letters. The 15 Oslo
+  city districts and the 2 extra Oslo wards carry a display name of 4 to
+  13 characters. On some rows that display name is identical to
+  `location_name`. It is `NA` for municipalities, BA-regions, lab
+  regions, and the Bergen, Stavanger and Trondheim city districts.
 
 - location_name_description_nb:
 

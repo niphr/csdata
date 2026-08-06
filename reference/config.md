@@ -1,9 +1,9 @@
 # Package configuration environment
 
-An environment that stores package-level configuration variables. Modify
-via
-[`set_config()`](https://niphr.github.io/csdata/reference/set_config.md);
-read directly (e.g. `config$border_nor`).
+An environment that stores package-level configuration variables. Change
+it with
+[`set_config()`](https://niphr.github.io/csdata/reference/set_config.md).
+Read it directly, for example `config$border_nor`.
 
 ## Usage
 
@@ -15,8 +15,8 @@ config
 
 Available variables:
 
-- `border_nor` (default `2024`): the border year used when selecting
-  Norwegian geographic datasets. Valid values: `2024`.
+- `border_nor` (default `2024`): the border year that selects which
+  Norwegian geographic datasets a function reads. Valid values: `2024`.
 
 `border_nor` supplies the default `border` argument of
 [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md),

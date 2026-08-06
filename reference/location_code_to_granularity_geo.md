@@ -1,11 +1,11 @@
 # Convert location codes to granularity_geo
 
 Extracts the geographic granularity label from one or more location
-codes. When `location_reference` is `NULL`, the granularity is derived
-from the lowercase alphabetic prefix of the location code (e.g.
-`"county_nor03"` -\> `"county"`); the special prefix `"norge"` is mapped
-to `"nation"`. When a reference table is supplied, the granularity is
-looked up directly.
+codes. When `location_reference` is `NULL`, the granularity comes from
+the lowercase alphabetic prefix of the location code (e.g.
+`"county_nor03"` -\> `"county"`). The prefix `"norge"` is the one
+special case, and it gives `"nation"`. When you supply a reference
+table, the granularity comes from that table.
 
 ## Usage
 
@@ -17,24 +17,23 @@ location_code_to_granularity_geo(x, location_reference = NULL)
 
 - x:
 
-  A character vector of location codes, or a data.table containing a
-  column named `location_code`. A plain data.frame is not supported: it
-  falls through to the default method, which treats the frame itself as
-  the vector of codes.
+  A character vector of location codes, or a data.table with a column
+  named `location_code`. A plain data.frame is not supported: it falls
+  through to the default method, which treats the frame itself as the
+  vector of codes.
 
 - location_reference:
 
   A data.table with columns `location_code` and `granularity_geo` to use
-  for lookup. When `NULL` (default), granularity is inferred from the
-  location code prefix.
+  for lookup. When `NULL` (default), granularity comes from the location
+  code prefix.
 
 ## Value
 
-A character vector the same length as `x`, or with as many elements as
-there are rows in `x` when `x` is a data.table, containing the
-corresponding `granularity_geo` values. A code with no leading lowercase
-letters yields `NA`, and an unmatched code yields `NA` when
-`location_reference` is supplied.
+A character vector of the corresponding `granularity_geo` values. It has
+the same length as `x`, or as many elements as `x` has rows when `x` is
+a data.table. A code with no leading lowercase letters yields `NA`. An
+unmatched code also yields `NA` when you supply `location_reference`.
 
 The length guarantee has one exception. `location_reference` is joined
 on `location_code`, so a code that appears more than once in the
@@ -45,7 +44,8 @@ share.
 
 ## See also
 
-No vignette covers this function.
+[`vignette("csdata", package = "csdata")`](https://niphr.github.io/csdata/articles/csdata.md),
+which calls this function on a worked example.
 [`vignette("locations_norway", package = "csdata")`](https://niphr.github.io/csdata/articles/locations_norway.md)
 tabulates the `location_code` values returned by
 [`nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md).

@@ -10,13 +10,17 @@ overview of all available datasets and functions.
 ## What csdata is for
 
 `csdata` holds the reference tables that Norwegian surveillance work
-needs again and again: which places exist and how they nest inside each
-other, how place boundaries were redistricted from 2006 to 2024, and how
-many people live in each place by age and sex. Every table ships inside
-the package, so nothing is downloaded when you run it. The point is that
-each analysis stops carrying its own copy of the same lookups.
+needs again and again:
 
-Thirteen objects are exported. These five do most of the work.
+- which places exist, and how they nest inside each other;
+- how place boundaries were redistricted from 2006 to 2024;
+- how many people live in each place, by age and sex.
+
+Every table ships inside the package, so no function call downloads
+data. Each analysis then stops carrying its own copy of the same
+lookups.
+
+csdata exports thirteen objects. These five do most of the work.
 
 | Function                                                                                                   | Use it when you need                                                     |
 |------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
@@ -26,8 +30,8 @@ Thirteen objects are exported. These five do most of the work.
 | `nor_population_by_age_cats(cats)`                                                                         | Denominators: population in the age bands you choose.                    |
 | `nor_population_by_sex_age_cats(cats)`                                                                     | The same denominators, split by sex.                                     |
 
-All five take a `border` argument. `2024` is the only value they accept;
-any other value stops with an error.
+All five take a `border` argument. `2024` is the only value they accept.
+Any other value stops with an error.
 
 ## Two current limitations
 
@@ -36,8 +40,8 @@ any other value stops with an error.
 lists 159 BA-regions, and
 [`nor_locations_hierarchy_from_to()`](https://niphr.github.io/csdata/reference/nor_locations_hierarchy_from_to.md)
 accepts `"baregion"`. But the bundled hierarchy table carries no
-BA-region codes at all, so every `from`/`to` pair naming `"baregion"`
-returns an empty table instead of an error.
+BA-region codes at all. Every `from`/`to` pair that names `"baregion"`
+therefore returns an empty table instead of an error.
 
 ``` r
 nrow(csdata::nor_locations_hierarchy_from_to(from = "municip", to = "baregion"))
@@ -84,7 +88,7 @@ csdata::add_granularity_geo_to_data_set(x, location_reference = loc)
 ```
 
 Leave `location_reference` unset to avoid both problems. The granularity
-is then read from the code prefix, one value per input.
+then comes from the code prefix, one value per input.
 
 ## Where csdata sits, and what to read next
 
@@ -105,19 +109,19 @@ and sex.
 
 ## Location
 
-Valid locations and location types are available in
-[`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md).
-Entries with uncommon or internal use are shown with a strikethrough.
+[`csdata::nor_locations_names()`](https://niphr.github.io/csdata/reference/nor_locations_names.md)
+lists the valid locations and location types. The table below strikes
+through entries with uncommon or internal use.
 
 [TABLE]
 
 ## Ages
 
-Ages must be coded as characters and must always contain three digits.
-For age ranges, join the two ages with an underscore (e.g. `005_010`).
+An age MUST be coded as a character. An age MUST contain three digits.
+For an age range, join the two ages with an underscore (e.g. `005_010`).
 
-Use `085p` rather than `>=085` or `85+`; this keeps conversion from long
-to wide format straightforward.
+Use `085p` rather than `>=085` or `85+`. This keeps the conversion from
+long to wide format straightforward.
 
 | Valid ages in the csverse format |           |                                  |
 |----------------------------------|-----------|----------------------------------|
@@ -129,14 +133,14 @@ to wide format straightforward.
 | "missing"                        | character | Missing/unknown                  |
 | "total"                          | character | Everyone                         |
 
-This format keeps data sorted correctly and produces valid variable
-names when pivoted to wide format.
+This format keeps data sorted correctly. It also produces valid variable
+names in wide format.
 
-Missing ages should be coded as `"missing"`.
+A missing age SHOULD be coded as `"missing"`.
 
 ## Sex
 
-Sex must be coded as a character.
+Sex MUST be coded as a character.
 
 | Valid sexes in the csverse format |           |                 |
 |-----------------------------------|-----------|-----------------|
@@ -146,4 +150,4 @@ Sex must be coded as a character.
 | "missing"                         | character | Missing/unknown |
 | "total"                           | character | Everyone        |
 
-Missing sex should be coded as `"missing"`.
+A missing sex SHOULD be coded as `"missing"`.
