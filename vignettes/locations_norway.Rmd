@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 )
 library(csdata)
 library(data.table)
-library(magrittr)
 ```
 
 `csdata::nor_locations_names()` lists the valid locations and location types.
@@ -30,11 +29,11 @@ d <- csdata::nor_locations_names()[, .(
   location_name_description_nb
 )]
 
-gt::gt(d) %>%
+gt::gt(d) |>
   gt::tab_options(
     table.width = "750px"
-  ) %>%
-  gt::tab_header(title = "Reference table of location_code and location_name_description_nb") %>%
+  ) |>
+  gt::tab_header(title = "Reference table of location_code and location_name_description_nb") |>
   gt::cols_label(
     location_order = "#"
   )

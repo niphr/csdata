@@ -156,7 +156,7 @@ nor_loc_name_all <- function(x_year_end = 2020) {
   # substr("alesund", 1, 1)
   #
   # nms <- d$location_name
-  # substr(nms, 1, 1) %>% unique %>% order
+  # substr(nms, 1, 1) |> unique |> order
   # sort(c("Oslo", "Ålesund", "Ås", "Øst"))
   # for now it is ordered as aa is the first
 

@@ -16,7 +16,6 @@ knitr::opts_chunk$set(
 )
 library(csdata)
 library(data.table)
-library(magrittr)
 library(ggplot2)
 ```
 
@@ -62,10 +61,10 @@ wd1 <- dcast.data.table(
 gt::gt(
   wd1,
   rowname_col = "calyear"
-  ) %>%
+  ) |>
   gt::tab_options(
     table.width = "300px"
-  ) %>% 
+  ) |> 
   gt::tab_header(title = "Reference table of calyear and pop_jan1_n (nation and georegion)")
 ```
 
@@ -96,18 +95,18 @@ wd2 <- dcast.data.table(
 gt::gt(
   wd1,
   rowname_col = "calyear"
-  ) %>%
+  ) |>
   gt::tab_options(
     table.width = "300px"
-  ) %>% 
+  ) |> 
   gt::tab_header(title = "Reference table of calyear and pop_jan1_n (county)")
 
 gt::gt(
   wd2,
   rowname_col = "calyear"
-  ) %>%
+  ) |>
   gt::tab_options(
     table.width = "300px"
-  ) %>% 
+  ) |> 
   gt::tab_header(title = "Reference table of calyear and pop_jan1_n (county)")
 ```

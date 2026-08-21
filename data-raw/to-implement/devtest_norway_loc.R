@@ -39,9 +39,9 @@
 # narrowd[municip_code == 'municip5055']
 #
 # narrowd[municip_code == 'municip5012']
-# narrowd[, year_end] %>% table # majority 2019
+# narrowd[, year_end] |> table # majority 2019
 # # 2007, 2011, 2012, 2016, 2017, 2018
-# narrowd[, year_start] %>% table
+# narrowd[, year_start] |> table
 # # 2002, 2006, 2008, 2012, 2013, 2017, 2018, 2019
 #
 # narrowd[year_start == 2018]
@@ -52,8 +52,8 @@
 # narrowd[municip_code == 'municip3802' | municip_code_end == 'municip3802']
 #
 #
-# dloc[weighting != 1 & granularity_geo == 'municip']$location_code_current %>% unique
-# dloc[weighting != 1 & granularity_geo == 'municip']$location_code_original %>% unique
+# dloc[weighting != 1 & granularity_geo == 'municip']$location_code_current |> unique
+# dloc[weighting != 1 & granularity_geo == 'municip']$location_code_original |> unique
 # dloc[location_code_current == 'municip3802' & calyear >2017]
 # dloc[location_code_current == 'county07' & calyear >2017]
 # fhidata::norway_locations_redistricting(2019)[location_code_current == 'county07']
@@ -150,7 +150,7 @@
 # municip_year2[municip_code == 'municip5056']
 # municip_year2[municip_code == 'municip5059']
 #
-# municip_year2[municip_code == 'municip5012'] %>% unique
+# municip_year2[municip_code == 'municip5012'] |> unique
 # municip_year2[municip_code == 'municip1613']
 #
 # municip_year2[calyear == 2020 & municip_code == 'municip5055']
